@@ -1,4 +1,4 @@
-# 📄 Documento de Alcance – Sistema de Gestión de Alumnos
+# Sistema de Gestión de Alumnos
 
 ### 1. **Introducción**
 
@@ -81,8 +81,16 @@ Diseñar e implementar un sistema sencillo de gestión académica que permita a 
 
 ### 6. **Tecnologías y Herramientas**
 
-* **Lenguaje:** Python 3.x
+* **Lenguaje:** Python
 * **Gestión de versiones:** Git + GitHub
-* **Paradigma:** Programación estructurada / modular (con objetos simples si es necesario)
+* **Paradigma:** Programación estructurada / modular
 * **Almacenamiento:** Archivos planos (TXT / JSON)
-* **Pruebas:** unittest (módulo estándar de Python)
+* **Librerias:** os (operaciones del sistema), json (persistencia de datos), unittest (pruebas unitarias en funciones), datetime (control de fechas), re (validaciones)
+
+### 7. Conclusión
+
+El “Sistema de Gestión de Alumnos” es un proyecto que busca integrar los conceptos fundamentales de la materia en una aplicación práctica y concreta. Se trabajará con estructuras de datos, modularización, manejo de archivos y pruebas, respetando los hitos del cronograma académico.
+
+El sistema permitirá gestionar alumnos, cursos y profesores desde la terminal. De este modo, se logra un equilibrio entre simplicidad y desafío.
+
+Con este proyecto se espera que se pueda practicar programación estructurada, desarrollar buenas prácticas de organización del código, y familiarizarse con herramientas y metodologías ágiles, obteniendo un resultado concreto y funcional al finalizar el proyecto.
