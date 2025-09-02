@@ -1,8 +1,8 @@
 # main.py
 
-import alumno
-import profesor
-import administrativo
+import algoritmia2.entidades.alumno as alumno
+import algoritmia2.entidades.profesor as profesor
+import algoritmia2.entidades.administrativo as administrativo
 
 def mostrarMenu():
     """Muestra el menú principal."""
