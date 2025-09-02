@@ -1,7 +1,11 @@
-def mostrar_menu():
-    """
-    Función que muestra el menú principal del sistema.
-    """
+# main.py
+
+import alumno
+import profesor
+import administrativo
+
+def mostrarMenu():
+    """Muestra el menú principal."""
     print("---------------------------------")
     print("SISTEMA DE GESTIÓN DE ALUMNOS")
     print("---------------------------------")
@@ -12,19 +16,17 @@ def mostrar_menu():
     print("---------------------------------")
 
 def main():
-    """
-    Función principal del programa.
-    """
+    """Función principal del programa."""
     while True:
-        mostrar_menu()
+        mostrarMenu()
         opcion = input("Seleccione una opción: ")
 
         if opcion == '1':
-            print("Funcionalidad de Alumno en desarrollo...")
+            alumno.menuAlumno()
         elif opcion == '2':
-            print("Funcionalidad de Profesor en desarrollo...")
+            profesor.menuProfesor()
         elif opcion == '3':
-            print("Funcionalidad de Administrativo en desarrollo...")
+            administrativo.menuAdministrativo()
         elif opcion == '4':
             print("Saliendo del sistema...")
             break
