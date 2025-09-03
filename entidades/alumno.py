@@ -7,8 +7,11 @@ PROFESORES_DB = []
 
 # Nota: ejemplos de casoso
 
-CURSOS_DB.append({"id": "AED1", "nombre": "Algoritmos y Estructuras de Datos I", "profesor": None})
+CURSOS_DB.append(
+    {"id": "AED1", "nombre": "Algoritmos y Estructuras de Datos I", "profesor": None}
+)
 CURSOS_DB.append({"id": "PROG2", "nombre": "Programación II", "profesor": None})
+
 
 def registrarAlumno(legajo, nombre):
     """
@@ -25,11 +28,12 @@ def registrarAlumno(legajo, nombre):
         "nombre": nombre,
         "cursosInscriptos": [],
         "pagosAdeudados": False,
-        "estadoAprobacion": "Desaprobado"
+        "estadoAprobacion": "Desaprobado",
     }
     ALUMNOS_DB.append(nuevoAlumno)
     print(f"Alumno {nombre} con legajo {legajo} registrado con éxito.")
     return True
+
 
 def verCursosDisponibles():
     """Muestra la lista de cursos disponibles."""
@@ -39,12 +43,16 @@ def verCursosDisponibles():
 
     print("\n--- CURSOS DISPONIBLES ---")
     for curso in CURSOS_DB:
-        print(f"ID: {curso['id']} - Nombre: {curso['nombre']} - Profesor: {curso['profesor']}")
+        print(
+            f"ID: {curso['id']} - Nombre: {curso['nombre']} - Profesor: {curso['profesor']}"
+        )
+
 
 def inscribirEnCurso(legajo, idCurso):
     """
     Inscribe a un alumno en un curso.
     """
+    # chusmearlo despues, creo que esta ok pero de ultima que recorra toda la lista no pasa nada así evitamos usar el Break
     alumnoEncontrado = None
     for alumno in ALUMNOS_DB:
         if alumno["legajo"] == legajo:
@@ -70,42 +78,43 @@ def inscribirEnCurso(legajo, idCurso):
         return False
 
     alumnoEncontrado["cursosInscriptos"].append(idCurso)
-    print(f"Alumno {alumnoEncontrado['nombre']} inscripto en el curso {cursoEncontrado['nombre']} con éxito.")
+    print(
+        f"Alumno {alumnoEncontrado['nombre']} inscripto en el curso {cursoEncontrado['nombre']} con éxito."
+    )
     return True
+
+
+def menu_opciones():
+    print("\n--- MENÚ ALUMNO ---")
+    print("\n1. Inscribirse en un curso")
+    print("2. Ver cursos disponibles")
+    print("3. Consultar pagos adeudados")
+    print("4. Ver estado de aprobación")
+    print("5. Volver al menú principal")
 
 
 def menuAlumno():
     """Muestra y gestiona el menú de opciones para un Alumno."""
-    print("\n--- MENÚ ALUMNO ---")
-    
     # Aquí iría la lógica para validar el usuario. Agregar en un futuro.
     registrarAlumno(101, "Sofia Perez")
-    
-    legajoIngresado = 101 # Asumimos que el legajo es 101 para la prueba
-
-    while True:
-        print("\n1. Inscribirse en un curso")
-        print("2. Ver cursos disponibles")
-        print("3. Consultar pagos adeudados")
-        print("4. Ver estado de aprobación")
-        print("5. Volver al menú principal")
-
-        opcion = input("Seleccione una opción: ")
-
-        if opcion == '1':
+    legajoIngresado = 101  # Asumimos que el legajo es 101 para la prueba
+    menu_opciones()
+    opcion = int(input("Seleccione una opción: "))
+    while opcion != 5:
+        if opcion == 1:
             verCursosDisponibles()
             idCurso = input("Ingrese el ID del curso al que desea inscribirse: ")
             inscribirEnCurso(legajoIngresado, idCurso)
-        elif opcion == '2':
+        elif opcion == 2:
             verCursosDisponibles()
-        elif opcion == '3':
+        elif opcion == 3:
             # Funcionalidad en desarrollo
             print("Consultar pagos adeudados - Funcionalidad en desarrollo.")
-        elif opcion == '4':
+        elif opcion == 4:
             # Funcionalidad en desarrollo
             print("Ver estado de aprobación - Funcionalidad en desarrollo.")
-        elif opcion == '5':
-            print("Volviendo al menú principal...")
-            break
         else:
             print("Opción no válida. Intente de nuevo.")
+        menu_opciones()
+        opcion = int(input("Seleccione una opción: "))
+    print("Volviendo al menú principal...")
