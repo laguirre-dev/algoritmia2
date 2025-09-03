@@ -1,8 +1,8 @@
 # main.py
+from entidades.alumno import menuAlumno
+from entidades.profesor import menu_profesor
+from entidades.administrativo import menu_administrativo
 
-import algoritmia2.entidades.alumno as alumno
-import algoritmia2.entidades.profesor as profesor
-import algoritmia2.entidades.administrativo as administrativo
 
 def mostrarMenu():
     """Muestra el menú principal."""
@@ -15,23 +15,25 @@ def mostrarMenu():
     print("4. Salir")
     print("---------------------------------")
 
+
 def main():
     """Función principal del programa."""
-    while True:
-        mostrarMenu()
-        opcion = input("Seleccione una opción: ")
-
-        if opcion == '1':
-            alumno.menuAlumno()
-        elif opcion == '2':
-            profesor.menuProfesor()
-        elif opcion == '3':
-            administrativo.menuAdministrativo()
-        elif opcion == '4':
-            print("Saliendo del sistema...")
-            break
+    mostrarMenu()
+    opcion = int(input("Seleccione una opción: "))
+    while opcion != 4:
+        if opcion == 1:
+            menuAlumno()
+        elif opcion == 2:
+            menu_profesor()
+        elif opcion == 3:
+            menu_administrativo()
         else:
             print("Opción no válida. Por favor, intente de nuevo.")
+        mostrarMenu()
+        opcion = int(input("Seleccione una opción: "))
+    print("Saliendo del sistema...")
+    # Le agrego esto para mostrar el mensaje de salida
+    input("Presione Enter para salir")
 
-if __name__ == "__main__":
-    main()
+
+main()
