@@ -6,8 +6,10 @@ def menu_opciones():
     print("3. Volver al menú principal")
 
 
+
 def menu_administrativo():
     """Muestra el menú de opciones para un Administrativo."""
+    # Comentario de Fede a modo de prueba
     menu_opciones()
     opcion = int(input("Seleccione una opción: "))
     while opcion != 3:
