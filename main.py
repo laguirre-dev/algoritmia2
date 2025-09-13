@@ -3,7 +3,7 @@ from entidades.alumno import menuAlumno
 from entidades.profesor import menu_profesor
 from entidades.administrativo import menu_administrativo
 
-
+# Cambiar el Menu con un Login de Usuario. Segun el ROL va a ir al menu correspondiente
 def mostrarMenu():
     """Muestra el menú principal."""
     print("---------------------------------")

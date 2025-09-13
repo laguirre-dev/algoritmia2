@@ -20,3 +20,8 @@ def menu_administrativo():
         menu_opciones()
         opcion = int(input("Seleccione una opción: "))
     print("Volviendo al menú principal...")
+
+# funcion Dar de alta Alumno: Legajo y Clave
+# funcion Dar de Alta Profesor: Legajo y Clave
+# funcion Asignar Materia a Profesor
+

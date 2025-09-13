@@ -20,3 +20,56 @@ def menu_profesor():
         menu_opciones()
         opcion = int(input("Seleccione una opción: "))
     print("Volviendo al menú principal...")
+
+
+# Diccionario de Facultad y que se pueda dar de alta Facultades
+UADE = []
+UADE = [
+    {
+        "Nombre": "FAIC",
+        "Materias" : []
+    },
+    {
+        "Nombre": "FAIN",
+        "Materias" : []
+    },
+    {
+        "Nombre": "FADU",
+        "Materias" : []
+    },
+]
+# Login diccionario
+Credeciales = [
+    {
+        "User" : "",
+        "Password" : "",
+        "Rol": ""
+    },
+]
+# Datos para Alumno
+Alumno = {
+    "Legajo" : 0,
+    "Nombres" : "",
+    "Apellido" : "",
+    "Cuotas_pendientes" : [],
+    "Materias" : [],
+}
+# Datos para Materia
+Materia = [
+    {
+        "Nombre" :"",
+        "Aula": "",
+        "Profesor_asignado":"", #legajo_profesor
+        "Alumnos_anotados" : []
+    }
+]
+# Datos para Profesor
+Profesor = {
+    "Legajo" : 0,
+    "Nombres" : "",
+    "Apellido" : "",
+    "Materias" : [
+        # tuplas con el nombre de la materia y cantida de alumnos
+    ],
+}
+

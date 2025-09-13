@@ -118,3 +118,9 @@ def menuAlumno():
         menu_opciones()
         opcion = int(input("Seleccione una opción: "))
     print("Volviendo al menú principal...")
+
+
+# funcion para que el Alumno se inscriba a una materia existente
+
+
+
