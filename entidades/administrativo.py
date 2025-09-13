@@ -5,6 +5,7 @@ def menu_opciones():
     print("2. Aprobar pagos de alumnos")
     print("3. Volver al menú principal")
 
+# Prueba
 
 def menu_administrativo():
     """Muestra el menú de opciones para un Administrativo."""
