@@ -79,7 +79,6 @@ def aprobarPago():
     for cuota in datos.CUOTAS_PENDIENTES:
         if cuota["legajo"] == legajo and cuota["cuota_nro"] == cuotaNro:
             datos.CUOTAS_PENDIENTES.remove(cuota)
-            datos.CUOTAS_PAGADAS.append(cuota)
             print(f"Cuota {cuotaNro} del alumno {legajo} aprobada.")
             return
     print("No se encontró esa cuota pendiente.")
