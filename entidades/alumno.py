@@ -1,16 +1,12 @@
 # alumno.py
-
-# Esta es la base de datos de alumnos y cursos. Por ahora, son listas vacías. En el futuro, cargaremos y guardaremos estos datos en archivos.
-ALUMNOS_DB = []
-CURSOS_DB = []
-PROFESORES_DB = []
+import entidades.datos
 
 # Nota: ejemplos de casoso
 
-CURSOS_DB.append(
-    {"id": "AED1", "nombre": "Algoritmos y Estructuras de Datos I", "profesor": None}
-)
-CURSOS_DB.append({"id": "PROG2", "nombre": "Programación II", "profesor": None})
+# CURSOS_DB.append(
+#     {"id": "AED1", "nombre": "Algoritmos y Estructuras de Datos I", "profesor": None}
+# )
+# CURSOS_DB.append({"id": "PROG2", "nombre": "Programación II", "profesor": None})
 
 
 def registrarAlumno(legajo, nombre):
@@ -122,5 +118,6 @@ def menuAlumno():
 
 # funcion para que el Alumno se inscriba a una materia existente
 
-
+if __name__ == "__main__":
+    menuAlumno()
 
