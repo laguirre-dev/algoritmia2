@@ -2,10 +2,14 @@
 # Base de datos en memoria para el Sistema de Gestión de Alumnos, para que en un futuro tengamos que solo modificar estos datos.
 
 # Lista de alumnos
-ALUMNOS_DB = []
+ALUMNOS_DB = [
+    {"legajo": 101, "nombre": "Alumno", "apellido": "Alumno", "cursos": []}
+]
 
 # Lista de profesores
-PROFESORES_DB = []
+PROFESORES_DB = [
+    {"legajo": 2001, "nombre": "Profesor", "apellido": "Profesor", "materias": []}
+]
 
 # Lista de cursos/materias
 CURSOS_DB = [

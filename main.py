@@ -5,14 +5,12 @@ from entidades.administrativo import menuAdministrativo
 from entidades.datos import CREDENCIALES
 import os
 
-# Cambiar el Menu con un Login de Usuario. Segun el ROL va a ir al menu correspondiente
-""" Comentario de Prueba desde el usuario de Fede """
-
 def limpiarTerminal():
+    # Funcion para limpiar la terminal
     os.system('cls' if os.name == 'nt' else 'clear')
 
 def mostrarMenu():
-    """Muestra el menú principal."""
+    # Funcino para mostrar las opciones del menu
     print("---------------------------------")
     print("SISTEMA DE GESTIÓN DE ALUMNOS")
     print("---------------------------------")
@@ -20,16 +18,18 @@ def mostrarMenu():
     print("2. Salir")
     print("---------------------------------")
 
-def validarLegajo(legajo, clave):
+def login(legajo, clave):
+    # funcion para validar login, devuelve si es valido y el rol
     for credencial in CREDENCIALES:
         if credencial["legajo"] == legajo and credencial["clave"] == clave:
             return True, credencial["rol"]
-        print("Las credenciales no son validas.")
-        return False, False
+    print("Credenciales incorrectas. Intentelo nuevamente.")
+    return False, False
 
 def main():
-    """Función principal del programa."""
+    # funcion del programa
     mostrarMenu()
+    # muestra menu y pide indicar una opcion
     opcion = int(input("Seleccione una opción: "))
     while opcion != 2:
         intentos = 0
@@ -37,7 +37,7 @@ def main():
         while intentos < 3 and not validacion:
             legajo = int(input("Por favor, coloque su Legajo: "))
             clave = input("Por favor, escriba su clave para ingresar: ")
-            validacion, rol = validarLegajo(legajo, clave)
+            validacion, rol = login(legajo, clave)
             intentos += 1
         if rol == "alumno":
             limpiarTerminal()
@@ -46,7 +46,7 @@ def main():
         elif rol == "profesor":
             limpiarTerminal()
             print("¡Bienvenido Profesor!")
-            menuProfesor(legajo)
+            menuProfesor()
         elif rol == "administrativo":
             limpiarTerminal()
             print("¡Bienvenido!")
