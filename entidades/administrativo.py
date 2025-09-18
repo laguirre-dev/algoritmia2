@@ -1,43 +1,111 @@
-import datos  # Importamos la base de datos centralizada
+from entidades.datos import PROFESORES_DB, ALUMNOS_DB, CREDENCIALES # Importamos la base de datos centralizada
 
+"""
+### Funcionalidades que debe hacer el administrativo:
+1. Dar de alta alumnos
+2. Dar de alta profesores
+3. Dar de alta materias
+4. Asignar un profesor a una materia
+5. Aprobar un pago pendiente de un Alumno
+### Restricciones
+3. No se puede crear 2 materias con el mismo nombre
+"""
+
+############ FUNCIONES ###############
+"""
+La funcion no recibe parametros
+- muestra listado de Credenciales existentes
+"""
+def verCredenciales():
+    for credencial in CREDENCIALES:
+        print("----------------------------------")
+        print(f"Legajo: {credencial["legajo"]}")
+        print(f"Clave: {credencial["clave"]}")
+        print(f"Rol: {credencial["rol"]}")
+        print("----------------------------------")
+
+"""
+La funcion pide: Nombre, Apellido
+- añade un alumno a la lista
+- muestra un resumen del alumno al finalizar
+"""
 def registrarAlumno():
-    """Da de alta un nuevo alumno."""
-    legajo = int(input("Ingrese legajo del alumno: "))
+    """
+    estructura de Alumno:
+    Legajo, Nombre, Apellido, Materias = [], Pagos_pendientes = []
+    """
+    legajo = 1
+    if len(ALUMNOS_DB) != 0:
+        legajo = len(ALUMNOS_DB) + 1
+    print(f"Legajo: {legajo}")
     nombre = input("Ingrese nombre del alumno: ")
-
-    for alumno in datos.ALUMNOS_DB:
-        if alumno["legajo"] == legajo:
-            print(f"Error: El legajo {legajo} ya está registrado.")
-            return
-
+    apellido = input("Ingrese apellido del alumno: ")
+    # creamos una clave generica
+    clave = str(nombre) + str(legajo)
+    # estructura del alumno para la lista principal
     nuevoAlumno = {
         "legajo": legajo,
         "nombre": nombre,
-        "cursosInscriptos": [],
-        "pagosAdeudados": False,
-        "estadoAprobacion": "Desaprobado",
+        "apellido": apellido,
+        "materias": [],
+        "pagos_pendientes": [],
     }
-    datos.ALUMNOS_DB.append(nuevoAlumno)
-    print(f"Alumno {nombre} registrado con éxito.")
+    # guardamos credenciales
+    alumnoCredenciales = {
+        "legajo": legajo,
+        "clave": clave,
+        "rol" : "alumno"
+    }
+    # insertamos los datos
+    ALUMNOS_DB.append(nuevoAlumno)
+    CREDENCIALES.append(alumnoCredenciales)
+    print("¡Alumno generado existosamente!")
+    print("-------------------------------")
+    print(f"Alumno: {apellido}, {nombre}")
+    print(f"Legajo: {legajo}")
+    print(f"Clave: {clave}")
+    print("-------------------------------")
 
-
+"""
+La funcion pide: Nombre, Apellido
+- añade un profesor a la lista
+- muestra un resumen del profesor al finalizar
+"""
 def registrarProfesor():
-    """Da de alta un nuevo profesor."""
-    legajo = int(input("Ingrese legajo del profesor: "))
+    """
+    estructura de Profesor:
+    Legajo, Nombre, Apellido, Materias = []
+    """
+    legajo = 1
+    if len(PROFESORES_DB) != 0:
+        legajo = len(PROFESORES_DB) + 1
+    print(f"Legajo: {legajo}")
     nombre = input("Ingrese nombre del profesor: ")
-
-    for profesor in datos.PROFESORES_DB:
-        if profesor["legajo"] == legajo:
-            print(f"Error: El legajo {legajo} ya está registrado.")
-            return
-
+    apellido = input("Ingrese apellido del profesor: ")
+    # creamos una clave generica
+    clave = str(nombre) + str(legajo)
+    # estructura del alumno para la lista principal
     nuevoProfesor = {
         "legajo": legajo,
         "nombre": nombre,
+        "apellido": apellido,
         "materias": []
     }
-    datos.PROFESORES_DB.append(nuevoProfesor)
-    print(f"Profesor {nombre} registrado con éxito.")
+    # guardamos credenciales
+    profesorCredenciales = {
+        "legajo": legajo,
+        "clave": clave,
+        "rol" : "profesor"
+    }
+    # insertamos los datos
+    PROFESORES_DB.append(nuevoProfesor)
+    CREDENCIALES.append(profesorCredenciales)
+    print("¡Profesor generado existosamente!")
+    print("-------------------------------")
+    print(f"Profesor: {apellido}, {nombre}")
+    print(f"Legajo: {legajo}")
+    print(f"Clave: {clave}")
+    print("-------------------------------")
 
 
 def asignarCursoAProfesor():
@@ -85,7 +153,8 @@ def aprobarPago():
 
 
 def menuOpciones():
-    print("\n--- MENÚ ADMINISTRATIVO ---")
+    print("--- MENÚ ADMINISTRATIVO ---")
+    print("0. Ver credenciales existentes")
     print("1. Registrar alumno")
     print("2. Registrar profesor")
     print("3. Asignar curso a profesor")
@@ -98,7 +167,9 @@ def menuAdministrativo():
     menuOpciones()
     opcion = int(input("Seleccione una opción: "))
     while opcion != 5:
-        if opcion == 1:
+        if opcion == 0:
+            verCredenciales()
+        elif opcion == 1:
             registrarAlumno()
         elif opcion == 2:
             registrarProfesor()
@@ -108,8 +179,9 @@ def menuAdministrativo():
             aprobarPago()
         else:
             print("Opción no válida. Intente de nuevo.")
-
         menuOpciones()
         opcion = int(input("Seleccione una opción: "))
-
     print("Volviendo al menú principal...")
+
+if __name__ == "__main__":
+    menuAdministrativo()
