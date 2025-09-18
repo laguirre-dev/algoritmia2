@@ -1,5 +1,5 @@
 # profesor.py
-import datos
+import entidades.datos as datos
 
 def registrarProfesor(legajo, nombre):
     for profesor in datos.PROFESORES_DB:
