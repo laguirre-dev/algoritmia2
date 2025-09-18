@@ -8,6 +8,7 @@ def menu_opciones():
     print("3. Consultar pagos adeudados")
     print("4. Ver estado de aprobación")
     print("5. Volver al menú principal")
+    print("6. Ver mis cursos - En Desarrollo")
 
 def buscar_alumno_por_legajo(legajo):
     for alumno in ALUMNOS_DB:
@@ -22,36 +23,24 @@ def buscar_curso_por_id(id_curso):
             return curso
     return None
 
+def verMisCursos(legajo):
+    print("Funcionalidad en desarrollo.")
+    return True
 
-def verCursosDisponibles(legajo):
+def verCursosDisponibles():
     if not CURSOS_DB:
         print("No hay cursos disponibles.")
         return
     print("\n--- CURSOS DISPONIBLES ---")
     for curso in CURSOS_DB:
+        # Hacer el cambio para que traiga Apellido, Nombre
         profesor_nombre = curso.get("profesor") if curso.get("profesor") else "Sin asignar"
+        print(f"ID: {curso.get('id')} - {curso.get('nombre')} (Profesor: {profesor_nombre})")
         # imprimir "inscripto" si el alumno esta inscripto
-        if legajo in curso.get("alumnos", []):
-            print(f"ID: {curso.get('id')} - {curso.get('nombre')} (Profesor: {profesor_nombre}) - Inscripto")
-        else:
-            print(f"ID: {curso.get('id')} - {curso.get('nombre')} (Profesor: {profesor_nombre})")
-
-
-def verMisCursos(legajo):
-    alumno = buscar_alumno_por_legajo(legajo)
-    if not alumno:
-        print("Alumno no encontrado.")
-        return
-    cursos_inscriptos = alumno.get("cursosInscriptos", [])
-    if not cursos_inscriptos:
-        print("Aún no estás inscripto en ningún curso.")
-        return
-    print("\n--- MIS CURSOS ---")
-    for id_curso in cursos_inscriptos:
-        curso = buscar_curso_por_id(id_curso)
-        nombre_curso = curso.get("nombre") if curso else "(curso no encontrado)"
-        print(f"{id_curso} - {nombre_curso}")
-
+        # if legajo in curso.get("alumnos", []):
+        #     print(f"ID: {curso.get('id')} - {curso.get('nombre')} (Profesor: {profesor_nombre}) - Inscripto")
+        # else:
+        #     print(f"ID: {curso.get('id')} - {curso.get('nombre')} (Profesor: {profesor_nombre})")
 
 def inscribirEnCurso(legajo, id_curso):
     # Validar alumno/curso

@@ -1,20 +1,4 @@
 # profesor.py
-import entidades.datos as datos
-
-def registrarProfesor(legajo, nombre):
-    for profesor in datos.PROFESORES_DB:
-        if profesor["legajo"] == legajo:
-            print(f"Error: El legajo {legajo} ya está registrado.")
-            return False
-
-    nuevoProfesor = {
-        "legajo": legajo,
-        "nombre": nombre,
-        "cursos": [],
-        }
-    datos.PROFESORES_DB.append(nuevoProfesor)
-    print(f"Profesor {nombre} con legajo {legajo} registrado con éxito.")
-    return True
 
 def menu_opciones():
     print("\n--- MENÚ PROFESOR ---")
@@ -37,58 +21,6 @@ def menuProfesor():
         menu_opciones()
         opcion = int(input("Seleccione una opción: "))
     print("Volviendo al menú principal...")
-
-
-# Diccionario de Facultad y que se pueda dar de alta Facultades
-UADE = []
-UADE = [
-    {
-        "Nombre": "FAIC",
-        "Materias" : []
-    },
-    {
-        "Nombre": "FAIN",
-        "Materias" : []
-    },
-    {
-        "Nombre": "FADU",
-        "Materias" : []
-    },
-]
-# Login diccionario
-Credeciales = [
-    {
-        "User" : "",
-        "Password" : "",
-        "Rol": ""
-    },
-]
-# Datos para Alumno
-Alumno = {
-    "Legajo" : 0,
-    "Nombres" : "",
-    "Apellido" : "",
-    "Cuotas_pendientes" : [],
-    "Materias" : [],
-}
-# Datos para Materia
-Materia = [
-    {
-        "Nombre" :"",
-        "Aula": "",
-        "Profesor_asignado":"", #legajo_profesor
-        "Alumnos_anotados" : []
-    }
-]
-# Datos para Profesor
-Profesor = {
-    "Legajo" : 0,
-    "Nombres" : "",
-    "Apellido" : "",
-    "Materias" : [
-        # tuplas con el nombre de la materia y cantida de alumnos
-    ],
-}
 
 if __name__ == "__main__":
     menuProfesor()
