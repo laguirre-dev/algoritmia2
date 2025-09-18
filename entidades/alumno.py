@@ -1,24 +1,11 @@
-# alumno.py
-
-# Esta es la base de datos de alumnos y cursos. Por ahora, son listas vacías. En el futuro, cargaremos y guardaremos estos datos en archivos.
-ALUMNOS_DB = []
-CURSOS_DB = []
-PROFESORES_DB = []
-
-# Nota: ejemplos de casoso
-
-CURSOS_DB.append(
-    {"id": "AED1", "nombre": "Algoritmos y Estructuras de Datos I", "profesor": None}
-)
-CURSOS_DB.append({"id": "PROG2", "nombre": "Programación II", "profesor": None})
-
+import datos  # Importamos la base de datos centralizada
 
 def registrarAlumno(legajo, nombre):
     """
     Registra un nuevo alumno en la base de datos.
     Verifica que el legajo no exista antes de agregarlo.
     """
-    for alumno in ALUMNOS_DB:
+    for alumno in datos.ALUMNOS_DB:
         if alumno["legajo"] == legajo:
             print(f"Error: El legajo {legajo} ya está registrado.")
             return False
@@ -30,57 +17,16 @@ def registrarAlumno(legajo, nombre):
         "pagosAdeudados": False,
         "estadoAprobacion": "Desaprobado",
     }
-    ALUMNOS_DB.append(nuevoAlumno)
+    datos.ALUMNOS_DB.append(nuevoAlumno)
     print(f"Alumno {nombre} con legajo {legajo} registrado con éxito.")
     return True
 
 
 def verCursosDisponibles():
-    """Muestra la lista de cursos disponibles."""
-    if not CURSOS_DB:
-        print("No hay cursos disponibles en este momento.")
-        return
-
-    print("\n--- CURSOS DISPONIBLES ---")
-    for curso in CURSOS_DB:
-        print(
-            f"ID: {curso['id']} - Nombre: {curso['nombre']} - Profesor: {curso['profesor']}"
-        )
+    return True
 
 
 def inscribirEnCurso(legajo, idCurso):
-    """
-    Inscribe a un alumno en un curso.
-    """
-    # chusmearlo despues, creo que esta ok pero de ultima que recorra toda la lista no pasa nada así evitamos usar el Break
-    alumnoEncontrado = None
-    for alumno in ALUMNOS_DB:
-        if alumno["legajo"] == legajo:
-            alumnoEncontrado = alumno
-            break
-
-    if not alumnoEncontrado:
-        print(f"Error: No se encontró un alumno con el legajo {legajo}.")
-        return False
-
-    cursoEncontrado = None
-    for curso in CURSOS_DB:
-        if curso["id"] == idCurso:
-            cursoEncontrado = curso
-            break
-
-    if not cursoEncontrado:
-        print(f"Error: No se encontró un curso con el ID {idCurso}.")
-        return False
-
-    if idCurso in alumnoEncontrado["cursosInscriptos"]:
-        print(f"Error: El alumno ya está inscripto en este curso.")
-        return False
-
-    alumnoEncontrado["cursosInscriptos"].append(idCurso)
-    print(
-        f"Alumno {alumnoEncontrado['nombre']} inscripto en el curso {cursoEncontrado['nombre']} con éxito."
-    )
     return True
 
 

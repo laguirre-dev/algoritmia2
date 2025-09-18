@@ -1,14 +1,29 @@
-import datos  # Importamos la base de datos centralizada
+import datos  # Importamos la base de datos
 
-def registrarAlumno():
-    """Da de alta un nuevo alumno."""
-    legajo = int(input("Ingrese legajo del alumno: "))
-    nombre = input("Ingrese nombre del alumno: ")
+def registrarProfesor(legajo, nombre):
+    for profesor in datos.PROFESORES_DB:
+        if profesor["legajo"] == legajo:
+            print(f"Error: El legajo {legajo} ya está registrado.")
+            return False
 
+    nuevoProfesor = {
+        "legajo": legajo,
+        "nombre": nombre,
+        "cursos": [],
+        }
+    datos.PROFESORES_DB.append(nuevoProfesor)
+    print(f"Profesor {nombre} con legajo {legajo} registrado con éxito.")
+    return True
+
+def registrarAlumno(legajo, nombre):
+    """
+    Registra un nuevo alumno en la base de datos.
+    Verifica que el legajo no exista antes de agregarlo.
+    """
     for alumno in datos.ALUMNOS_DB:
         if alumno["legajo"] == legajo:
             print(f"Error: El legajo {legajo} ya está registrado.")
-            return
+            return False
 
     nuevoAlumno = {
         "legajo": legajo,
@@ -18,26 +33,8 @@ def registrarAlumno():
         "estadoAprobacion": "Desaprobado",
     }
     datos.ALUMNOS_DB.append(nuevoAlumno)
-    print(f"Alumno {nombre} registrado con éxito.")
-
-
-def registrarProfesor():
-    """Da de alta un nuevo profesor."""
-    legajo = int(input("Ingrese legajo del profesor: "))
-    nombre = input("Ingrese nombre del profesor: ")
-
-    for profesor in datos.PROFESORES_DB:
-        if profesor["legajo"] == legajo:
-            print(f"Error: El legajo {legajo} ya está registrado.")
-            return
-
-    nuevoProfesor = {
-        "legajo": legajo,
-        "nombre": nombre,
-        "materias": []
-    }
-    datos.PROFESORES_DB.append(nuevoProfesor)
-    print(f"Profesor {nombre} registrado con éxito.")
+    print(f"Alumno {nombre} con legajo {legajo} registrado con éxito.")
+    return True
 
 
 def asignarCursoAProfesor():

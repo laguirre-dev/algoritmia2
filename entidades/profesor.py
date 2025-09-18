@@ -1,4 +1,21 @@
 # profesor.py
+import datos
+
+def registrarProfesor(legajo, nombre):
+    for profesor in datos.PROFESORES_DB:
+        if profesor["legajo"] == legajo:
+            print(f"Error: El legajo {legajo} ya está registrado.")
+            return False
+
+    nuevoProfesor = {
+        "legajo": legajo,
+        "nombre": nombre,
+        "cursos": [],
+        }
+    datos.PROFESORES_DB.append(nuevoProfesor)
+    print(f"Profesor {nombre} con legajo {legajo} registrado con éxito.")
+    return True
+
 def menu_opciones():
     print("\n--- MENÚ PROFESOR ---")
     print("1. Visualizar cursos y aulas")
