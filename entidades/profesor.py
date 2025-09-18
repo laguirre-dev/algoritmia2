@@ -23,7 +23,7 @@ def menu_opciones():
     print("3. Volver al menú principal")
 
 
-def menu_profesor():
+def menuProfesor():
     """Muestra el menú de opciones para un Profesor."""
     menu_opciones()
     opcion = int(input("Seleccione una opción: "))
@@ -90,3 +90,5 @@ Profesor = {
     ],
 }
 
+if __name__ == "__main__":
+    menuProfesor()

@@ -1,4 +1,12 @@
-import datos  # Importamos la base de datos centralizada
+# alumno.py
+import entidades.datos # Importamos la base de datos centralizada
+ 
+# Nota: ejemplos de casoso
+
+# CURSOS_DB.append(
+#     {"id": "AED1", "nombre": "Algoritmos y Estructuras de Datos I", "profesor": None}
+# )
+# CURSOS_DB.append({"id": "PROG2", "nombre": "Programación II", "profesor": None})
 
 def registrarAlumno(legajo, nombre):
     """
@@ -68,5 +76,6 @@ def menuAlumno():
 
 # funcion para que el Alumno se inscriba a una materia existente
 
-
+if __name__ == "__main__":
+    menuAlumno()
 
