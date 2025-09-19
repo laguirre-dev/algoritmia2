@@ -2,13 +2,13 @@
 
 # Lista de alumnos
 ALUMNOS_DB = [
-    {"legajo": 101, "nombre": "Alumno", "apellido": "Alumno", "cursos": ["AED1"], "estadoAprobacion": "Desaprobado"},
-    {"legajo": 102, "nombre": "Dario", "apellido": "Andreatini", "cursos": ["AED1", "PROG2"], "estadoAprobacion": "Desaprobado"},
-    {"legajo": 103, "nombre": "Nacho", "apellido": "Bonavoglia", "cursos": ["PROG2", "BD1"], "estadoAprobacion": "Desaprobado"},
-    {"legajo": 104, "nombre": "Luciano", "apellido": "Aguirre", "cursos": ["BD1", "PY1"], "estadoAprobacion": "Desaprobado"},
-    {"legajo": 105, "nombre": "Federico", "apellido": "Kerekes", "cursos": ["MAT1"], "estadoAprobacion": "Desaprobado"},
-    {"legajo": 106, "nombre": "Sofia", "apellido": "Perez", "cursos": ["FIS1", "EST1"], "estadoAprobacion": "Desaprobado"},
-    {"legajo": 107, "nombre": "Lucas", "apellido": "Gomez", "cursos": ["ING1", "RED1"], "estadoAprobacion": "Desaprobado"}
+    {"legajo": 101, "nombre": "Alumno", "apellido": "Alumno", "cursos": [("AED1", "Desaprobado")]},
+    {"legajo": 102, "nombre": "Dario", "apellido": "Andreatini", "cursos": [("AED1", "Desaprobado"), ("PROG2", "Desaprobado")]},
+    {"legajo": 103, "nombre": "Nacho", "apellido": "Bonavoglia", "cursos": [("PROG2", "Desaprobado"), ("BD1", "Desaprobado")]},
+    {"legajo": 104, "nombre": "Luciano", "apellido": "Aguirre", "cursos": [("BD1", "Desaprobado"), ("PY1", "Desaprobado")]},
+    {"legajo": 105, "nombre": "Federico", "apellido": "Kerekes", "cursos": [("MAT1", "Desaprobado")]},
+    {"legajo": 106, "nombre": "Sofia", "apellido": "Perez", "cursos": [("FIS1", "Desaprobado"), ("EST1", "Desaprobado")]},
+    {"legajo": 107, "nombre": "Lucas", "apellido": "Gomez", "cursos": [("ING1", "Desaprobado"), ("RED1", "Desaprobado")]}
 ]
 
 # Lista de profesores

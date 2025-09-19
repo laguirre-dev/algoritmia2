@@ -32,32 +32,57 @@ def obtenerNombreProfesor(legajoProfesor):
             return f"{profesor['nombre']} {profesor['apellido']}"
     return None
 
-def aprobarODesaprobarAlumnos():
-    idCurso = input("Ingrese el ID del curso: ")
+def aprobarODesaprobarAlumnos(legajoProfesor):
+    cursosProfesor = list(filter(lambda c: c.get("profesor") == obtenerNombreProfesor(legajoProfesor), datos.CURSOS_DB))
+    if not cursosProfesor:
+        print("No tenés cursos asignados.")
+        return
+
+    print("\n--- MIS CURSOS ---")
+    for curso in cursosProfesor:
+        print(f"{curso['id']} - {curso['nombre']} | Aula: {curso['aula']}")
+
+    idCurso = input("\nIngrese el ID del curso que desea gestionar: ")
     curso = buscarCursoPorId(idCurso)
-    if not curso:
-        print("Curso no encontrado.")
+
+    if not curso or curso.get("profesor") != obtenerNombreProfesor(legajoProfesor):
+        print("Curso no válido o no pertenece a este profesor.")
         return
 
     if not curso.get("alumnos"):
         print("No hay alumnos inscriptos en este curso.")
         return
 
+    print(f"\n--- Alumnos en {curso['nombre']} ---")
     for legajo in curso["alumnos"]:
         alumno = buscarAlumnoPorLegajo(legajo)
         if alumno:
-            estadoActual = alumno.get("estadoAprobacion", "Desaprobado")
-            print(f"{alumno['legajo']} - {alumno['nombre']} {alumno['apellido']} | Estado: {estadoActual}")
-            nuevoEstado = input("Ingrese 'A' para aprobar o 'D' para desaprobar: ").upper()
-            if nuevoEstado == "A":
-                alumno["estadoAprobacion"] = "Aprobado"
-            elif nuevoEstado == "D":
-                alumno["estadoAprobacion"] = "Desaprobado"
-            else:
-                print("Opción inválida, se mantiene el estado actual.")
-        else:
-            print(f"Alumno con legajo {legajo} no encontrado.")
+            # Buscar estado en la lista de cursos del alumno
+            estado = next((estado for (idC, estado) in alumno["cursos"] if idC == idCurso), "Desaprobado")
+            print(f"{alumno['legajo']} - {alumno['nombre']} {alumno['apellido']} | Estado: {estado}")
 
+    entrada = input("\nIngrese legajo y acción (A=aprobar, D=desaprobar) separados por coma. Ej: 101:A, 102:D\n> ")
+    acciones = list(
+        map(
+            lambda x: (int(x.split(":")[0].strip()), x.split(":")[1].strip().upper()),
+            filter(lambda y: ":" in y, entrada.split(","))
+        )
+    )
+
+    for legajo, accion in acciones:
+        alumno = buscarAlumnoPorLegajo(legajo)
+        if alumno and legajo in curso["alumnos"]:
+            for i, (idC, estado) in enumerate(alumno["cursos"]):
+                if idC == idCurso:
+                    if accion == "A":
+                        alumno["cursos"][i] = (idC, "Aprobado")
+                        print(f"Alumno {alumno['nombre']} {alumno['apellido']} aprobado en {idCurso}.")
+                    elif accion == "D":
+                        alumno["cursos"][i] = (idC, "Desaprobado")
+                        print(f"Alumno {alumno['nombre']} {alumno['apellido']} desaprobado en {idCurso}.")
+
+
+            
 def verAlumnosDeCurso():
     idCurso = input("Ingrese el ID del curso: ")
     curso = buscarCursoPorId(idCurso)
@@ -80,7 +105,7 @@ def verAlumnosDeCurso():
 def menuOpciones():
     print("\n--- MENÚ PROFESOR ---")
     print("1. Visualizar cursos y aulas")
-    print("2. Aprobar o desaprobar alumnos -- En desarrollo")
+    print("2. Aprobar o desaprobar alumnos") # Implementar funcionalidad para aprobar/desaprobar alumnos todos de una vez
     print("3. Generar reporte de alumnos -- En desarrollo") # Generar y guardar reportes para persistirlos
     print("4. Mis gestiones -- En desarrollo")
     print("5. Volver al menú principal")
@@ -109,7 +134,7 @@ def menuProfesor(legajoProfesor):
                 menuVisualizar()
                 subopcion = int(input("Seleccione una opción: "))
         elif opcion == 2:
-            aprobarODesaprobarAlumnos()
+            aprobarODesaprobarAlumnos(legajoProfesor)
         else:
             print("Opción no válida. Intente de nuevo.")
         menuOpciones()
