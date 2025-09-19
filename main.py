@@ -46,7 +46,7 @@ def main():
         elif rol == "profesor":
             limpiarTerminal()
             print("¡Bienvenido Profesor!")
-            menuProfesor()
+            menuProfesor(legajo)
         elif rol == "administrativo":
             limpiarTerminal()
             print("¡Bienvenido!")
