@@ -1,16 +1,17 @@
-import entidades.datos as datos # profesor.py
+import entidades.datos as datos  # profesor.py
 
 def verMisCursos(legajoProfesor):
-    cursosProfesor = list(filter(lambda c: c.get("profesor") == obtenerNombreProfesor(legajoProfesor), datos.CURSOS_DB))
+    cursosProfesor = list(filter(lambda c: c.get("profesor") == legajoProfesor, datos.CURSOS_DB))
     if not cursosProfesor:
         print("No tenés cursos asignados.")
         return
     print("\n--- MIS CURSOS ---")
-    for curso in cursosProfesor:
-        print(f"{curso['id']} - {curso['nombre']} | Aula: {curso['aula']}")
+    cursos_str = map(lambda c: f"{c['id']} - {c['nombre']} | Aula: {c['aula']}", cursosProfesor)
+    print("\n".join(cursos_str))
+
 
 def verMisAlumnos(legajoProfesor):
-    cursosProfesor = list(filter(lambda c: c.get("profesor") == obtenerNombreProfesor(legajoProfesor), datos.CURSOS_DB))
+    cursosProfesor = list(filter(lambda c: c.get("profesor") == legajoProfesor, datos.CURSOS_DB))
     if not cursosProfesor:
         print("No tenés cursos asignados.")
         return
@@ -23,17 +24,12 @@ def verMisAlumnos(legajoProfesor):
             for legajo in curso["alumnos"]:
                 alumno = buscarAlumnoPorLegajo(legajo)
                 if alumno:
-                    estado = alumno.get("estadoAprobacion", "Desaprobado")
+                    estado = next((estado for (idC, estado) in alumno["cursos"] if idC == curso["id"]), "Desaprobado")
                     print(f"  {alumno['legajo']} - {alumno['nombre']} {alumno['apellido']} | Estado: {estado}")
 
-def obtenerNombreProfesor(legajoProfesor):
-    for profesor in datos.PROFESORES_DB:
-        if profesor.get("legajo") == legajoProfesor:
-            return f"{profesor['nombre']} {profesor['apellido']}"
-    return None
 
 def aprobarODesaprobarAlumnos(legajoProfesor):
-    cursosProfesor = list(filter(lambda c: c.get("profesor") == obtenerNombreProfesor(legajoProfesor), datos.CURSOS_DB))
+    cursosProfesor = list(filter(lambda c: c.get("profesor") == legajoProfesor, datos.CURSOS_DB))
     if not cursosProfesor:
         print("No tenés cursos asignados.")
         return
@@ -45,7 +41,7 @@ def aprobarODesaprobarAlumnos(legajoProfesor):
     idCurso = input("\nIngrese el ID del curso que desea gestionar: ")
     curso = buscarCursoPorId(idCurso)
 
-    if not curso or curso.get("profesor") != obtenerNombreProfesor(legajoProfesor):
+    if not curso or curso.get("profesor") != legajoProfesor:
         print("Curso no válido o no pertenece a este profesor.")
         return
 
@@ -57,7 +53,6 @@ def aprobarODesaprobarAlumnos(legajoProfesor):
     for legajo in curso["alumnos"]:
         alumno = buscarAlumnoPorLegajo(legajo)
         if alumno:
-            # Buscar estado en la lista de cursos del alumno
             estado = next((estado for (idC, estado) in alumno["cursos"] if idC == idCurso), "Desaprobado")
             print(f"{alumno['legajo']} - {alumno['nombre']} {alumno['apellido']} | Estado: {estado}")
 
@@ -82,7 +77,6 @@ def aprobarODesaprobarAlumnos(legajoProfesor):
                         print(f"Alumno {alumno['nombre']} {alumno['apellido']} desaprobado en {idCurso}.")
 
 
-            
 def verAlumnosDeCurso():
     idCurso = input("Ingrese el ID del curso: ")
     curso = buscarCursoPorId(idCurso)
@@ -102,26 +96,28 @@ def verAlumnosDeCurso():
         else:
             print(f"Legajo {legajo} no encontrado en la base de datos.")
 
+
 def menuOpciones():
     print("\n--- MENÚ PROFESOR ---")
     print("1. Visualizar cursos y aulas")
-    print("2. Aprobar o desaprobar alumnos") # Implementar funcionalidad para aprobar/desaprobar alumnos todos de una vez
-    print("3. Generar reporte de alumnos -- En desarrollo") # Generar y guardar reportes para persistirlos
+    print("2. Aprobar o desaprobar alumnos")
+    print("3. Generar reporte de alumnos -- En desarrollo")
     print("4. Mis gestiones -- En desarrollo")
     print("5. Volver al menú principal")
-    
+
+
 def menuVisualizar():
     print("\n--- MENÚ VISUALIZAR ---")
     print("1. Mis cursos")
     print("2. Mis alumnos")
     print("3. Volver al menú profesor")
 
-def menuProfesor(legajoProfesor): 
+
+def menuProfesor(legajoProfesor):
     menuOpciones()
     opcion = int(input("Seleccione una opción: "))
-    while opcion != 3:
+    while opcion != 5: 
         if opcion == 1:
-            # Submenú de Visualizar
             menuVisualizar()
             subopcion = int(input("Seleccione una opción: "))
             while subopcion != 3:
@@ -141,18 +137,14 @@ def menuProfesor(legajoProfesor):
         opcion = int(input("Seleccione una opción: "))
     print("Volviendo al menú principal...")
 
-    
+
 def buscarCursoPorId(idCurso):
-    for curso in datos.CURSOS_DB:
-        if curso.get("id") == idCurso:
-            return curso
-    return None
+    return next((curso for curso in datos.CURSOS_DB if curso.get("id") == idCurso), None)
+
 
 def buscarAlumnoPorLegajo(legajo):
-    for alumno in datos.ALUMNOS_DB:
-        if alumno.get("legajo") == legajo:
-            return alumno
-    return None
+    return next((alumno for alumno in datos.ALUMNOS_DB if alumno.get("legajo") == legajo), None)
+
 
 if __name__ == "__main__":
     menuProfesor()

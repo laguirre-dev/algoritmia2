@@ -1,122 +1,113 @@
 # alumno.py
-from entidades.datos import CURSOS_DB, ALUMNOS_DB  # Importamos la base de datos centralizada
- 
-def menu_opciones():
+from entidades.datos import CURSOS_DB, ALUMNOS_DB, PROFESORES_DB
+
+def menuOpciones():
     print("\n--- MENÚ ALUMNO ---")
-    print("\n1. Inscribirse en un curso")
+    print("1. Inscribirse en un curso")
     print("2. Ver cursos disponibles")
     print("3. Consultar pagos adeudados")
     print("4. Ver estado de aprobación")
     print("5. Volver al menú principal")
-    print("6. Ver mis cursos - En Desarrollo")
+    print("6. Ver mis cursos")
 
-def buscar_alumno_por_legajo(legajo):
-    for alumno in ALUMNOS_DB:
-        if alumno.get("legajo") == legajo:
-            return alumno
-    return None
+def buscarAlumno(legajo):
+    return next((alumno for alumno in ALUMNOS_DB if alumno.get("legajo") == legajo), None)
 
+def buscarCurso(id_curso):
+    return next((curso for curso in CURSOS_DB if curso.get("id") == id_curso), None)
 
-def buscar_curso_por_id(id_curso):
-    for curso in CURSOS_DB:
-        if curso.get("id") == id_curso:
-            return curso
-    return None
+def buscarProfesor(legajo_prof):
+    return next((prof for prof in PROFESORES_DB if prof.get("legajo") == legajo_prof), None)
 
 def verMisCursos(legajo):
-    print("Funcionalidad en desarrollo.")
-    return True
+    alumno = buscarAlumno(legajo)
+    if not alumno or not alumno.get("cursos"):
+        print("No estás inscripto en ningún curso.")
+        return
+    print("\n--- MIS CURSOS ---")
+    for idCurso, estado in alumno["cursos"]:
+        curso = buscarCurso(idCurso)
+        if curso:
+            profesor = buscarProfesor(curso["profesor"])
+            nombre_prof = f"{profesor['nombre']} {profesor['apellido']}" if profesor else "Sin asignar"
+            print(f"{curso['id']} - {curso['nombre']} | Aula: {curso['aula']} | Profesor: {nombre_prof} | Estado: {estado}")
 
-def verCursosDisponibles():
+def verCursosDisponibles(legajo):
     if not CURSOS_DB:
         print("No hay cursos disponibles.")
         return
     print("\n--- CURSOS DISPONIBLES ---")
     for curso in CURSOS_DB:
-        # Hacer el cambio para que traiga Apellido, Nombre
-        profesor_nombre = curso.get("profesor") if curso.get("profesor") else "Sin asignar"
-        print(f"ID: {curso.get('id')} - {curso.get('nombre')} (Profesor: {profesor_nombre})")
-        # imprimir "inscripto" si el alumno esta inscripto
-        # if legajo in curso.get("alumnos", []):
-        #     print(f"ID: {curso.get('id')} - {curso.get('nombre')} (Profesor: {profesor_nombre}) - Inscripto")
-        # else:
-        #     print(f"ID: {curso.get('id')} - {curso.get('nombre')} (Profesor: {profesor_nombre})")
+        profesor = buscarProfesor(curso.get("profesor"))
+        nombre_prof = f"{profesor['nombre']} {profesor['apellido']}" if profesor else "Sin asignar"
+        inscripto = " - Inscripto" if legajo in curso.get("alumnos", []) else ""
+        print(f"ID: {curso['id']} - {curso['nombre']} (Profesor: {nombre_prof}){inscripto}")
 
 def inscribirEnCurso(legajo, id_curso):
-    # Validar alumno/curso
-    alumno = buscar_alumno_por_legajo(legajo)
-    if not alumno:
-        print(f"Error: No se encontró un alumno con el legajo {legajo}.")
-        return False
-    curso = buscar_curso_por_id(id_curso)
-    if not curso:
-        print(f"Error: No se encontró un curso con el ID {id_curso}.")
-        return False
-
-    # Asegurar campos esperados
-    if "cursosInscriptos" not in alumno:
-        alumno["cursosInscriptos"] = []
-    if "alumnos" not in curso:
-        curso["alumnos"] = []
-
-    # Evitar duplicados
-    if id_curso in alumno["cursosInscriptos"]:
-        print("Error: Ya estás inscripto en ese curso.")
-        return False
-
-    # Guardar en ambos lados 
-    alumno["cursosInscriptos"].append(id_curso)
-    if alumno.get("legajo") not in curso["alumnos"]:
-        curso["alumnos"].append(alumno.get("legajo"))
-
-    print(f"Inscripción exitosa a {curso.get('nombre')}.")
-    return True
-
-
-def darseDeBaja(legajo, id_curso):
-    alumno = buscar_alumno_por_legajo(legajo)
-    curso = buscar_curso_por_id(id_curso)
+    alumno = buscarAlumno(legajo)
+    curso = buscarCurso(id_curso)
     if not alumno or not curso:
         print("Alumno o curso inexistente.")
         return False
 
-    if "cursosInscriptos" not in alumno:
-        alumno["cursosInscriptos"] = []
-    if "alumnos" not in curso:
-        curso["alumnos"] = []
+    cursos_actuales = set(c[0] for c in alumno["cursos"])
+    if id_curso in cursos_actuales:
+        print("Error: Ya estás inscripto en ese curso.")
+        return False
 
-    if id_curso not in alumno["cursosInscriptos"]:
+    alumno["cursos"].append((id_curso, "Desaprobado"))
+    curso["alumnos"] = list(set(curso.get("alumnos", [])) | {alumno["legajo"]})
+
+    print(f"Inscripción exitosa a {curso['nombre']}.")
+    return True
+
+def darseDeBaja(legajo, id_curso):
+    alumno = buscarAlumno(legajo)
+    curso = buscarCurso(id_curso)
+    if not alumno or not curso:
+        print("Alumno o curso inexistente.")
+        return False
+
+    cursos_actuales = set(c[0] for c in alumno["cursos"])
+    if id_curso not in cursos_actuales:
         print("No estabas inscripto en ese curso.")
         return False
 
-    alumno["cursosInscriptos"].remove(id_curso)
-    if alumno.get("legajo") in curso["alumnos"]:
-        curso["alumnos"].remove(alumno.get("legajo"))
+    alumno["cursos"] = [c for c in alumno["cursos"] if c[0] != id_curso]
+    curso["alumnos"] = [l for l in curso.get("alumnos", []) if l != legajo]
 
-    print(f"Baja exitosa de {curso.get('nombre')}.")
+    print(f"Baja exitosa de {curso['nombre']}.")
     return True
 
+def verEstadoAprobacion(legajo):
+    alumno = buscarAlumno(legajo)
+    if not alumno or not alumno.get("cursos"):
+        print("No tenés cursos inscriptos.")
+        return
+    print("\n--- ESTADO DE APROBACIÓN ---")
+    for idCurso, estado in alumno["cursos"]:
+        curso = buscarCurso(idCurso)
+        if curso:
+            print(f"{curso['id']} - {curso['nombre']} | Estado: {estado}")
+
 def menuAlumno(legajo):
-    """Muestra y gestiona el menú de opciones para un Alumno."""
-    # Aquí iría la lógica para validar el usuario. Agregar en un futuro.
-    legajoIngresado = 101  # Asumimos que el legajo es 101 para la prueba
-    menu_opciones()
+    menuOpciones()
     opcion = int(input("Seleccione una opción: "))
     while opcion != 5:
         if opcion == 1:
             verCursosDisponibles(legajo)
             idCurso = input("Ingrese el ID del curso al que desea inscribirse: ")
-            inscribirEnCurso(legajoIngresado, idCurso)
+            inscribirEnCurso(legajo, idCurso)
         elif opcion == 2:
             verCursosDisponibles(legajo)
         elif opcion == 3:
-            # Funcionalidad en desarrollo
             print("Consultar pagos adeudados - Funcionalidad en desarrollo.")
         elif opcion == 4:
-            # Funcionalidad en desarrollo
-            print("Ver estado de aprobación - Funcionalidad en desarrollo.")
+            verEstadoAprobacion(legajo)
+        elif opcion == 6:
+            verMisCursos(legajo)
         else:
             print("Opción no válida. Intente de nuevo.")
-        menu_opciones()
+        menuOpciones()
         opcion = int(input("Seleccione una opción: "))
     print("Volviendo al menú principal...")

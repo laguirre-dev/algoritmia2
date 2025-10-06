@@ -1,4 +1,3 @@
-# main.py
 from entidades.alumno import menuAlumno
 from entidades.profesor import menuProfesor
 from entidades.administrativo import menuAdministrativo
@@ -10,7 +9,7 @@ def limpiarTerminal():
     os.system('cls' if os.name == 'nt' else 'clear')
 
 def mostrarMenu():
-    # Funcino para mostrar las opciones del menu
+    # Funcion para mostrar las opciones del menu
     print("---------------------------------")
     print("SISTEMA DE GESTIÓN DE ALUMNOS")
     print("---------------------------------")
@@ -30,36 +29,53 @@ def main():
     # funcion del programa
     mostrarMenu()
     # muestra menu y pide indicar una opcion
-    opcion = int(input("Seleccione una opción: "))
+    try:
+        opcion = int(input("Seleccione una opción: "))
+    except ValueError:
+        opcion = 0
+
     while opcion != 2:
         intentos = 0
         validacion, rol = False, False
         while intentos < 3 and not validacion:
-            legajo = int(input("Por favor, coloque su Legajo: "))
+            try:
+                legajo = int(input("Por favor, coloque su Legajo: "))
+            except ValueError:
+                print("El legajo debe ser numérico.")
+                intentos += 1
+                continue
             clave = input("Por favor, escriba su clave para ingresar: ")
             validacion, rol = login(legajo, clave)
             intentos += 1
-        if rol == "alumno":
-            limpiarTerminal()
-            print("¡Bienvenido Alumno!")
-            menuAlumno(legajo)
-        elif rol == "profesor":
-            limpiarTerminal()
-            print("¡Bienvenido Profesor!")
-            menuProfesor(legajo)
-        elif rol == "administrativo":
-            limpiarTerminal()
-            print("¡Bienvenido!")
-            menuAdministrativo()
-        if intentos >= 3:
-            limpiarTerminal()
-            print("Ha superado el limite de intentos. Volviendo al menu principal...")
-            input("Presione Enter para avanzar")
+
+        if validacion:
+            if rol == "alumno":
+                limpiarTerminal()
+                print("¡Bienvenido Alumno!")
+                menuAlumno(legajo)
+            elif rol == "profesor":
+                limpiarTerminal()
+                print("¡Bienvenido Profesor!")
+                menuProfesor(legajo)
+            elif rol == "administrativo":
+                limpiarTerminal()
+                print("¡Bienvenido!")
+                menuAdministrativo()
+        else:
+            if intentos >= 3:
+                limpiarTerminal()
+                print("Ha superado el limite de intentos. Volviendo al menu principal...")
+                input("Presione Enter para avanzar")
+
         mostrarMenu()
-        opcion = int(input("Seleccione una opción: "))
+        try:
+            opcion = int(input("Seleccione una opción: "))
+        except ValueError:
+            opcion = 0
+
     print("Saliendo del sistema...")
     # Le agrego esto para mostrar el mensaje de salida
     input("Presione Enter para salir")
 
-
-main()
+if __name__ == "__main__":
+    main()
