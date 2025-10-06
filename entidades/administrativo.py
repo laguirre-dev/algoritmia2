@@ -1,4 +1,8 @@
-import entidades.datos as datos # Importamos la base de datos centralizada
+import entidades.datos as datos  # Importamos la base de datos centralizada
+from colorama import init, Fore, Style
+
+# Inicializamos colorama
+init(autoreset=True)
 
 """
 ### Funcionalidades que debe hacer el administrativo:
@@ -7,10 +11,15 @@ import entidades.datos as datos # Importamos la base de datos centralizada
 3. Dar de alta materias
 4. Asignar un profesor a una materia
 5. Aprobar un pago pendiente de un Alumno
-
 ### Restricciones
 3. No se puede crear 2 materias con el mismo nombre
 """
+
+def header(titulo):
+    # Encabezado estilizado con onda universitaria
+    print(Fore.GREEN + "=" * 50)
+    print(Style.BRIGHT + Fore.WHITE + titulo.center(50))
+    print(Fore.GREEN + "=" * 50)
 
 ############ FUNCIONES ###############
 """
@@ -18,12 +27,13 @@ La funcion no recibe parametros
 - muestra listado de Credenciales existentes
 """
 def verCredenciales():
+    header("CREDENCIALES EXISTENTES")
     for credencial in datos.CREDENCIALES:
-        print("----------------------------------")
-        print(f"Legajo: {credencial['legajo']}")
-        print(f"Clave: {credencial['clave']}")
-        print(f"Rol: {credencial['rol']}")
-        print("----------------------------------")
+        print(Fore.WHITE + "----------------------------------")
+        print(Fore.WHITE + f"Legajo: {credencial['legajo']}")
+        print(Fore.WHITE + f"Clave: {credencial['clave']}")
+        print(Fore.WHITE + f"Rol: {credencial['rol']}")
+        print(Fore.WHITE + "----------------------------------")
 
 """
 La funcion pide: Nombre, Apellido
@@ -36,9 +46,9 @@ def registrarAlumno():
     Legajo, Nombre, Apellido, Cursos = [], Pagos_pendientes = []
     """
     legajo = max([al["legajo"] for al in datos.ALUMNOS_DB], default=100) + 1
-    print(f"Legajo: {legajo}")
-    nombre = input("Ingrese nombre del alumno: ")
-    apellido = input("Ingrese apellido del alumno: ")
+    print(Fore.WHITE + f"Legajo: {legajo}")
+    nombre = input(Fore.WHITE + "Ingrese nombre del alumno: ")
+    apellido = input(Fore.WHITE + "Ingrese apellido del alumno: ")
     # creamos una clave generica
     clave = str(nombre) + str(legajo)
     # estructura del alumno para la lista principal
@@ -53,18 +63,16 @@ def registrarAlumno():
     alumnoCredenciales = {
         "legajo": legajo,
         "clave": clave,
-        "rol" : "alumno"
+        "rol": "alumno"
     }
     # insertamos los datos
     datos.ALUMNOS_DB.append(nuevoAlumno)
     datos.CREDENCIALES.append(alumnoCredenciales)
     # mostramos resumen
-    print("¡Alumno generado existosamente!")
-    print("-------------------------------")
-    print(f"Alumno: {apellido}, {nombre}")
-    print(f"Legajo: {legajo}")
-    print(f"Clave: {clave}")
-    print("-------------------------------")
+    header("ALUMNO REGISTRADO")
+    print(Fore.WHITE + f"Alumno: {apellido}, {nombre}")
+    print(Fore.WHITE + f"Legajo: {legajo}")
+    print(Fore.WHITE + f"Clave: {clave}")
 
 """
 La funcion pide: Nombre, Apellido
@@ -77,9 +85,9 @@ def registrarProfesor():
     Legajo, Nombre, Apellido, Materias = []
     """
     legajo = max([prof["legajo"] for prof in datos.PROFESORES_DB], default=2000) + 1
-    print(f"Legajo: {legajo}")
-    nombre = input("Ingrese nombre del profesor: ")
-    apellido = input("Ingrese apellido del profesor: ")
+    print(Fore.WHITE + f"Legajo: {legajo}")
+    nombre = input(Fore.WHITE + "Ingrese nombre del profesor: ")
+    apellido = input(Fore.WHITE + "Ingrese apellido del profesor: ")
     # creamos una clave generica
     clave = str(nombre) + str(legajo)
     # estructura del profesor para la lista principal
@@ -93,18 +101,16 @@ def registrarProfesor():
     profesorCredenciales = {
         "legajo": legajo,
         "clave": clave,
-        "rol" : "profesor"
+        "rol": "profesor"
     }
     # insertamos los datos
     datos.PROFESORES_DB.append(nuevoProfesor)
     datos.CREDENCIALES.append(profesorCredenciales)
     # mostramos resumen
-    print("¡Profesor generado existosamente!")
-    print("-------------------------------")
-    print(f"Profesor: {apellido}, {nombre}")
-    print(f"Legajo: {legajo}")
-    print(f"Clave: {clave}")
-    print("-------------------------------")
+    header("PROFESOR REGISTRADO")
+    print(Fore.WHITE + f"Profesor: {apellido}, {nombre}")
+    print(Fore.WHITE + f"Legajo: {legajo}")
+    print(Fore.WHITE + f"Clave: {clave}")
 
 """
 La funcion pide legajo del profesor y materia
@@ -113,72 +119,66 @@ La funcion pide legajo del profesor y materia
 """
 def asignarCursoAProfesor(legajoProf):
     ###### PROFESOR
-    # chequeamos que haya profesores y si existe
     profesorEncontrado = next((p for p in datos.PROFESORES_DB if p["legajo"] == legajoProf), None)
     if not profesorEncontrado:
-        print("Profesor no encontrado.")
+        print(Fore.RED + "Profesor no encontrado.")
         return
     ####### CURSO
-    # chequeamos que haya cursos
     if datos.CURSOS_DB:
-        print("\n--- Cursos disponibles ---")
+        header("CURSOS DISPONIBLES")
         for curso in datos.CURSOS_DB:
             prof = next((p for p in datos.PROFESORES_DB if p["legajo"] == curso["profesor"]), None)
-            nombre_prof = f"{prof['nombre']} {prof['apellido']}" if prof else "Sin asignar"
-            print(f"{curso['id']} - {curso['nombre']} (Profesor: {nombre_prof})")
-        # Pedimos curso
-        idCurso = input("Ingrese el ID del curso a asignar: ")
-        # Buscamos el curso
+            nombreProf = f"{prof['nombre']} {prof['apellido']}" if prof else "Sin asignar"
+            print(Fore.WHITE + f"{curso['id']} - {curso['nombre']} (Profesor: {nombreProf})")
+        idCurso = input(Fore.WHITE + "Ingrese el ID del curso a asignar: ")
         cursoEncontrado = next((c for c in datos.CURSOS_DB if c["id"] == idCurso), None)
         if not cursoEncontrado:
-            print("Curso no encontrado.")
+            print(Fore.RED + "Curso no encontrado.")
             return
         cursoEncontrado["profesor"] = profesorEncontrado["legajo"]
-        # hacemos una validacion para no agregar dos veces el mismo
         if cursoEncontrado["id"] not in profesorEncontrado["materias"]:
             profesorEncontrado["materias"].append(cursoEncontrado["id"])
-        print(f"Curso {cursoEncontrado['nombre']} asignado al profesor {profesorEncontrado['nombre']}.")
-    # si no hay cursos
+        print(Fore.GREEN + f"Curso {cursoEncontrado['nombre']} asignado al profesor {profesorEncontrado['nombre']}.")
     else:
-        print("No hay cursos disponibles. Por favor ingresar un curso primero.")
+        print(Fore.RED + "No hay cursos disponibles. Por favor ingresar un curso primero.")
         return
 
 def aprobarPago():
     """Aprueba el pago de un alumno (mueve de pendientes a pagadas)."""
-    print("\n--- APROBAR PAGO ---")
-    legajo = int(input("Ingrese el legajo del alumno: "))
+    header("APROBAR PAGO")
+    legajo = int(input(Fore.WHITE + "Ingrese el legajo del alumno: "))
     cuotas = [c for c in datos.CUOTAS_PENDIENTES if c["legajo"] == legajo]
 
     if not cuotas:
-        print("El alumno no tiene pagos pendientes.")
+        print(Fore.RED + "El alumno no tiene pagos pendientes.")
         return
 
-    print("Pagos pendientes:")
+    print(Fore.WHITE + "Pagos pendientes:")
     for cuota in cuotas:
-        print(f"Cuota N°{cuota['cuota_nro']}")
+        print(Fore.WHITE + f"Cuota N°{cuota['cuota_nro']}")
 
-    nro = int(input("Ingrese el número de cuota a aprobar: "))
+    nro = int(input(Fore.WHITE + "Ingrese el número de cuota a aprobar: "))
     cuota = next((c for c in cuotas if c["cuota_nro"] == nro), None)
 
     if cuota:
         datos.CUOTAS_PENDIENTES.remove(cuota)
-        print(f"Pago de cuota N°{nro} aprobado para el alumno {legajo}.")
+        print(Fore.GREEN + f"Pago de cuota N°{nro} aprobado para el alumno {legajo}.")
     else:
-        print("Número de cuota inválido.")
+        print(Fore.RED + "Número de cuota inválido.")
 
 def menuOpciones():
-    print("--- MENÚ ADMINISTRATIVO ---")
-    print("0. Ver credenciales existentes")
-    print("1. Registrar alumno")
-    print("2. Registrar profesor")
-    print("3. Asignar curso a profesor")
-    print("4. Aprobar pago de alumno")
-    print("5. Volver al menú principal")
+    header("MENÚ ADMINISTRATIVO")
+    print(Fore.GREEN + "0. Ver credenciales existentes")
+    print(Fore.GREEN + "1. Registrar alumno")
+    print(Fore.GREEN + "2. Registrar profesor")
+    print(Fore.GREEN + "3. Asignar curso a profesor")
+    print(Fore.GREEN + "4. Aprobar pago de alumno")
+    print(Fore.RED   + "5. Volver al menú principal")
 
 def menuAdministrativo():
     """Muestra el menú de opciones para un Administrativo."""
     menuOpciones()
-    opcion = int(input("Seleccione una opción: "))
+    opcion = int(input(Fore.WHITE + "Seleccione una opción: "))
     while opcion != 5:
         if opcion == 0:
             verCredenciales()
@@ -187,15 +187,15 @@ def menuAdministrativo():
         elif opcion == 2:
             registrarProfesor()
         elif opcion == 3:
-            legajo = int(input("Ingrese el legajo del profesor: "))
+            legajo = int(input(Fore.WHITE + "Ingrese el legajo del profesor: "))
             asignarCursoAProfesor(legajo)
         elif opcion == 4:
             aprobarPago()
         else:
-            print("Opción no válida. Intente de nuevo.")
+            print(Fore.RED + "Opción no válida. Intente de nuevo.")
         menuOpciones()
-        opcion = int(input("Seleccione una opción: "))
-    print("Volviendo al menú principal...")
+        opcion = int(input(Fore.WHITE + "Seleccione una opción: "))
+    print(Fore.RED + "Volviendo al menú principal...")
 
 if __name__ == "__main__":
     menuAdministrativo()

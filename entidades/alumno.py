@@ -1,113 +1,127 @@
-# alumno.py
 from entidades.datos import CURSOS_DB, ALUMNOS_DB, PROFESORES_DB
+from colorama import init, Fore, Style
+
+# Inicializamos colorama
+init(autoreset=True)
+
+def header(titulo):
+    # Encabezado estilizado con onda universitaria
+    print(Fore.GREEN + "=" * 50)
+    print(Style.BRIGHT + Fore.WHITE + titulo.center(50))
+    print(Fore.GREEN + "=" * 50)
 
 def menuOpciones():
-    print("\n--- MENÚ ALUMNO ---")
-    print("1. Inscribirse en un curso")
-    print("2. Ver cursos disponibles")
-    print("3. Consultar pagos adeudados")
-    print("4. Ver estado de aprobación")
-    print("5. Volver al menú principal")
-    print("6. Ver mis cursos")
+    print("\n")
+    header("MENÚ ALUMNO")
+    print(Fore.GREEN + "1. Inscribirse en un curso")
+    print(Fore.GREEN + "2. Ver cursos disponibles")
+    print(Fore.GREEN + "3. Consultar pagos adeudados")
+    print(Fore.GREEN + "4. Ver estado de aprobación")
+    print(Fore.GREEN + "5. Ver mis cursos")
+    print(Fore.RED   + "6. Volver al menú principal")
+    
 
-def buscarAlumno(legajo):
+def buscarAlumnoPorLegajo(legajo):
     return next((alumno for alumno in ALUMNOS_DB if alumno.get("legajo") == legajo), None)
 
-def buscarCurso(id_curso):
-    return next((curso for curso in CURSOS_DB if curso.get("id") == id_curso), None)
+def buscarCursoPorId(idCurso):
+    return next((curso for curso in CURSOS_DB if curso.get("id") == idCurso), None)
 
-def buscarProfesor(legajo_prof):
-    return next((prof for prof in PROFESORES_DB if prof.get("legajo") == legajo_prof), None)
+def buscarProfesorPorLegajo(legajoProf):
+    return next((prof for prof in PROFESORES_DB if prof.get("legajo") == legajoProf), None)
 
 def verMisCursos(legajo):
-    alumno = buscarAlumno(legajo)
+    alumno = buscarAlumnoPorLegajo(legajo)
     if not alumno or not alumno.get("cursos"):
-        print("No estás inscripto en ningún curso.")
+        print(Fore.RED + "No estás inscripto en ningún curso.")
         return
-    print("\n--- MIS CURSOS ---")
+    header("MIS CURSOS")
     for idCurso, estado in alumno["cursos"]:
-        curso = buscarCurso(idCurso)
+        curso = buscarCursoPorId(idCurso)
         if curso:
-            profesor = buscarProfesor(curso["profesor"])
-            nombre_prof = f"{profesor['nombre']} {profesor['apellido']}" if profesor else "Sin asignar"
-            print(f"{curso['id']} - {curso['nombre']} | Aula: {curso['aula']} | Profesor: {nombre_prof} | Estado: {estado}")
+            profesor = buscarProfesorPorLegajo(curso["profesor"])
+            nombreProf = f"{profesor['nombre']} {profesor['apellido']}" if profesor else "Sin asignar"
+            colorEstado = Fore.GREEN if estado == "Aprobado" else Fore.RED
+            print(Fore.WHITE + f"{curso['id']} - {curso['nombre']} | Aula: {curso['aula']} | Profesor: {nombreProf} | Estado: " + colorEstado + estado)
 
 def verCursosDisponibles(legajo):
     if not CURSOS_DB:
-        print("No hay cursos disponibles.")
+        print(Fore.RED + "No hay cursos disponibles.")
         return
-    print("\n--- CURSOS DISPONIBLES ---")
+    header("CURSOS DISPONIBLES")
     for curso in CURSOS_DB:
-        profesor = buscarProfesor(curso.get("profesor"))
-        nombre_prof = f"{profesor['nombre']} {profesor['apellido']}" if profesor else "Sin asignar"
-        inscripto = " - Inscripto" if legajo in curso.get("alumnos", []) else ""
-        print(f"ID: {curso['id']} - {curso['nombre']} (Profesor: {nombre_prof}){inscripto}")
+        profesor = buscarProfesorPorLegajo(curso.get("profesor"))
+        nombreProf = f"{profesor['nombre']} {profesor['apellido']}" if profesor else "Sin asignar"
+        inscripto = Fore.GREEN + " (Inscripto)" if legajo in curso.get("alumnos", []) else ""
+        print(Fore.WHITE + f"ID: {curso['id']} - {curso['nombre']} (Profesor: {nombreProf})" + inscripto)
 
-def inscribirEnCurso(legajo, id_curso):
-    alumno = buscarAlumno(legajo)
-    curso = buscarCurso(id_curso)
+def inscribirEnCurso(legajo, idCurso):
+    alumno = buscarAlumnoPorLegajo(legajo)
+    curso = buscarCursoPorId(idCurso)
     if not alumno or not curso:
-        print("Alumno o curso inexistente.")
+        print(Fore.RED + "Alumno o curso inexistente.")
         return False
 
-    cursos_actuales = set(c[0] for c in alumno["cursos"])
-    if id_curso in cursos_actuales:
-        print("Error: Ya estás inscripto en ese curso.")
+    cursosActuales = set(c[0] for c in alumno["cursos"])
+    if idCurso in cursosActuales:
+        print(Fore.RED + "Error: Ya estás inscripto en ese curso.")
         return False
 
-    alumno["cursos"].append((id_curso, "Desaprobado"))
+    alumno["cursos"].append((idCurso, "Desaprobado"))
     curso["alumnos"] = list(set(curso.get("alumnos", [])) | {alumno["legajo"]})
 
-    print(f"Inscripción exitosa a {curso['nombre']}.")
+    print(Fore.GREEN + f"Inscripción exitosa a {curso['nombre']}.")
     return True
 
-def darseDeBaja(legajo, id_curso):
-    alumno = buscarAlumno(legajo)
-    curso = buscarCurso(id_curso)
+def darseDeBaja(legajo, idCurso):
+    alumno = buscarAlumnoPorLegajo(legajo)
+    curso = buscarCursoPorId(idCurso)
     if not alumno or not curso:
-        print("Alumno o curso inexistente.")
+        print(Fore.RED + "Alumno o curso inexistente.")
         return False
 
-    cursos_actuales = set(c[0] for c in alumno["cursos"])
-    if id_curso not in cursos_actuales:
-        print("No estabas inscripto en ese curso.")
+    cursosActuales = set(c[0] for c in alumno["cursos"])
+    if idCurso not in cursosActuales:
+        print(Fore.RED + "No estabas inscripto en ese curso.")
         return False
 
-    alumno["cursos"] = [c for c in alumno["cursos"] if c[0] != id_curso]
+    alumno["cursos"] = [c for c in alumno["cursos"] if c[0] != idCurso]
     curso["alumnos"] = [l for l in curso.get("alumnos", []) if l != legajo]
 
-    print(f"Baja exitosa de {curso['nombre']}.")
+    print(Fore.GREEN + f"Baja exitosa de {curso['nombre']}.")
     return True
 
 def verEstadoAprobacion(legajo):
-    alumno = buscarAlumno(legajo)
+    alumno = buscarAlumnoPorLegajo(legajo)
     if not alumno or not alumno.get("cursos"):
-        print("No tenés cursos inscriptos.")
+        print(Fore.RED + "No tenés cursos inscriptos.")
         return
-    print("\n--- ESTADO DE APROBACIÓN ---")
+    header("ESTADO DE APROBACIÓN")
     for idCurso, estado in alumno["cursos"]:
-        curso = buscarCurso(idCurso)
+        curso = buscarCursoPorId(idCurso)
         if curso:
-            print(f"{curso['id']} - {curso['nombre']} | Estado: {estado}")
+            colorEstado = Fore.GREEN if estado == "Aprobado" else Fore.RED
+            print(Fore.WHITE + f"{curso['id']} - {curso['nombre']} | Estado: " + colorEstado + estado)
 
 def menuAlumno(legajo):
+    """Muestra y gestiona el menú de opciones para un Alumno."""
     menuOpciones()
-    opcion = int(input("Seleccione una opción: "))
-    while opcion != 5:
+    opcion = int(input(Fore.WHITE + "Seleccione una opción: "))
+    while opcion != 6:
         if opcion == 1:
             verCursosDisponibles(legajo)
-            idCurso = input("Ingrese el ID del curso al que desea inscribirse: ")
+            idCurso = input(Fore.WHITE + "Ingrese el ID del curso al que desea inscribirse: ")
             inscribirEnCurso(legajo, idCurso)
         elif opcion == 2:
             verCursosDisponibles(legajo)
         elif opcion == 3:
-            print("Consultar pagos adeudados - Funcionalidad en desarrollo.")
+            print(Fore.GREEN + "Consultar pagos adeudados - Funcionalidad en desarrollo.")
         elif opcion == 4:
             verEstadoAprobacion(legajo)
-        elif opcion == 6:
+        elif opcion == 5:
             verMisCursos(legajo)
         else:
-            print("Opción no válida. Intente de nuevo.")
+            print(Fore.RED + "Opción no válida. Intente de nuevo.")
         menuOpciones()
-        opcion = int(input("Seleccione una opción: "))
-    print("Volviendo al menú principal...")
+        opcion = int(input(Fore.WHITE + "Seleccione una opción: "))
+    print(Fore.RED + "Volviendo al menú principal...")
