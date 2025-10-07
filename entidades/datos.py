@@ -1,6 +1,7 @@
 # Base de datos en memoria para el Sistema de Gestión de Alumnos
 
 # Lista de alumnos
+# Cada alumno tiene: legajo, nombre, apellido, cursos = [(idCurso, estado)]
 ALUMNOS_DB = [
     {"legajo": 101, "nombre": "Alumno", "apellido": "Alumno", "cursos": [("AED1", "Desaprobado")]},
     {"legajo": 102, "nombre": "Dario", "apellido": "Andreatini", "cursos": [("AED1", "Desaprobado"), ("PROG2", "Desaprobado")]},
@@ -12,6 +13,7 @@ ALUMNOS_DB = [
 ]
 
 # Lista de profesores
+# Cada profesor tiene: legajo, nombre, apellido, materias = [idCurso]
 PROFESORES_DB = [
     {"legajo": 2001, "nombre": "Juan", "apellido": "Lopez", "materias": ["AED1", "PROG2"]},
     {"legajo": 2002, "nombre": "Maria", "apellido": "Torres", "materias": ["BD1", "PY1"]},
@@ -19,17 +21,18 @@ PROFESORES_DB = [
 ]
 
 # Lista de cursos/materias
+# Cada curso tiene: id, nombre, profesor (legajo), aula, alumnos (legajos)
 CURSOS_DB = [
-    {"id": "AED1", "nombre": "Algoritmos y Estructuras de Datos I", "profesor": "Juan Lopez", "aula": "Aula 101", "alumnos": [101, 102]},
-    {"id": "PROG2", "nombre": "Programación II", "profesor": "Juan Lopez", "aula": "Aula 202", "alumnos": [102, 103]},
-    {"id": "BD1", "nombre": "Bases de Datos I", "profesor": "Maria Torres", "aula": "Aula 303", "alumnos": [103, 104]},
-    {"id": "PY1", "nombre": "Python Inicial", "profesor": "Maria Torres", "aula": "Aula 404", "alumnos": [104]},
-    {"id": "MAT1", "nombre": "Matemática Discreta", "profesor": "Carlos Fernandez", "aula": "Aula 105", "alumnos": [105]},
-    {"id": "FIS1", "nombre": "Física I", "profesor": "Carlos Fernandez", "aula": "Aula 106", "alumnos": [106]},
-    {"id": "EST1", "nombre": "Estadística I", "profesor": "Carlos Fernandez", "aula": "Aula 107", "alumnos": [106]},
-    {"id": "ING1", "nombre": "Inglés Técnico I", "profesor": "Carlos Fernandez", "aula": "Aula 108", "alumnos": [107]},
-    {"id": "RED1", "nombre": "Redes de Computadoras I", "profesor": "Carlos Fernandez", "aula": "Aula 109", "alumnos": [107]},
-    {"id": "SO1", "nombre": "Sistemas Operativos I", "profesor": "Carlos Fernandez", "aula": "Aula 110", "alumnos": []}
+    {"id": "AED1", "nombre": "Algoritmos y Estructuras de Datos I", "profesor": 2001, "aula": "Aula 101", "alumnos": [101, 102]},
+    {"id": "PROG2", "nombre": "Programación II", "profesor": 2001, "aula": "Aula 202", "alumnos": [102, 103]},
+    {"id": "BD1", "nombre": "Bases de Datos I", "profesor": 2002, "aula": "Aula 303", "alumnos": [103, 104]},
+    {"id": "PY1", "nombre": "Python Inicial", "profesor": 2002, "aula": "Aula 404", "alumnos": [104]},
+    {"id": "MAT1", "nombre": "Matemática Discreta", "profesor": 2003, "aula": "Aula 105", "alumnos": [105]},
+    {"id": "FIS1", "nombre": "Física I", "profesor": 2003, "aula": "Aula 106", "alumnos": [106]},
+    {"id": "EST1", "nombre": "Estadística I", "profesor": 2003, "aula": "Aula 107", "alumnos": [106]},
+    {"id": "ING1", "nombre": "Inglés Técnico I", "profesor": 2003, "aula": "Aula 108", "alumnos": [107]},
+    {"id": "RED1", "nombre": "Redes de Computadoras I", "profesor": 2003, "aula": "Aula 109", "alumnos": [107]},
+    {"id": "SO1", "nombre": "Sistemas Operativos I", "profesor": 2003, "aula": "Aula 110", "alumnos": []}
 ]
 
 # Cuotas pendientes
