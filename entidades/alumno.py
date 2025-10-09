@@ -104,11 +104,11 @@ def menuAlumno(legajo):
     opcion = int(input("Seleccione una opción: "))
     while opcion != 5:
         if opcion == 1:
-            verCursosDisponibles(legajo)
+            verCursosDisponibles()
             idCurso = input("Ingrese el ID del curso al que desea inscribirse: ")
             inscribirEnCurso(legajoIngresado, idCurso)
         elif opcion == 2:
-            verCursosDisponibles(legajo)
+            verCursosDisponibles()
         elif opcion == 3:
             # Funcionalidad en desarrollo
             print("Consultar pagos adeudados - Funcionalidad en desarrollo.")

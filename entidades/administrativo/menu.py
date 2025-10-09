@@ -1,15 +1,33 @@
 import  entidades.datos as datos # Importamos la base de datos centralizada
+"""
+Meter solo el acceso a los modulos desde aca
+
+Cambios hacer en el administrativo
+Agregar funciones lambda
+Agregar listas por comprension
+Agregar filter, map y metodos de listas
+
+
+Funcionalidades que debe hacer el administrativo:
+1. Altas y bajas de alumnos, profesores, carreras y materias
+2. Asigna profesores a las materias
+3. Aprueba pagos de alumnos
+
+Para organizarlo un poco mejor, vamos a separar esto en 3 submenus: Gestion de usuarios, Gestion de materias, Gestion de pagos
+"""
+
 
 """
 ### Funcionalidades que debe hacer el administrativo:
-1. Dar de alta alumnos
-2. Dar de alta profesores
-3. Dar de alta materias
-4. Asignar un profesor a una materia
-5. Aprobar un pago pendiente de un Alumno
+1. Dar de alta alumnos - gestion usuarios
+2. Dar de alta profesores - gestion usuarios
+3. Dar de alta materias - gestion materias
+4. Asignar un profesor a una materia - gestion materias
+5. Aprobar un pago a un Alumno - gestion pagos
 ### Restricciones
 3. No se puede crear 2 materias con el mismo nombre
 """
+
 
 ############ FUNCIONES ###############
 """
