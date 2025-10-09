@@ -1,4 +1,12 @@
-# Base de datos en memoria para el Sistema de Gestión de Alumnos
+# Base de datos en memoria para el Sistema de Gestión de Alumnos, para que en un futuro tengamos que solo modificar estos datos.
+"""
+Estructura de cada entidad:
+alumno: legajo, nombre, apellido, activo, pagos_pendientes, materias => alumno -> pago -> pago_pendiente -> administrativo
+profesor: legajo, nombre, apellido, activo, materias_asignadas => profesor -> nota -> alumno.materias
+materia: id, nombre, profesor, aula, alumnos
+pagos_pendientes: alumno, materia, monto
+credenciales: legajo, clave, rol
+"""
 
 # Lista de alumnos
 # Cada alumno tiene: legajo, nombre, apellido, cursos = [(idCurso, estado)]

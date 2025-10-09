@@ -1,6 +1,6 @@
 from entidades.alumno import menuAlumno
 from entidades.profesor import menuProfesor
-from entidades.administrativo import menuAdministrativo
+from entidades.administrativo.menu import menuAdministrativo
 from entidades.datos import CREDENCIALES
 from colorama import init, Fore, Style
 import os
