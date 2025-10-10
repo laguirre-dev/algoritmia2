@@ -109,15 +109,12 @@ def menuAlumno(legajo):
     opcion = int(input(Fore.WHITE + "Seleccione una opción: "))
     while opcion != 6:
         if opcion == 1:
-<<<<<<< HEAD
-            verCursosDisponibles()
-            idCurso = input("Ingrese el ID del curso al que desea inscribirse: ")
-            inscribirEnCurso(legajoIngresado, idCurso)
-=======
+
+
             verCursosDisponibles(legajo)
             idCurso = input(Fore.WHITE + "Ingrese el ID del curso al que desea inscribirse: ")
             inscribirEnCurso(legajo, idCurso)
->>>>>>> ab70235a6577a28f69c0025e924d89f954de50c7
+
         elif opcion == 2:
             verCursosDisponibles()
         elif opcion == 3:
