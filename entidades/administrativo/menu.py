@@ -1,5 +1,3 @@
-<<<<<<< HEAD:entidades/administrativo/menu.py
-import  entidades.datos as datos # Importamos la base de datos centralizada
 """
 Meter solo el acceso a los modulos desde aca
 
@@ -17,13 +15,12 @@ Funcionalidades que debe hacer el administrativo:
 Para organizarlo un poco mejor, vamos a separar esto en 3 submenus: Gestion de usuarios, Gestion de materias, Gestion de pagos
 """
 
-=======
+
 import entidades.datos as datos  # Importamos la base de datos centralizada
 from colorama import init, Fore, Style
 
 # Inicializamos colorama
 init(autoreset=True)
->>>>>>> ab70235a6577a28f69c0025e924d89f954de50c7:entidades/administrativo.py
 
 """
 ### Funcionalidades que debe hacer el administrativo:
@@ -36,14 +33,11 @@ init(autoreset=True)
 3. No se puede crear 2 materias con el mismo nombre
 """
 
-<<<<<<< HEAD:entidades/administrativo/menu.py
-=======
 def header(titulo):
     # Encabezado estilizado con onda universitaria
     print(Fore.GREEN + "=" * 50)
     print(Style.BRIGHT + Fore.WHITE + titulo.center(50))
     print(Fore.GREEN + "=" * 50)
->>>>>>> ab70235a6577a28f69c0025e924d89f954de50c7:entidades/administrativo.py
 
 ############ FUNCIONES ###############
 """
