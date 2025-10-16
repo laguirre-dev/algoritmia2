@@ -1,7 +1,7 @@
 import entidades.datos as datos
 import utils.pantalla as headers
-import gestion_visualizar
-import gestion_evaluar
+from . import gestion_visualizar
+from . import gestion_evaluar
 
 def menuOpciones():
     headers.header("MENÚ PROFESOR")

@@ -1,6 +1,7 @@
 import entidades.datos as datos
 import utils.pantalla as headers
 import utils.pantalla as busquedas
+
             
 def aprobarODesaprobarAlumnos(legajoProfesor):
     cursosProfesor = list(filter(lambda c: c.get("profesor") == legajoProfesor, datos.CURSOS_DB))
