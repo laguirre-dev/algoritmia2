@@ -1,4 +1,4 @@
-import entidades.alumno as menuAlumno
+from entidades.alumno.menuAlumno import menuAlumno
 from entidades.profesor.menuProfesor import menuProfesor
 from entidades.administrativo.menu import menuAdministrativo
 from entidades.datos import CREDENCIALES
@@ -41,11 +41,10 @@ def main():
                 headers.limpiarTerminal()
                 headers.header("MENÚ ALUMNO")
                 print(headers.Fore.GREEN + "¡Bienvenido Alumno!")
-                menuAlumno.menuAlumno(legajo)
+                menuAlumno(legajo)
             elif rol == "profesor":
                 headers.limpiarTerminal()
                 headers.header("MENÚ PROFESOR")
-                print(headers.Fore.GREEN + "¡Bienvenido Profesor!")
                 menuProfesor(legajo)
             elif rol == "administrativo":
                 headers.limpiarTerminal()

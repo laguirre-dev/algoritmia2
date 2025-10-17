@@ -1,7 +1,7 @@
 import entidades.datos as datos
 import utils.pantalla as headers
-import gestion_accion
-import gestion_visualizar
+from . import gestion_accion
+from . import gestion_visualizar
 
 def menuOpciones():
     print("\n")
