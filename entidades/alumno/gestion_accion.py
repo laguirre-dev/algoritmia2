@@ -1,10 +1,11 @@
-import entidades.datos as datos
-import utils.pantalla as headers
-import utils.busquedas as buscar
+from entidades import datos as datos
+from utils import pantalla as headers
+from utils import busquedas as busqueda
+
 
 def inscribirEnCurso(legajo, idCurso):
-    alumno = buscar.buscarAlumnoPorLegajo(legajo)
-    curso = buscar.buscarCursoPorId(idCurso)
+    alumno = busqueda.buscarAlumnoPorLegajo(legajo)
+    curso = busqueda.buscarCursoPorId(idCurso)
     if not alumno or not curso:
         print(headers.Fore.RED + "Alumno o curso inexistente.")
         return False
@@ -21,8 +22,8 @@ def inscribirEnCurso(legajo, idCurso):
     return True
 
 def darseDeBaja(legajo, idCurso):
-    alumno = buscar.buscarAlumnoPorLegajo(legajo)
-    curso = buscar.buscarCursoPorId(idCurso)
+    alumno = busqueda.buscarAlumnoPorLegajo(legajo)
+    curso = busqueda.buscarCursoPorId(idCurso)
     if not alumno or not curso:
         print(headers.Fore.RED + "Alumno o curso inexistente.")
         return False

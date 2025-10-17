@@ -11,18 +11,39 @@ Las funciones deben devolver el contenido de la entidad filtrada: Por ej, detall
 from entidades import datos as datos
 
 def buscarAlumnoPorLegajo(legajo):
-    return next((alumno for alumno in datos.ALUMNOS_DB if alumno.get("legajo") == legajo), None)
+    """
+    Busca un alumno en ALUMNOS_DB por legajo. Retorna el diccionario del alumno si lo encuentra, o None si no existe.
+    """
+    for alumno in datos.ALUMNOS_DB:
+        if alumno["legajo"] == legajo:
+            return alumno
+    return None
 
-def buscar_profesor():
-    print("En desarrollo...")
-    return
+
+def buscarProfesorPorLegajo(legajo_profesor):
+    """
+    Busca un profesor en PROFESORES_DB por legajo. Retorna el nombre completo si lo encuentra, o un mensaje si no existe.
+    """
+    for profesor in datos.PROFESORES_DB:
+        if profesor["legajo"] == legajo_profesor:
+            return f"{profesor['nombre']} {profesor['apellido']}"
+    return f"Profesor con legajo {legajo_profesor} no encontrado"
+
 
 def buscar_materia():
     print("En desarrollo...")
-    return
+    return None
+
 
 def buscarCursoPorId(idCurso):
-    return next((curso for curso in datos.CURSOS_DB if curso.get("id") == idCurso), None)
+    """
+    Busca un curso en CURSOS_DB por id. Retorna el diccionario del curso si lo encuentra, o None si no existe.
+    """
+    for curso in datos.CURSOS_DB:
+        if curso["id"] == idCurso:
+            return curso
+    return None
+
 
 def buscar_pagos():
     print("En desarrollo...")

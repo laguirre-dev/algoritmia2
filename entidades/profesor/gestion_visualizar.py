@@ -1,6 +1,6 @@
 from entidades import datos as datos
 from utils import pantalla as headers
-from utils import pantalla as busqueda
+from utils import busquedas as busqueda
 
 def verMisCursos(legajoProfesor):
     cursosProfesor = list(filter(lambda c: c.get("profesor") == legajoProfesor, datos.CURSOS_DB))

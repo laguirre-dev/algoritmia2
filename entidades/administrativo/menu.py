@@ -15,7 +15,6 @@ Funcionalidades que debe hacer el administrativo:
 Para organizarlo un poco mejor, vamos a separar esto en 3 submenus: Gestion de usuarios, Gestion de materias, Gestion de pagos
 """
 
-
 import entidades.datos as datos  # Importamos la base de datos centralizada
 from colorama import init, Fore, Style
 
@@ -34,7 +33,6 @@ init(autoreset=True)
 """
 
 def header(titulo):
-    # Encabezado estilizado con onda universitaria
     print(Fore.GREEN + "=" * 50)
     print(Style.BRIGHT + Fore.WHITE + titulo.center(50))
     print(Fore.GREEN + "=" * 50)
