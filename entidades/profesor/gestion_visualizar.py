@@ -1,6 +1,6 @@
-import entidades.datos as datos
-import utils.pantalla as headers
-import utils.pantalla as busqueda
+from entidades import datos as datos
+from utils import pantalla as headers
+from utils import busquedas as busqueda
 
 def verMisCursos(legajoProfesor):
     cursosProfesor = list(filter(lambda c: c.get("profesor") == legajoProfesor, datos.CURSOS_DB))
@@ -19,7 +19,6 @@ def verMisAlumnos(legajoProfesor):
 
     headers.header("MIS ALUMNOS")
 
-    # Conjunto con todos los alumnos únicos de los cursos del profesor
     alumnosSet = set()
     for curso in cursosProfesor:
         alumnosSet.update(curso.get("alumnos", []))

@@ -1,6 +1,7 @@
-import entidades.datos as datos
-import utils.pantalla as headers
-import utils.pantalla as busquedas
+from entidades import datos as datos
+from utils import pantalla as headers
+from utils import busquedas as busqueda
+
             
 def aprobarODesaprobarAlumnos(legajoProfesor):
     cursosProfesor = list(filter(lambda c: c.get("profesor") == legajoProfesor, datos.CURSOS_DB))
@@ -13,7 +14,7 @@ def aprobarODesaprobarAlumnos(legajoProfesor):
         print(headers.Fore.WHITE + f"{curso['id']} - {curso['nombre']} | Aula: {curso['aula']}")
 
     idCurso = input(headers.Fore.WHITE + "\nIngrese el ID del curso que desea gestionar: ")
-    curso = busquedas.buscarCursoPorId(idCurso)
+    curso = busqueda.buscarCursoPorId(idCurso)
 
     if not curso or curso.get("profesor") != legajoProfesor:
         print(headers.Fore.RED + "Curso no válido o no pertenece a este profesor.")
@@ -25,7 +26,7 @@ def aprobarODesaprobarAlumnos(legajoProfesor):
 
     headers.header(f"ALUMNOS EN {curso['nombre']}")
     for legajo in curso["alumnos"]:
-        alumno = busquedas.buscarAlumnoPorLegajo(legajo)
+        alumno = busqueda.buscarAlumnoPorLegajo(legajo)
         if alumno:
             estado = next((estado for (idC, estado) in alumno["cursos"] if idC == idCurso), "Desaprobado")
             colorEstado = headers.Fore.GREEN if estado == "Aprobado" else headers.Fore.RED
@@ -40,7 +41,7 @@ def aprobarODesaprobarAlumnos(legajoProfesor):
     )
 
     for legajo, accion in acciones:
-        alumno = busquedas.buscarAlumnoPorLegajo(legajo)
+        alumno = busqueda.buscarAlumnoPorLegajo(legajo)
         if alumno and legajo in curso["alumnos"]:
             for i, (idC, estado) in enumerate(alumno["cursos"]):
                 if idC == idCurso:

@@ -1,7 +1,7 @@
 import os
 from colorama import init, Fore, Style
 
-def limpiar_pantalla():
+def limpiarTerminal():
     os.system("cls" if os.name == "nt" else "clear")
     
 init(autoreset=True)
