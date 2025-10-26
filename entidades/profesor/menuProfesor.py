@@ -37,12 +37,22 @@ def menuGestiones():
 
 def menuProfesor(legajoProfesor):
     menuOpciones(legajoProfesor)
-    opcion = int(input(headers.Fore.WHITE + "Seleccione una opción: "))
+    try:
+        opcion = int(input(headers.Fore.WHITE + "Seleccione una opción: "))
+    except ValueError:
+        opcion = 0
+
     while opcion != 5:
         if opcion == 1:
             menuVisualizar()
-            subopcion = int(input(headers.Fore.WHITE + "Seleccione una opción: "))
+            
+            try:
+                subopcion = int(input(headers.Fore.WHITE + "Seleccione una opción: "))
+            except ValueError:
+                subopcion = 0
+                
             while subopcion != 4:
+                
                 if subopcion == 1:
                     gestion_visualizar.verMisCursos(legajoProfesor)
                 elif subopcion == 2:
@@ -52,57 +62,83 @@ def menuProfesor(legajoProfesor):
                 else:
                     print(headers.Fore.RED + "Opción no válida. Intente de nuevo.")
                 menuVisualizar()
-                subopcion = int(input(headers.Fore.WHITE + "Seleccione una opción: "))
+                
+                try:
+                    subopcion = int(input(headers.Fore.WHITE + "Seleccione una opción: "))
+                except ValueError:
+                    subopcion = 0
 
         elif opcion == 2:
-            gestion_evaluar.aprobarODesaprobarAlumnos(legajoProfesor)
+            try:
+                gestion_evaluar.aprobarODesaprobarAlumnos(legajoProfesor)
+            except Exception as e:
+                print(headers.Fore.RED + f"Error al evaluar alumnos: {e}")
 
         elif opcion == 3:
             menuGenerarReportes()
-            subopcion = int(input(headers.Fore.WHITE + "Seleccione una opción: "))
+            
+            try:
+                subopcion = int(input(headers.Fore.WHITE + "Seleccione una opción: "))
+            except ValueError:
+                subopcion = 0
+                
             while subopcion != 4:
                 if subopcion == 1:  
                     try:  
                         gestion_reportes.generarReporteDeAlumno(legajoProfesor)
                         print(headers.Fore.GREEN + "Se generó el reporte de Alumnos!")
-                    except FileNotFoundError:
-                        print(headers.Fore.RED + "No se pudo generar el reporte pedido.")
+                    except Exception as e:
+                        print(headers.Fore.RED + f"No se pudo generar el reporte: {e}")
                 elif subopcion == 2:
                     try:  
                         gestion_reportes.generarReporteDeAlumnosAprobados(legajoProfesor)
                         print(headers.Fore.GREEN + "Se generó el reporte de Alumnos Aprobados!")
-                    except FileNotFoundError:
-                        print(headers.Fore.RED + "No se pudo generar el reporte pedido.")
+                    except Exception as e:
+                        print(headers.Fore.RED + f"No se pudo generar el reporte: {e}")
                 elif subopcion == 3:
                     try:  
                         gestion_reportes.generarReporteDeCursos(legajoProfesor)
                         print(headers.Fore.GREEN + "Se generó el reporte de tus Cursos!")
-                    except FileNotFoundError:
-                        print(headers.Fore.RED + "No se pudo generar el reporte pedido.")
+                    except Exception as e:
+                        print(headers.Fore.RED + f"No se pudo generar el reporte: {e}")
                 else:
                     print(headers.Fore.RED + "Opción no válida. Intente de nuevo.")
-                menuGenerarReportes()  
-                subopcion = int(input(headers.Fore.WHITE + "Seleccione una opción: "))
+                menuGenerarReportes() 
+                 
+                try:
+                    subopcion = int(input(headers.Fore.WHITE + "Seleccione una opción: "))
+                except ValueError:
+                    subopcion = 0
 
         elif opcion == 4:
             menuGestiones()
-            subopcion = int(input(headers.Fore.WHITE + "Seleccione una opción: "))
+            try:
+                subopcion = int(input(headers.Fore.WHITE + "Seleccione una opción: "))
+            except ValueError:
+                subopcion = 0
             while subopcion != 3:
                 if subopcion == 1:
-                    pass
+                    print(headers.Fore.YELLOW + "Funcionalidad 'Pedir Baja' en desarrollo...")
                 elif subopcion == 2:
-                    pass
+                    print(headers.Fore.YELLOW + "Funcionalidad 'Día de Examen' en desarrollo...")
                 else:
                     print(headers.Fore.RED + "Opción no válida. Intente de nuevo.")
                 menuGestiones()
-                subopcion = int(input(headers.Fore.WHITE + "Seleccione una opción: "))
+                try:
+                    subopcion = int(input(headers.Fore.WHITE + "Seleccione una opción: "))
+                except ValueError:
+                    subopcion = 0
 
         else:
             print(headers.Fore.RED + "Opción no válida. Intente de nuevo.")
 
         menuOpciones(legajoProfesor)
-        opcion = int(input(headers.Fore.WHITE + "Seleccione una opción: "))
+        try:
+            opcion = int(input(headers.Fore.WHITE + "Seleccione una opción: "))
+        except ValueError:
+            opcion = 0
 
     print(headers.Fore.RED + "Volviendo al menú principal...")
+
 
     

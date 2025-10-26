@@ -1,1 +1,1 @@
-legajo: 103 | nombre: Nacho | apellido: Bonavoglia | curso: BD1
+legajo: 104 | nombre: Luciano | apellido: Aguirre | curso: PY1

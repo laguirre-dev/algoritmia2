@@ -12,7 +12,7 @@ credenciales: legajo, clave, rol
 # Cada alumno tiene: legajo, nombre, apellido, cursos = [(idCurso, estado)]
 ALUMNOS_DB = [
     {"legajo": 101, "nombre": "Alumno", "apellido": "Alumno", "cursos": [("AED1", "Desaprobado")]},
-    {"legajo": 102, "nombre": "Dario", "apellido": "Andreatini", "cursos": [("AED1", "Desaprobado"), ("PROG2", "Desaprobado")]},
+    {"legajo": 102, "nombre": "Dario", "apellido": "Andreatini", "cursos": [("AED1", "Aprobado"), ("PROG2", "Desaprobado"), ("BD1", "Aprobado")]},
     {"legajo": 103, "nombre": "Nacho", "apellido": "Bonavoglia", "cursos": [("PROG2", "Desaprobado"), ("BD1", "Desaprobado")]},
     {"legajo": 104, "nombre": "Luciano", "apellido": "Aguirre", "cursos": [("BD1", "Desaprobado"), ("PY1", "Desaprobado")]},
     {"legajo": 105, "nombre": "Federico", "apellido": "Kerekes", "cursos": [("MAT1", "Desaprobado")]},

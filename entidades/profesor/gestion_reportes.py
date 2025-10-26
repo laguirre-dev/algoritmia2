@@ -3,7 +3,7 @@ from utils import pantalla as headers
 from utils import busquedas as busqueda
 from reportes import generador_de_reportes  
 
-def generarReporteDeAlumno(legajoProfesor):
+def generarReporteDeCursosAlumno(legajoProfesor):
     cursosProfesor = [c for c in datos.CURSOS_DB if c["profesor"] == legajoProfesor]
     alumnosSet = set()
     for curso in cursosProfesor:

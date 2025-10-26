@@ -9,6 +9,7 @@ Las funciones deben devolver el contenido de la entidad filtrada: Por ej, detall
 """
 
 from entidades import datos as datos
+from . import pantalla as headers
 
 def buscarAlumnoPorLegajo(legajo):
     """
@@ -19,6 +20,19 @@ def buscarAlumnoPorLegajo(legajo):
             return alumno
     return None
 
+def buscarAlumnoPorLegajoNombreYApellido(legajo):
+    for alumno in datos.ALUMNOS_DB:
+        if alumno["legajo"] == legajo:
+            return f"{alumno['nombre']} {alumno['apellido']}"
+    return f"Alumno con legajo {legajo} no encontrado"
+
+def validarAlumnoYCurso(legajo, idCurso):
+    alumno = buscarAlumnoPorLegajo(legajo)
+    curso = buscarCursoPorId(idCurso)
+    if not alumno or not curso:
+        print(headers.Fore.RED + "Alumno o curso inexistente.")
+        return None, None
+    return alumno, curso
 
 def buscarProfesorPorLegajo(legajo_profesor):
     """
