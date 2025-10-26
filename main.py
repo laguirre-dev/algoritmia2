@@ -1,8 +1,8 @@
 from entidades.alumno.menuAlumno import menuAlumno
 from entidades.profesor.menuProfesor import menuProfesor
 from entidades.administrativo.menu import menuAdministrativo
-from entidades.datos import CREDENCIALES
 import utils.pantalla as headers
+import utils.credenciales as credenciales
 import sys
 import os
 
@@ -15,14 +15,6 @@ def mostrarMenu():
     print(headers.Fore.RED   + "2. Salir")
     print(headers.Fore.GREEN + "-" * 50)
 
-def login(legajo, clave):
-    # funcion para validar login, devuelve si es valido y el rol
-    for credencial in CREDENCIALES:
-        if credencial["legajo"] == legajo and credencial["clave"] == clave:
-            return True, credencial["rol"]
-    print(headers.Fore.RED + "Credenciales incorrectas. Intentelo nuevamente.")
-    return False, False
-
 def main():
     mostrarMenu()
     opcion = int(input(headers.Fore.WHITE + "Seleccione una opción: "))
@@ -33,7 +25,7 @@ def main():
         while intentos < 3 and not validacion:
             legajo = int(input(headers.Fore.WHITE + "Por favor, coloque su Legajo: "))
             clave = input(headers.Fore.WHITE + "Por favor, escriba su clave para ingresar: ")
-            validacion, rol = login(legajo, clave)
+            validacion, rol = credenciales.login(legajo, clave)
             intentos += 1
 
         if validacion:

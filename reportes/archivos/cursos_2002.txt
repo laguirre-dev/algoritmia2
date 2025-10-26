@@ -1,0 +1,2 @@
+id: BD1 | nombre: Bases de Datos I | aula: Aula 303 | cantidad_alumnos: 2
+id: PY1 | nombre: Python Inicial | aula: Aula 404 | cantidad_alumnos: 1
