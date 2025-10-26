@@ -1,64 +1,73 @@
 from entidades.alumno.menuAlumno import menuAlumno
 from entidades.profesor.menuProfesor import menuProfesor
 from entidades.administrativo.menu import menuAdministrativo
-from entidades.datos import CREDENCIALES
 import utils.pantalla as headers
-import sys
-import os
-
-sys.path.append(os.path.dirname(__file__))
+import utils.credenciales as credenciales
 
 def mostrarMenu():
-    # Funcion para mostrar las opciones del menu
     headers.header("SISTEMA DE GESTIÓN DE ALUMNOS")
     print(headers.Fore.GREEN + "1. Iniciar sesión")
     print(headers.Fore.RED   + "2. Salir")
     print(headers.Fore.GREEN + "-" * 50)
 
-def login(legajo, clave):
-    # funcion para validar login, devuelve si es valido y el rol
-    for credencial in CREDENCIALES:
-        if credencial["legajo"] == legajo and credencial["clave"] == clave:
-            return True, credencial["rol"]
-    print(headers.Fore.RED + "Credenciales incorrectas. Intentelo nuevamente.")
-    return False, False
-
 def main():
     mostrarMenu()
-    opcion = int(input(headers.Fore.WHITE + "Seleccione una opción: "))
+    try:
+        opcion = int(input(headers.Fore.WHITE + "Seleccione una opción: "))
+    except ValueError:
+        opcion = 0
 
     while opcion != 2:
         intentos = 0
         validacion, rol = False, False
+
         while intentos < 3 and not validacion:
-            legajo = int(input(headers.Fore.WHITE + "Por favor, coloque su Legajo: "))
+            try:
+                legajo = int(input(headers.Fore.WHITE + "Por favor, coloque su Legajo: "))
+            except ValueError:
+                print(headers.Fore.RED + "El legajo debe ser numérico.")
+                intentos += 1
+                continue
+
             clave = input(headers.Fore.WHITE + "Por favor, escriba su clave para ingresar: ")
-            validacion, rol = login(legajo, clave)
+
+            try:
+                validacion, rol = credenciales.login(legajo, clave)
+            except Exception as e:
+                print(headers.Fore.RED + f"Error en la validación: {e}")
+                validacion, rol = False, False
             intentos += 1
 
         if validacion:
-            if rol == "alumno":
-                headers.limpiarTerminal()
-                headers.header("MENÚ ALUMNO")
-                print(headers.Fore.GREEN + "¡Bienvenido Alumno!")
-                menuAlumno(legajo)
-            elif rol == "profesor":
-                headers.limpiarTerminal()
-                headers.header("MENÚ PROFESOR")
-                menuProfesor(legajo)
-            elif rol == "administrativo":
-                headers.limpiarTerminal()
-                headers.header("MENÚ ADMINISTRATIVO")
-                print(headers.Fore.GREEN + "¡Bienvenido Administrativo!")
-                menuAdministrativo()
+            try:
+                if rol == "alumno":
+                    headers.limpiarTerminal()
+                    headers.header("MENÚ ALUMNO")
+                    menuAlumno(legajo)
+                elif rol == "profesor":
+                    headers.limpiarTerminal()
+                    headers.header("MENÚ PROFESOR")
+                    menuProfesor(legajo)
+                elif rol == "administrativo":
+                    headers.limpiarTerminal()
+                    headers.header("MENÚ ADMINISTRATIVO")
+                    print(headers.Fore.GREEN + "¡Bienvenido Administrativo!")
+                    menuAdministrativo()
+                else:
+                    print(headers.Fore.RED + "Rol no reconocido.")
+            except Exception as e:
+                print(headers.Fore.RED + f"Error al cargar el menú: {e}")
         else:
             if intentos >= 3:
                 headers.limpiarTerminal()
-                print(headers.Fore.RED + "Ha superado el limite de intentos. Volviendo al menu principal...")
+                print(headers.Fore.RED + "Ha superado el límite de intentos. Volviendo al menú principal...")
                 input(headers.Fore.WHITE + "Presione Enter para avanzar")
 
         mostrarMenu()
-        opcion = int(input(headers.Fore.WHITE + "Seleccione una opción: "))
+        try:
+            opcion = int(input(headers.Fore.WHITE + "Seleccione una opción: "))
+        except ValueError:
+            opcion = 0
 
     print(headers.Fore.RED + headers.Style.BRIGHT + "Saliendo del sistema...")
     input(headers.Fore.WHITE + "Presione Enter para salir")

@@ -1,0 +1,4 @@
+Id: AED1 | Nombre: Algoritmos y Estructuras de Datos I | Aula: Aula 101 | Profesor: Juan Lopez | Estado: Aprobado
+Id: PROG2 | Nombre: Programación II | Aula: Aula 202 | Profesor: Juan Lopez | Estado: Desaprobado
+Id: BD1 | Nombre: Bases de Datos I | Aula: Aula 303 | Profesor: Maria Torres | Estado: Aprobado
+Id: FIS1 | Nombre: Física I | Aula: Aula 106 | Profesor: Carlos Fernandez | Estado: Desaprobado
