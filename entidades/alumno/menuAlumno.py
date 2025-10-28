@@ -1,4 +1,3 @@
-from entidades import datos as datos
 from utils import pantalla as headers
 from utils import busquedas as buscar
 from . import gestion_accion
@@ -7,9 +6,7 @@ from . import gestion_pagos
 from . import gestion_reportes
 
 def menuOpciones(legajoAlumno):
-    
-    print(headers.Fore.GREEN + f"¡Bienvenido Alumno {buscar.buscarAlumnoPorLegajoNombreYApellido(legajoAlumno)} !\n")
-    
+    print(headers.Fore.GREEN + "¡Bienvenido Alumno " + buscar.buscarAlumnoPorLegajoNombreYApellido(legajoAlumno) + " !\n")
     print(headers.Fore.GREEN + "1. Gestiones alumno")
     print(headers.Fore.GREEN + "2. Visualizar información")
     print(headers.Fore.GREEN + "3. Pagos -- En desarrollo")
