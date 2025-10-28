@@ -1,0 +1,33 @@
+[
+  {
+    "legajo": 2001,
+    "nombre": "Juan",
+    "apellido": "Lopez",
+    "materias": [
+      "AED1",
+      "PROG2"
+    ]
+  },
+  {
+    "legajo": 2002,
+    "nombre": "Maria",
+    "apellido": "Torres",
+    "materias": [
+      "BD1",
+      "PY1"
+    ]
+  },
+  {
+    "legajo": 2003,
+    "nombre": "Carlos",
+    "apellido": "Fernandez",
+    "materias": [
+      "MAT1",
+      "FIS1",
+      "EST1",
+      "ING1",
+      "RED1",
+      "SO1"
+    ]
+  }
+]

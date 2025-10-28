@@ -1,0 +1,57 @@
+[
+  {
+    "legajo": 9999,
+    "clave": "uade123",
+    "rol": "administrativo"
+  },
+  {
+    "legajo": 2001,
+    "clave": "prof123",
+    "rol": "profesor"
+  },
+  {
+    "legajo": 2002,
+    "clave": "maria2002",
+    "rol": "profesor"
+  },
+  {
+    "legajo": 2003,
+    "clave": "carlos2003",
+    "rol": "profesor"
+  },
+  {
+    "legajo": 101,
+    "clave": "alum123",
+    "rol": "alumno"
+  },
+  {
+    "legajo": 102,
+    "clave": "dario102",
+    "rol": "alumno"
+  },
+  {
+    "legajo": 103,
+    "clave": "nacho103",
+    "rol": "alumno"
+  },
+  {
+    "legajo": 104,
+    "clave": "luciano104",
+    "rol": "alumno"
+  },
+  {
+    "legajo": 105,
+    "clave": "federico105",
+    "rol": "alumno"
+  },
+  {
+    "legajo": 106,
+    "clave": "sofia106",
+    "rol": "alumno"
+  },
+  {
+    "legajo": 107,
+    "clave": "lucas107",
+    "rol": "alumno"
+  }
+]
