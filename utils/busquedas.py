@@ -1,107 +1,127 @@
-"""
-El objetivo del módulo es centralizar las funciones reutilizables para usarlas en cualquier parte:
-1. Buscar alumno
-2. Buscar profesor
-3. Buscar materia/curso
-4. Buscar pagos
-
-Las funciones devuelven el contenido de la entidad filtrada.
-"""
-
-import json, os
+import json
 from pathlib import Path
 from . import pantalla as headers
 
-# ---------------------------
-# Rutas a JSON (desde utils/)
-# ---------------------------
-_DEFAULT_DATOS_DIR = Path(__file__).resolve().parents[1] / "entidades" / "datos"
-DATOS_DIR = Path(os.getenv("DATA_DIR", _DEFAULT_DATOS_DIR)).resolve()
+DATOS_DIR = Path(__file__).resolve().parents[1] / "entidades" / "datos"
 
-ALUMNOS_JSON       = DATOS_DIR / "alumnos.json"
-PROFESORES_JSON    = DATOS_DIR / "profesores.json"
-CURSOS_JSON        = DATOS_DIR / "cursos.json"
-CUOTAS_PEND_JSON   = DATOS_DIR / "cuotas_pendientes.json"
+ALUMNOS_JSON     = DATOS_DIR / "alumnos.json"
+PROFESORES_JSON  = DATOS_DIR / "profesores.json"
+CURSOS_JSON      = DATOS_DIR / "cursos.json"
+CUOTAS_JSON      = DATOS_DIR / "cuotas_pendientes.json"
+
 
 # ---------------------------
-# Helpers JSON
+# Lectura básica de JSON
 # ---------------------------
-def _leer_json(ruta: Path, default):
+def _leer_lista_json(ruta: Path):
+    """
+    Intenta leer una lista desde un archivo JSON.
+    Si no existe o hay error, devuelve [].
+    """
     try:
-        if not ruta.exists():
-            return default
-        txt = ruta.read_text(encoding="utf-8").strip()
-        if not txt:
-            return default
-        return json.loads(txt)
-    except (json.JSONDecodeError, OSError):
-        return default
+        with ruta.open("r", encoding="utf-8") as f:
+            data = json.load(f)
+            # Si por alguna razón no es lista, devuelvo lista vacía.
+            if isinstance(data, list):
+                return data
+            else:
+                return []
+    except FileNotFoundError:
+        return []
+    except Exception:
+        # Cualquier otro error de lectura/parseo
+        return []
+
 
 # ---------------------------
 # Búsquedas
 # ---------------------------
-def buscarAlumnoPorLegajo(legajo: int):
+def buscarAlumnoPorLegajo(legajo):
     """
-    Retorna el dict del alumno o None.
+    Busca un alumno por legajo. Devuelve el dict del alumno o None.
     """
-    alumnos = _leer_json(ALUMNOS_JSON, default=[])
-    return next((a for a in alumnos if a.get("legajo") == legajo), None)
+    alumnos = _leer_lista_json(ALUMNOS_JSON)
+    for alumno in alumnos:
+        # Se asume que el JSON tiene la clave "legajo"
+        if "legajo" in alumno and alumno["legajo"] == legajo:
+            return alumno
+    return None
 
-def buscarAlumnoPorLegajoNombreYApellido(legajo: int) -> str:
-    """
-    Retorna 'Nombre Apellido' o mensaje si no existe.
-    """
-    a = buscarAlumnoPorLegajo(legajo)
-    if a:
-        nombre = a.get("nombre", "").strip()
-        apellido = a.get("apellido", "").strip()
-        return f"{nombre} {apellido}".strip() or f"Alumno #{legajo}"
-    return f"Alumno con legajo {legajo} no encontrado"
 
-def buscarProfesorPorLegajo(legajo_profesor: int) -> str:
+def buscarAlumnoPorLegajoNombreYApellido(legajo):
     """
-    Retorna 'Nombre Apellido' del profesor o mensaje si no existe.
+    Devuelve 'Nombre Apellido' o un mensaje si no existe.
     """
-    profesores = _leer_json(PROFESORES_JSON, default=[])
-    p = next((x for x in profesores if x.get("legajo") == legajo_profesor), None)
-    if p:
-        return f"{p.get('nombre','').strip()} {p.get('apellido','').strip()}".strip()
-    return f"Profesor con legajo {legajo_profesor} no encontrado"
+    alumno = buscarAlumnoPorLegajo(legajo)
+    if alumno is not None:
+        nombre = alumno["nombre"] if "nombre" in alumno else ""
+        apellido = alumno["apellido"] if "apellido" in alumno else ""
+        completo = (nombre + " " + apellido).strip()
+        if completo != "":
+            return completo
+        else:
+            return "Alumno #" + str(legajo)
+    return "Alumno con legajo " + str(legajo) + " no encontrado"
+
+
+def buscarProfesorPorLegajo(legajo_profesor):
+    """
+    Busca un profesor por legajo. Devuelve 'Nombre Apellido' o mensaje si no existe.
+    """
+    profesores = _leer_lista_json(PROFESORES_JSON)
+    for profesor in profesores:
+        if "legajo" in profesor and profesor["legajo"] == legajo_profesor:
+            nombre = profesor["nombre"] if "nombre" in profesor else ""
+            apellido = profesor["apellido"] if "apellido" in profesor else ""
+            completo = (nombre + " " + apellido).strip()
+            if completo != "":
+                return completo
+            else:
+                return "Profesor #" + str(legajo_profesor)
+    return "Profesor con legajo " + str(legajo_profesor) + " no encontrado"
+
 
 def buscarCursoPorId(idCurso):
     """
-    Retorna el dict del curso o None. Acepta 'AED1'/'aed1' o similar.
+    Busca un curso por id. Devuelve el dict del curso o None.
+    Nota: tus IDs están en mayúsculas en cursos.json (por ejemplo 'AED1').
+    Para evitar errores, comparo como string y en mayúsculas.
     """
-    cursos = _leer_json(CURSOS_JSON, default=[])
-    id_norm = str(idCurso).strip().upper()
-    return next((c for c in cursos if str(c.get("id")).strip().upper() == id_norm), None)
+    cursos = _leer_lista_json(CURSOS_JSON)
+    id_normalizado = str(idCurso).upper()
+    for curso in cursos:
+        if "id" in curso and str(curso["id"]).upper() == id_normalizado:
+            return curso
+    return None
+
 
 def validarAlumnoYCurso(legajo, idCurso):
     """
-    Retorna (alumno, curso) o (None, None) con mensaje si algo no existe.
+    Devuelve (alumno, curso) o (None, None) e imprime mensaje si falta alguno.
     """
     alumno = buscarAlumnoPorLegajo(legajo)
-    curso  = buscarCursoPorId(idCurso)
-    if not alumno or not curso:
+    curso = buscarCursoPorId(idCurso)
+    if alumno is None or curso is None:
         print(headers.Fore.RED + "Alumno o curso inexistente.")
         return None, None
     return alumno, curso
 
-# ---------------------------
-# Pagos (búsqueda básica)
-# ---------------------------
-def buscarPagosPendientesPorLegajo(legajo: int):
-    """
-    Retorna lista de cuotas pendientes del alumno (cada item: dict con 'cuota_nro', 'legajo').
-    """
-    cuotas = _leer_json(CUOTAS_PEND_JSON, default=[])
-    return [c for c in cuotas if c.get("legajo") == legajo]
 
-# ---------------------------
-# Placeholders (si alguien los llama)
-# ---------------------------
+def buscarPagosPendientesPorLegajo(legajo):
+    """
+    Devuelve lista de cuotas pendientes del alumno.
+    Cada ítem es un dict con 'cuota_nro' y 'legajo'.
+    """
+    cuotas = _leer_lista_json(CUOTAS_JSON)
+    resultado = []
+    for c in cuotas:
+        if "legajo" in c and c["legajo"] == legajo:
+            resultado.append(c)
+    return resultado
+
+
+# Placeholders para compatibilidad (si alguien los llama)
 def buscar_materia():
-    # Si más adelante necesitás 'materia' distinta de 'curso', redefinir aquí.
     print("En desarrollo...")
     return None
 
