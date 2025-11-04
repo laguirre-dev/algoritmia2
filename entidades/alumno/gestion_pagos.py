@@ -3,7 +3,7 @@ from pathlib import Path
 from utils import pantalla as headers
 from utils import busquedas as busqueda
 
-DATOS_DIR = Path(__file__).resolve().parents[1] / "BaseDeDatos"
+DATOS_DIR = Path(__file__).resolve().parents[1] / "baseDeDatos"
 CUOTAS_JSON = DATOS_DIR / "cuotas_pendientes.json"
 ALUMNOS_JSON = DATOS_DIR / "alumnos.json"
 
