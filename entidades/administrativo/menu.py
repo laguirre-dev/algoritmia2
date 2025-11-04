@@ -15,7 +15,7 @@ Funcionalidades que debe hacer el administrativo:
 Para organizarlo un poco mejor, vamos a separar esto en 3 submenus: Gestion de usuarios, Gestion de materias, Gestion de pagos
 """
 
-import entidades.datos as datos  # Importamos la base de datos centralizada
+from baseDeDatos import baseDatos as datos  # Importamos la base de datos centralizada
 from colorama import init, Fore, Style
 
 # Inicializamos colorama

@@ -1,4 +1,4 @@
-from entidades import datos as datos
+from baseDeDatos import baseDatos as datos
 from utils import pantalla as headers
 from utils import busquedas as busqueda
 from reportes import generador_de_reportes  
