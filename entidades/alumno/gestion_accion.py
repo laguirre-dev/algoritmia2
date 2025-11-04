@@ -1,12 +1,12 @@
-import json, os
+import json
 from pathlib import Path
 from utils import pantalla as headers
 
-DATOS_DIR = Path(__file__).resolve().parents[1] / "datos"
+DATOS_DIR = Path(__file__).resolve().parents[1] / "BaseDeDatos"
 ALUMNOS_JSON = DATOS_DIR / "alumnos.json"
-CURSOS_JSON  = DATOS_DIR / "cursos.json"
+CURSOS_JSON = DATOS_DIR / "cursos.json"
 
-def _leer_lista_json(ruta: Path):
+def leerListaJson(ruta: Path):
     try:
         with ruta.open("r", encoding="utf-8") as f:
             data = json.load(f)
@@ -18,7 +18,7 @@ def _leer_lista_json(ruta: Path):
     except Exception:
         return []
 
-def _escribir_lista_json(ruta: Path, data):
+def escribirListaJson(ruta: Path, data):
     try:
         ruta.parent.mkdir(parents=True, exist_ok=True)
         with ruta.open("w", encoding="utf-8") as f:
@@ -28,31 +28,30 @@ def _escribir_lista_json(ruta: Path, data):
         print(headers.Fore.RED + "[ERROR IO] " + str(e))
         return False
 
-def _buscar_alumno(alumnos, legajo):
+def buscarAlumno(alumnos, legajo):
     for a in alumnos:
         if "legajo" in a and a["legajo"] == legajo:
             return a
     return None
 
-def _buscar_curso(cursos, id_curso_str):
+def buscarCurso(cursos, idCursoStr):
     for c in cursos:
-        if "id" in c and str(c["id"]).upper() == id_curso_str:
+        if "id" in c and str(c["id"]).upper() == idCursoStr:
             return c
     return None
 
 def inscribirEnCurso(legajo, idCurso):
-    # normalizo id a string en mayúsculas (tus JSON usan "AED1", "PROG2", etc.)
-    id_curso_str = str(idCurso).upper()
+    idCursoStr = str(idCurso).upper()
 
-    alumnos = _leer_lista_json(ALUMNOS_JSON)
-    cursos  = _leer_lista_json(CURSOS_JSON)
+    alumnos = leerListaJson(ALUMNOS_JSON)
+    cursos = leerListaJson(CURSOS_JSON)
 
-    alumno = _buscar_alumno(alumnos, legajo)
+    alumno = buscarAlumno(alumnos, legajo)
     if alumno is None:
         print(headers.Fore.RED + "Alumno inexistente.")
         return False
 
-    curso = _buscar_curso(cursos, id_curso_str)
+    curso = buscarCurso(cursos, idCursoStr)
     if curso is None:
         print(headers.Fore.RED + "Curso inexistente.")
         return False
@@ -60,51 +59,48 @@ def inscribirEnCurso(legajo, idCurso):
     if "cursos" not in alumno or not isinstance(alumno["cursos"], list):
         alumno["cursos"] = []
 
-    # verificar si ya está inscripto (pares como ["AED1","Desaprobado"])
-    ya = False
+    yaInscripto = False
     for par in alumno["cursos"]:
-        if isinstance(par, (list, tuple)) and len(par) >= 1 and str(par[0]).upper() == id_curso_str:
-            ya = True
+        if isinstance(par, (list, tuple)) and len(par) >= 1 and str(par[0]).upper() == idCursoStr:
+            yaInscripto = True
             break
-    if ya:
-        print(headers.Fore.RED + "Error: Ya estás inscripto en ese curso.")
+
+    if yaInscripto:
+        print(headers.Fore.RED + "Ya estás inscripto en ese curso.")
         return False
 
-    # agregar al alumno
-    alumno["cursos"].append([id_curso_str, "Desaprobado"])
+    alumno["cursos"].append([idCursoStr, "Desaprobado"])
 
-    # actualizar lista de alumnos del curso (únicos)
     if "alumnos" not in curso or not isinstance(curso["alumnos"], list):
         curso["alumnos"] = []
     if legajo not in curso["alumnos"]:
         curso["alumnos"].append(legajo)
-        # ordenar para prolijidad
         try:
             curso["alumnos"].sort()
-        except Exception:
+        except:
             pass
 
-    ok1 = _escribir_lista_json(ALUMNOS_JSON, alumnos)
-    ok2 = _escribir_lista_json(CURSOS_JSON,  cursos)
+    ok1 = escribirListaJson(ALUMNOS_JSON, alumnos)
+    ok2 = escribirListaJson(CURSOS_JSON, cursos)
     if not (ok1 and ok2):
         return False
 
-    nombre_curso = curso["nombre"] if "nombre" in curso else id_curso_str
-    print(headers.Fore.GREEN + "Inscripción exitosa a " + nombre_curso + ".")
+    nombreCurso = curso["nombre"] if "nombre" in curso else idCursoStr
+    print(headers.Fore.GREEN + "Inscripción exitosa a " + nombreCurso + ".")
     return True
 
 def darseDeBaja(legajo, idCurso):
-    id_curso_str = str(idCurso).upper()
+    idCursoStr = str(idCurso).upper()
 
-    alumnos = _leer_lista_json(ALUMNOS_JSON)
-    cursos  = _leer_lista_json(CURSOS_JSON)
+    alumnos = leerListaJson(ALUMNOS_JSON)
+    cursos = leerListaJson(CURSOS_JSON)
 
-    alumno = _buscar_alumno(alumnos, legajo)
+    alumno = buscarAlumno(alumnos, legajo)
     if alumno is None:
         print(headers.Fore.RED + "Alumno inexistente.")
         return False
 
-    curso = _buscar_curso(cursos, id_curso_str)
+    curso = buscarCurso(cursos, idCursoStr)
     if curso is None:
         print(headers.Fore.RED + "Curso inexistente.")
         return False
@@ -113,27 +109,27 @@ def darseDeBaja(legajo, idCurso):
         alumno["cursos"] = []
 
     estaba = False
-    nueva_lista = []
+    nuevaLista = []
     for par in alumno["cursos"]:
-        if isinstance(par, (list, tuple)) and len(par) >= 1 and str(par[0]).upper() == id_curso_str:
+        if isinstance(par, (list, tuple)) and len(par) >= 1 and str(par[0]).upper() == idCursoStr:
             estaba = True
-            # lo omitimos (baja)
         else:
-            nueva_lista.append(par)
+            nuevaLista.append(par)
+
     if not estaba:
         print(headers.Fore.RED + "No estabas inscripto en ese curso.")
         return False
-    alumno["cursos"] = nueva_lista
 
-    # quitar legajo del curso
+    alumno["cursos"] = nuevaLista
+
     if "alumnos" in curso and isinstance(curso["alumnos"], list):
         curso["alumnos"] = [l for l in curso["alumnos"] if l != legajo]
 
-    ok1 = _escribir_lista_json(ALUMNOS_JSON, alumnos)
-    ok2 = _escribir_lista_json(CURSOS_JSON,  cursos)
+    ok1 = escribirListaJson(ALUMNOS_JSON, alumnos)
+    ok2 = escribirListaJson(CURSOS_JSON, cursos)
     if not (ok1 and ok2):
         return False
 
-    nombre_curso = curso["nombre"] if "nombre" in curso else id_curso_str
-    print(headers.Fore.GREEN + "Baja exitosa de " + nombre_curso + ".")
+    nombreCurso = curso["nombre"] if "nombre" in curso else idCursoStr
+    print(headers.Fore.GREEN + "Baja exitosa de " + nombreCurso + ".")
     return True
