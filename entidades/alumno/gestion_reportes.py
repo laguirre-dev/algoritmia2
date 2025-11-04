@@ -16,7 +16,7 @@ def generarReporteDeCursosAlumno(legajoAlumno):
     for par in alumno["cursos"]:
         if isinstance(par, (list, tuple)) and len(par) >= 2:
             idCurso = par[0]
-            estado  = par[1]
+            estado = par[1]
             curso = busqueda.buscarCursoPorId(idCurso)
             if curso is not None:
                 profesor = busqueda.buscarProfesorPorLegajo(curso["profesor"]) if "profesor" in curso else ""
@@ -29,7 +29,6 @@ def generarReporteDeCursosAlumno(legajoAlumno):
                 }
                 cursosReporte.append(item)
 
-    # guarda en /reportes/archivos/alumno_<legajo>_cursos.txt (según tu generador)
     generador_de_reportes.guardarReporte("alumno_" + str(legajoAlumno) + "_cursos", cursosReporte, "txt")
     print(headers.Fore.GREEN + "Reporte generado.")
     return True

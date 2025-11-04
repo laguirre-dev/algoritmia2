@@ -3,16 +3,11 @@ from pathlib import Path
 from utils import pantalla as headers
 from utils import busquedas as busqueda
 
-DATOS_DIR = Path(__file__).resolve().parents[1] / "datos"
+DATOS_DIR = Path(__file__).resolve().parents[1] / "BaseDeDatos"
 CUOTAS_JSON = DATOS_DIR / "cuotas_pendientes.json"
 ALUMNOS_JSON = DATOS_DIR / "alumnos.json"
 
-
-# ---------------------------
-# Funciones auxiliares
-# ---------------------------
-def _leer_lista_json(ruta: Path):
-    """Lee una lista desde un archivo JSON. Si falla, devuelve lista vacía."""
+def leerListaJson(ruta: Path):
     try:
         with ruta.open("r", encoding="utf-8") as f:
             data = json.load(f)
@@ -24,9 +19,7 @@ def _leer_lista_json(ruta: Path):
     except Exception:
         return []
 
-
-def _escribir_lista_json(ruta: Path, data):
-    """Guarda una lista en formato JSON."""
+def escribirListaJson(ruta: Path, data):
     try:
         ruta.parent.mkdir(parents=True, exist_ok=True)
         with ruta.open("w", encoding="utf-8") as f:
@@ -36,20 +29,13 @@ def _escribir_lista_json(ruta: Path, data):
         print(headers.Fore.RED + "[ERROR IO] " + str(e))
         return False
 
-
-# ---------------------------
-# Funciones principales
-# ---------------------------
 def consultarPagos(legajo):
-    """
-    Muestra las cuotas pendientes del alumno según cuotas_pendientes.json.
-    """
     alumno = busqueda.buscarAlumnoPorLegajo(legajo)
     if alumno is None:
         print(headers.Fore.RED + "Alumno inexistente.")
         return False
 
-    cuotas = _leer_lista_json(CUOTAS_JSON)
+    cuotas = leerListaJson(CUOTAS_JSON)
     pendientes = [c for c in cuotas if "legajo" in c and c["legajo"] == legajo]
 
     headers.header("CUOTAS PENDIENTES")
@@ -63,17 +49,13 @@ def consultarPagos(legajo):
 
     return True
 
-
 def pagarCuota(legajo):
-    """
-    Permite al alumno pagar una cuota pendiente (elimina del JSON).
-    """
     alumno = busqueda.buscarAlumnoPorLegajo(legajo)
     if alumno is None:
         print(headers.Fore.RED + "Alumno inexistente.")
         return False
 
-    cuotas = _leer_lista_json(CUOTAS_JSON)
+    cuotas = leerListaJson(CUOTAS_JSON)
     pendientes = [c for c in cuotas if "legajo" in c and c["legajo"] == legajo]
 
     if len(pendientes) == 0:
@@ -91,21 +73,19 @@ def pagarCuota(legajo):
         print(headers.Fore.RED + "Debe ingresar un número de cuota válido.")
         return False
 
-    # Verifico si existe esa cuota
     existe = False
-    nuevas_cuotas = []
+    nuevasCuotas = []
     for c in cuotas:
         if "legajo" in c and c["legajo"] == legajo and c["cuota_nro"] == numero:
-            existe = True  # la omitimos (pagada)
+            existe = True
         else:
-            nuevas_cuotas.append(c)
+            nuevasCuotas.append(c)
 
     if not existe:
         print(headers.Fore.RED + "No se encontró una cuota pendiente con ese número.")
         return False
 
-    # Guardamos la lista actualizada
-    if _escribir_lista_json(CUOTAS_JSON, nuevas_cuotas):
+    if escribirListaJson(CUOTAS_JSON, nuevasCuotas):
         print(headers.Fore.GREEN + f"Pago de la cuota N° {numero} registrado correctamente.")
         return True
     else:

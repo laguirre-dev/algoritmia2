@@ -3,10 +3,10 @@ from pathlib import Path
 from utils import pantalla as headers
 from utils import busquedas as busqueda
 
-DATOS_DIR = Path(__file__).resolve().parents[1] / "datos"
+DATOS_DIR = Path(__file__).resolve().parents[1] / "BaseDeDatos"
 CURSOS_JSON = DATOS_DIR / "cursos.json"
 
-def _leer_lista_json(ruta: Path):
+def leerListaJson(ruta: Path):
     try:
         with ruta.open("r", encoding="utf-8") as f:
             data = json.load(f)
@@ -28,7 +28,7 @@ def verMisCursos(legajo):
     for par in alumno["cursos"]:
         if isinstance(par, (list, tuple)) and len(par) >= 2:
             idCurso = par[0]
-            estado  = par[1]
+            estado = par[1]
             curso = busqueda.buscarCursoPorId(idCurso)
             if curso is not None:
                 profesor = busqueda.buscarProfesorPorLegajo(curso["profesor"]) if "profesor" in curso else ""
@@ -41,7 +41,7 @@ def verMisCursos(legajo):
                 print(linea + colorEstado + estado)
 
 def verCursosDisponibles(legajo):
-    cursos = _leer_lista_json(CURSOS_JSON)
+    cursos = leerListaJson(CURSOS_JSON)
     if len(cursos) == 0:
         print(headers.Fore.RED + "No hay cursos disponibles.")
         return
@@ -69,7 +69,7 @@ def verEstadoAprobacion(legajo):
     for par in alumno["cursos"]:
         if isinstance(par, (list, tuple)) and len(par) >= 2:
             idCurso = par[0]
-            estado  = par[1]
+            estado = par[1]
             curso = busqueda.buscarCursoPorId(idCurso)
             if curso is not None and "id" in curso and "nombre" in curso:
                 colorEstado = headers.Fore.GREEN if estado == "Aprobado" else headers.Fore.RED
