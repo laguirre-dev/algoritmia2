@@ -3,7 +3,7 @@ from pathlib import Path
 import utils.pantalla as headers
 
 # Carpeta de datos: .../entidades/datos (desde utils/)
-DATOS_DIR = Path(__file__).resolve().parents[1] / "entidades" / "datos"
+DATOS_DIR = Path(__file__).resolve().parents[1] / "BaseDeDatos"
 CREDENCIALES_JSON = DATOS_DIR / "credenciales.json"
 
 

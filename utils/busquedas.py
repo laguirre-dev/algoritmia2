@@ -2,7 +2,7 @@ import json
 from pathlib import Path
 from . import pantalla as headers
 
-DATOS_DIR = Path(__file__).resolve().parents[1] / "entidades" / "datos"
+DATOS_DIR = Path(__file__).resolve().parents[1] / "baseDeDatos"
 
 ALUMNOS_JSON     = DATOS_DIR / "alumnos.json"
 PROFESORES_JSON  = DATOS_DIR / "profesores.json"
