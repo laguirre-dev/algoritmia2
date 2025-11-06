@@ -13,6 +13,12 @@ Funcionalidades que debe hacer el administrativo:
 3. Aprueba pagos de alumnos
 
 Para organizarlo un poco mejor, vamos a separar esto en 3 submenus: Gestion de usuarios, Gestion de materias, Gestion de pagos
+
+### 5-11
+Cambios:
+Persistencia en archivos JSON
+Manejo de excepciones try-except
+Pruebas unitarias
 """
 
 import entidades.datos as datos  # Importamos la base de datos centralizada

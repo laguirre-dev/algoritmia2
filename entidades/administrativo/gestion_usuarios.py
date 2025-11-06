@@ -1,9 +1,8 @@
 """
 El objetivo del modulo es centralizar las funcionalidades de usuarios para los administrativos
 
-Altas, bajas de alumnos y profesores
-lenguaje tecnico:
-crea un diccionario Alumno y lo añade a la lista
+El administrativo debe poder:
+Dar de alta y baja alumnos y profesores, asi como también cambiar la contraseña de ingreso
 
 Consideraciones:
 Al generar cualquier alta o baja, añade o elimina el legajo en la base CREDENCIALES
@@ -11,8 +10,8 @@ Al generar cualquier alta o baja, añade o elimina el legajo en la base CREDENCI
 
 import colorama
 from entidades.datos import CREDENCIALES, ALUMNOS_DB, PROFESORES_DB
-from entidades.utils.pantalla import limpiar_pantalla
-from entidades.utils.credenciales import crear_clave, imprimir_credenciales
+from utils.pantalla import limpiar_pantalla
+from utils.credenciales import crear_clave, imprimir_credenciales
 
 
 def alta_alumno():

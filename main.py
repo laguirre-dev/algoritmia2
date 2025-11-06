@@ -1,8 +1,9 @@
 from entidades.alumno.menuAlumno import menuAlumno
 from entidades.profesor.menuProfesor import menuProfesor
-from entidades.administrativo.menu import menuAdministrativo
+from entidades.administrativo.menuAdministrativo import menuAdministrativo
 import utils.pantalla as headers
 import utils.credenciales as credenciales
+from persistencia.logica import cargar_datos_json, guardar_datos_json
 
 def mostrarMenu():
     headers.header("SISTEMA DE GESTIÓN DE ALUMNOS")
@@ -73,4 +74,6 @@ def main():
     input(headers.Fore.WHITE + "Presione Enter para salir")
 
 if __name__ == "__main__":
+    cargar_datos_json()
     main()
+    guardar_datos_json()
