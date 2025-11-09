@@ -10,7 +10,7 @@ def menuOpciones(legajoAlumno):
     
     headers.header("MENÚ ALUMNO")
     
-    print(headers.Fore.GREEN + f"¡Bienvenido Alumno {buscar.buscarAlumnoPorLegajoNombreYApellido(legajoAlumno)} !\n")
+    print(headers.Fore.MAGENTA + f"¡Bienvenido Alumno {buscar.buscarAlumnoPorLegajoNombreYApellido(legajoAlumno)} !\n")
     
     print(headers.Fore.GREEN + "1. Gestiones alumno")
     print(headers.Fore.GREEN + "2. Visualizar información")
