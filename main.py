@@ -23,7 +23,7 @@ def main():
 
         while intentos < 3 and not validacion:
             try:
-                legajo = int(input(headers.Fore.WHITE + "Por favor, coloque su Legajo: "))
+                legajo = int(input(headers.Fore.WHITE + "Por favor, coloque su legajo: "))
             except ValueError:
                 print(headers.Fore.RED + "El legajo debe ser numérico.")
                 intentos += 1
@@ -42,11 +42,9 @@ def main():
             try:
                 if rol == "alumno":
                     headers.limpiarTerminal()
-                    headers.header("MENÚ ALUMNO")
                     menuAlumno(legajo)
                 elif rol == "profesor":
                     headers.limpiarTerminal()
-                    headers.header("MENÚ PROFESOR")
                     menuProfesor(legajo)
                 elif rol == "administrativo":
                     headers.limpiarTerminal()

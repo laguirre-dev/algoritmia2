@@ -1,1 +1,0 @@
-legajo: 104 | nombre: Luciano | apellido: Aguirre | curso: PY1
