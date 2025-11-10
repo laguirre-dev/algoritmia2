@@ -3,7 +3,7 @@ from utils import pantalla as headers
 from utils import busquedas as busqueda
 from reportes import generador_de_reportes  
 
-def generarReporteDeCursosAlumno(legajoAlumno):
+def generarReporteDeCursosInscriptoAlumno(legajoAlumno):
     alumno = busqueda.buscarAlumnoPorLegajo(legajoAlumno)
     if not alumno:
         print(headers.Fore.RED + "Alumno inexistente.")
@@ -26,5 +26,5 @@ def generarReporteDeCursosAlumno(legajoAlumno):
                 "Estado": estado
             })
             
-    generador_de_reportes.guardarReporte(f"alumno_{legajoAlumno}_cursos", cursosReporte, "txt")
+    generador_de_reportes.guardarReporte(f"alumno_{legajoAlumno}_cursos", cursosReporte)
 
