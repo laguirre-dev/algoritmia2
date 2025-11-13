@@ -15,7 +15,7 @@ def guardarReporte(nombre_archivo, contenido):
     """
     try:
         ruta = os.path.join(RUTA_REPORTES, f"{nombre_archivo}.txt")
-        with open(ruta, "w", encoding="utf-8") as f:
+        with open(ruta, "w") as f:
             for item in contenido:
                 linea = " | ".join([f"{k}: {v}" for k, v in item.items()])
                 f.write(linea + "\n")

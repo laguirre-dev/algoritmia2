@@ -52,7 +52,7 @@ def diaDeExamen(legajoProfesor):
     fecha = datetime.now().strftime("%Y%m%d")
     nombreReporte = f"Evaluados_{fecha}_{legajoProfesor}"
     try:
-        generador_de_reportes.guardarReporte(nombreReporte, alumnosEvaluados, "txt")
+        generador_de_reportes.guardarReporte(nombreReporte, alumnosEvaluados)
         print(headers.Fore.GREEN + f"Reporte '{nombreReporte}' generado correctamente.")
         return True
     except Exception as e:

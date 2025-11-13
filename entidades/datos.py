@@ -12,11 +12,12 @@ from database.logica import pathDatos, convertir_lista_tupla
 from utils import pantalla
 import time
 
-ALUMNOS_DB = []
-PROFESORES_DB = []
-CURSOS_DB = []
-CUOTAS_PENDIENTES = []
-CREDENCIALES = []
+# Se tiene que sacar
+# ALUMNOS_DB = []
+# PROFESORES_DB = []
+# CURSOS_DB = []
+# CUOTAS_PENDIENTES = []
+# CREDENCIALES = []
 
 
 def cargar_datos_json():

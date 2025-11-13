@@ -13,6 +13,9 @@ def consultarPagos(legajoAlumno):
     if not alumno:
         print(Fore.RED + "Alumno no encontrado.")
         return
+    
+    if datos.CUOTAS_PENDIENTES is None:
+        datos.CUOTAS_PENDIENTES = []
 
     pendientes = [c for c in datos.CUOTAS_PENDIENTES if c["legajo"] == legajoAlumno]
     headers.header("CONSULTA DE PAGOS")
