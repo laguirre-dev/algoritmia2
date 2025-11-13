@@ -7,16 +7,15 @@ RUTA_REPORTES = os.path.join(os.path.dirname(__file__), "archivos")
 if not os.path.exists(RUTA_REPORTES):
     os.makedirs(RUTA_REPORTES)
 
-def guardarReporte(nombre_archivo, contenido, tipo = "json"):
+def guardarReporte(nombre_archivo, contenido):
     """
     Guarda un reporte en la carpeta de reportes.
     - nombre_archivo: nombre base del archivo (sin extensión)
     - contenido: lista de diccionarios con los datos
-    - tipo: 'json' o 'txt'
     """
     try:
         ruta = os.path.join(RUTA_REPORTES, f"{nombre_archivo}.txt")
-        with open(ruta, "w") as f:
+        with open(ruta, "w", encoding="utf-8") as f:
             for item in contenido:
                 linea = " | ".join([f"{k}: {v}" for k, v in item.items()])
                 f.write(linea + "\n")

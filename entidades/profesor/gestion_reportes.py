@@ -20,7 +20,7 @@ def generarReporteDeCursosAlumno(legajoProfesor):
                 "cursos": [idC for (idC, _) in alumno["cursos"]]
             })
 
-    generador_de_reportes.guardarReporte(f"alumnos_{legajoProfesor}", alumnosReporte, "txt")
+    generador_de_reportes.guardarReporte(f"alumnos_{legajoProfesor}", alumnosReporte)
 
 
 def generarReporteDeAlumnosAprobados(legajoProfesor):
@@ -40,7 +40,7 @@ def generarReporteDeAlumnosAprobados(legajoProfesor):
                             "curso": idC
                         })
 
-    generador_de_reportes.guardarReporte(f"aprobados_{legajoProfesor}", alumnosAprobados, "txt")
+    generador_de_reportes.guardarReporte(f"aprobados_{legajoProfesor}", alumnosAprobados)
 
 
 def generarReporteDeCursos(legajoProfesor):
@@ -52,7 +52,7 @@ def generarReporteDeCursos(legajoProfesor):
             "id": curso["id"],
             "nombre": curso["nombre"],
             "aula": curso["aula"],
-            "cantidad_alumnos": len(curso.get("alumnos", []))
+            "cantidad alumnos": len(curso.get("alumnos", []))
         })
 
-    generador_de_reportes.guardarReporte(f"cursos_{legajoProfesor}", cursosReporte, "txt")
+    generador_de_reportes.guardarReporte(f"cursos_{legajoProfesor}", cursosReporte)

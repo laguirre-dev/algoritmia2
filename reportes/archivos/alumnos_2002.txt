@@ -1,2 +1,0 @@
-legajo: 104 | nombre: Luciano | apellido: Aguirre | cursos: ['BD1', 'PY1']
-legajo: 103 | nombre: Nacho | apellido: Bonavoglia | cursos: ['PROG2', 'BD1']
