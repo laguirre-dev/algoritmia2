@@ -67,10 +67,10 @@ def opcionesPrincipal():
 
 def opcionesAdministrativoPrincipal():
     header("| MENÚ ADMINISTRATIVO |")
-    green_text("1. Ver todas las credenciales de los usuarios")
-    green_text("2. Gestion de Usuarios")
-    green_text("3. Gestion de Cursos")
-    green_text("4. Gestion de Pagos")
+    green_text("1. Ver todas las credenciales de los usuarios") # y generar archivo
+    green_text("2. Gestion de Usuarios") # genera profesor o alumno y restablecer credenciales 
+    green_text("3. Gestion de Cursos") # alta/baja cursos
+    green_text("4. Gestion de Pagos") # Agrega cuotas con la condicion de que no se pueda agregar la misma cuota si ya esta creada. Generar reporte de Deudores. 
     red_text("0. Volver al menú principal")
     return
 
