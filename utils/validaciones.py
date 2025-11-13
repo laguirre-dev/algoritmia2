@@ -18,7 +18,7 @@ def valida_login():
     reintentar = False
     while intentos < 3 and not validacion and not reintentar:
         try:
-            legajo = int(input("Por favor, coloque su Legajo: "))
+            legajo = int(input("Por favor, coloque su legajo: "))
         except ValueError:
             pantalla.red_text("El legajo debe ser numérico.")
             intentos += 1
