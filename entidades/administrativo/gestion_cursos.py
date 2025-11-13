@@ -7,9 +7,6 @@ Reportes sobre materias (cantidad de alumnos, cupos por materia)
 """
 
 
-############
-# MATERIAS #
-############
 def alta_materia():
     print("En desarrollo...")
     return
@@ -25,9 +22,6 @@ def modificar_materia():
     return
 
 
-############
-# PROFESOR #
-############
 def asignar_profesor():
     print("En desarrollo...")
     return
@@ -38,9 +32,6 @@ def desasignar_profesor():
     return
 
 
-############
-# REPORTES #
-############
 def cantidad_alumnos():
     print("En desarrollo...")
     return
@@ -48,4 +39,7 @@ def cantidad_alumnos():
 
 def cupos_materia():
     print("En desarrollo...")
+    return
+
+def menu_gestion_curso():
     return

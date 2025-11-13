@@ -1,4 +1,4 @@
-from entidades import datos as datos
+import entidades.datos as datos
 from utils import pantalla as headers
 from utils import busquedas as buscar
 from . import gestion_accion
