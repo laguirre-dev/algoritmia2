@@ -2,6 +2,7 @@ from entidades import datos as datos
 from utils import pantalla as headers
 from utils import busquedas as busqueda
 
+
 def inscribirEnCurso(legajo, idCurso):
     alumno, curso = busqueda.validarAlumnoYCurso(legajo, idCurso)
     if not alumno or not curso:
@@ -17,6 +18,7 @@ def inscribirEnCurso(legajo, idCurso):
 
     print(headers.Fore.GREEN + f"Inscripción exitosa a {curso['nombre']}.")
     return True
+
 
 def darseDeBaja(legajo, idCurso):
     alumno, curso = busqueda.validarAlumnoYCurso(legajo, idCurso)

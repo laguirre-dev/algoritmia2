@@ -7,7 +7,11 @@ def inserta_usuario(datos_usuario, base_de_datos):
     """
     Genera un alumno o profesor segun el rol y la base de datos recibida
     """
-    legajo, nombre, apellido, rol = datos_usuario
+    try:
+        legajo, nombre, apellido, rol = datos_usuario
+    except Exception as e:
+        print("Faltan datos para crear credenciales, {e}")
+        return False
     if rol == "alumno":
         usuario = {
             "legajo": legajo,
@@ -26,26 +30,30 @@ def inserta_usuario(datos_usuario, base_de_datos):
     try:
         base_de_datos.append(usuario)
         pantalla.header("USUARIO REGISTRADO CON EXITO")
-        pantalla.imprime_datos(usuario)
+        return True
     except Exception as e:
         print(e)
-    return
+        return False
 
 
 def inserta_credenciales(datos_usuario):
     """
     Crea credenciales nuevas segun el rol y los datos del usuario
     """
-    legajo, nombre, apellido, rol = datos_usuario
+    try:
+        legajo, nombre, apellido, rol = datos_usuario
+    except Exception as e:
+        print("Faltan datos para crear credenciales, {e}")
+        return False
     clave = credenciales.crear_clave(legajo, nombre, apellido)
     credencial_creada = {"legajo": legajo, "clave": clave, "rol": rol}
     try:
         datos.CREDENCIALES.append(credencial_creada)
         pantalla.header("CREDENCIALES CREADAS CON EXITO")
-        pantalla.imprime_datos(credencial_creada)
+        return True
     except Exception as e:
         print(e)
-    return
+        return False
 
 
 def registrar_usuario(rol):
@@ -64,6 +72,7 @@ def registrar_usuario(rol):
         inserta_usuario(usuario, datos.PROFESORES_DB)
         inserta_credenciales(usuario)
     return
+
 
 def menu_gestion_alumnos():
     return
