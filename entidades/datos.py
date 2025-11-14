@@ -34,7 +34,7 @@ def cargar_datos_json():
             CURSOS_DB = datos_maestros.get("CURSOS_BD")
             CUOTAS_PENDIENTES = datos_maestros.get("CUOTAS_PENDIENTES")
             CREDENCIALES = datos_maestros.get("CREDENCIALES")
-            pantalla.yellow_text("Datos cargados en la base de datos con exito...")
+            pantalla.yellowText("Datos cargados en la base de datos con exito...")
         time.sleep(2)
         return
     except Exception as e:
@@ -58,7 +58,7 @@ def guardar_datos_json():
         with open(pathDatos, "w") as archivo:
             json_maestro = json.dumps(datos_maestro)
             archivo.write(json_maestro)
-        pantalla.yellow_text("Datos guardados en la base de datos con exito...")
+        pantalla.yellowText("Datos guardados en la base de datos con exito...")
     except Exception as e:
         pantalla.redText("Error al guardar los datos en la base de datos...")
         print(e)

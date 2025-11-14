@@ -3,7 +3,7 @@ import entidades.datos as datos
 from utils import credenciales, pantalla
 
 
-def inserta_usuario(datos_usuario, base_de_datos):
+def insertaUsuario(datos_usuario, base_de_datos):
     """
     Genera un alumno o profesor segun el rol y la base de datos recibida
     """
@@ -36,7 +36,7 @@ def inserta_usuario(datos_usuario, base_de_datos):
         return False
 
 
-def inserta_credenciales(datos_usuario):
+def insertaCredenciales(datos_usuario):
     """
     Crea credenciales nuevas segun el rol y los datos del usuario
     """
@@ -45,7 +45,7 @@ def inserta_credenciales(datos_usuario):
     except Exception as e:
         print("Faltan datos para crear credenciales, {e}")
         return False
-    clave = credenciales.crear_clave(legajo, nombre, apellido)
+    clave = credenciales.crearClave(legajo, nombre, apellido)
     credencial_creada = {"legajo": legajo, "clave": clave, "rol": rol}
     try:
         datos.CREDENCIALES.append(credencial_creada)
@@ -56,7 +56,7 @@ def inserta_credenciales(datos_usuario):
         return False
 
 
-def registrar_usuario(rol):
+def registrarUsuario(rol):
     """
     Realiza el registro de un usuario usando funciones externas de insertar usuario y credenciales
     """
@@ -66,13 +66,13 @@ def registrar_usuario(rol):
     apellido = input("Ingrese el Apellido del ingresante: ")
     usuario = (legajo, nombre, apellido, rol)
     if rol == "alumno":
-        inserta_usuario(usuario, datos.ALUMNOS_DB)
-        inserta_credenciales(usuario)
+        insertaUsuario(usuario, datos.ALUMNOS_DB)
+        insertaCredenciales(usuario)
     else:
-        inserta_usuario(usuario, datos.PROFESORES_DB)
-        inserta_credenciales(usuario)
+        insertaUsuario(usuario, datos.PROFESORES_DB)
+        insertaCredenciales(usuario)
     return
 
 
-def menu_gestion_alumnos():
+def menuGestionUsuarios():
     return

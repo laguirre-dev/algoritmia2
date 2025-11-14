@@ -2,7 +2,7 @@ from entidades import datos
 import utils.pantalla as headers
 
 
-def crear_clave(legajo, nombre, apellido):
+def crearClave(legajo, nombre, apellido):
     parte1 = str(legajo)
     parte2 = nombre[0].upper()
     parte3 = apellido.lower()

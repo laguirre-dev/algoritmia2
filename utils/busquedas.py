@@ -58,7 +58,7 @@ def buscarProfesorPorLegajo(legajo_profesor):
     return f"Profesor con legajo {legajo_profesor} no encontrado"
 
 
-def buscar_materia():
+def buscarMateria():
     print("En desarrollo...")
     return None
 
@@ -73,6 +73,6 @@ def buscarCursoPorId(idCurso):
     return None
 
 
-def buscar_pagos():
+def buscarPagos():
     print("En desarrollo...")
     return

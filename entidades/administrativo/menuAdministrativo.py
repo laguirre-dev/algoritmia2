@@ -4,12 +4,12 @@ from . import gestion_cursos, gestion_pagos, gestion_usuarios
 from colorama import Fore
 
 def muestraCredenciales():
-    pantalla.imprime_datos(datos.CREDENCIALES)
+    pantalla.imprimeDatos(datos.CREDENCIALES)
 
 
 logica_seleccion_menu = {
     1: muestraCredenciales,
-    2: gestion_usuarios.menu_gestion_alumnos,
+    2: gestion_usuarios.menuGestionUsuarios,
     3: gestion_cursos.menu_gestion_curso,
     4: gestion_pagos.menu_gestion_pagos,
 }
@@ -32,10 +32,10 @@ def asignarCursoAProfesor(legajoProf):
             nombreProf = (
                 f"{prof['nombre']} {prof['apellido']}" if prof else "Sin asignar"
             )
-            pantalla.yellow_text(
+            pantalla.yellowText(
                 f"{curso['id']} - {curso['nombre']} (Profesor: {nombreProf})"
             )
-        idCurso = input(pantalla.bold_text("Ingrese el ID del curso a asignar: "))
+        idCurso = input(pantalla.boldText("Ingrese el ID del curso a asignar: "))
         cursoEncontrado = next((c for c in datos.CURSOS_DB if c["id"] == idCurso), None)
         if not cursoEncontrado:
             pantalla.redText("Curso no encontrado.")

@@ -2,17 +2,17 @@ from utils import pantalla, credenciales
 from time import sleep
 
 
-def valida_opcion(opciones_permitidas):
+def validaOpcion(opciones_permitidas):
     opcion = 0
     while opcion not in opciones_permitidas:
         try:
-            opcion = int(input(pantalla.bold_text("Seleccione una opción: ")))
+            opcion = int(input(pantalla.boldText("Seleccione una opción: ")))
         except ValueError:
-            pantalla.yellow_text("Opción no válida. Intente nuevamente.\n")
+            pantalla.yellowText("Opción no válida. Intente nuevamente.\n")
     return opcion
 
 
-def valida_login():
+def validaLogin():
     intentos = 0
     validacion, rol, legajo = False, False, False
     reintentar = False

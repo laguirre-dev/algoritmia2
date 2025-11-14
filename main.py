@@ -14,9 +14,9 @@ redireccion_menu = {
 
 
 def main():
-    seleccion = pantalla.mostrar_menu("principal", opciones_permitidas)
+    seleccion = pantalla.mostrarMenu("principal", opciones_permitidas)
     while seleccion != 2:
-        validacion, rol, legajo = validaciones.valida_login()
+        validacion, rol, legajo = validaciones.validaLogin()
         if validacion:
             try:
                 redireccion_menu[rol](legajo)
@@ -24,11 +24,11 @@ def main():
                 pantalla.redText(f"Error al redirigir al menu: {e}")
                 sleep(2)
         else:
-            pantalla.yellow_text(
+            pantalla.yellowText(
                 "Ha superado el límite de intentos. Volviendo al menú principal..."
             )
             sleep(2)
-        seleccion = pantalla.mostrar_menu("principal", opciones_permitidas)
+        seleccion = pantalla.mostrarMenu("principal", opciones_permitidas)
     pantalla.redText("Saliendo del sistema...")
     datos.guardar_datos_json()
     sleep(2)
