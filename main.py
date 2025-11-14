@@ -12,7 +12,6 @@ redireccion_menu = {
     "administrativo": administrativo.menuAdministrativo,
 }
 
-
 def main():
     seleccion = pantalla.mostrarMenu("principal", opciones_permitidas)
     while seleccion != 2:

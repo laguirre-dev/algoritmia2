@@ -1,1 +1,0 @@
-Id: AED1 | Nombre: Algoritmos y Estructuras de Datos I | Aula: Aula 101 | Profesor: Juan Lopez | Estado: Desaprobado

@@ -6,12 +6,11 @@ from colorama import Fore
 def muestraCredenciales():
     pantalla.imprimeDatos(datos.CREDENCIALES)
 
-
 logica_seleccion_menu = {
     1: muestraCredenciales,
-    2: gestion_usuarios.menuGestionUsuarios,
-    3: gestion_cursos.menu_gestion_curso,
-    4: gestion_pagos.menu_gestion_pagos,
+    2: gestion_usuarios.menuGestionUsuarios
+    # 3: gestion_cursos.menu_gestion_curso,
+    # 4: gestion_pagos.menu_gestion_pagos,
 }
 
 
@@ -80,7 +79,9 @@ def aprobarPago():
 
 
 def menuAdministrativo(legajo):
-    """Muestra el menú de opciones para un Administrativo."""
+    """
+    Muestra el menú de opciones para un Administrativo.
+    """
     pantalla.greenText(f"Hola administrativo: {legajo}")
     pantalla.opcionesAdministrativoPrincipal()
     opcion = int(input("Elija una opcion del menu para continuar: "))
