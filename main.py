@@ -21,7 +21,7 @@ def main():
             try:
                 redireccion_menu[rol](legajo)
             except Exception as e:
-                pantalla.red_text(f"Error al redirigir al menu: {e}")
+                pantalla.redText(f"Error al redirigir al menu: {e}")
                 sleep(2)
         else:
             pantalla.yellow_text(
@@ -29,7 +29,7 @@ def main():
             )
             sleep(2)
         seleccion = pantalla.mostrar_menu("principal", opciones_permitidas)
-    pantalla.red_text("Saliendo del sistema...")
+    pantalla.redText("Saliendo del sistema...")
     datos.guardar_datos_json()
     sleep(2)
 

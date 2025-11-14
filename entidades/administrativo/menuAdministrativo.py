@@ -3,12 +3,12 @@ from utils import pantalla
 from . import gestion_cursos, gestion_pagos, gestion_usuarios
 from colorama import Fore
 
-def muestra_credenciales():
+def muestraCredenciales():
     pantalla.imprime_datos(datos.CREDENCIALES)
 
 
 logica_seleccion_menu = {
-    1: muestra_credenciales,
+    1: muestraCredenciales,
     2: gestion_usuarios.menu_gestion_alumnos,
     3: gestion_cursos.menu_gestion_curso,
     4: gestion_pagos.menu_gestion_pagos,
@@ -38,23 +38,25 @@ def asignarCursoAProfesor(legajoProf):
         idCurso = input(pantalla.bold_text("Ingrese el ID del curso a asignar: "))
         cursoEncontrado = next((c for c in datos.CURSOS_DB if c["id"] == idCurso), None)
         if not cursoEncontrado:
-            pantalla.red_text("Curso no encontrado.")
+            pantalla.redText("Curso no encontrado.")
             return
         cursoEncontrado["profesor"] = profesorEncontrado["legajo"]
         if cursoEncontrado["id"] not in profesorEncontrado["materias"]:
             profesorEncontrado["materias"].append(cursoEncontrado["id"])
-        pantalla.green_text(
+        pantalla.greenText(
             f"Curso {cursoEncontrado['nombre']} asignado al profesor {profesorEncontrado['nombre']}."
         )
     else:
-        pantalla.red_text(
+        pantalla.redText(
             "No hay cursos disponibles. Por favor ingresar un curso primero."
         )
         return
 
 
 def aprobarPago():
-    """Aprueba el pago de un alumno (mueve de pendientes a pagadas)."""
+    """
+    Aprueba el pago de un alumno (mueve de pendientes a pagadas).
+    """
     pantalla.header("APROBAR PAGO")
     legajo = int(input(Fore.WHITE + "Ingrese el legajo del alumno: "))
     cuotas = [c for c in datos.CUOTAS_PENDIENTES if c["legajo"] == legajo]
@@ -79,7 +81,7 @@ def aprobarPago():
 
 def menuAdministrativo(legajo):
     """Muestra el menú de opciones para un Administrativo."""
-    pantalla.green_text(f"Hola administrativo: {legajo}")
+    pantalla.greenText(f"Hola administrativo: {legajo}")
     pantalla.opcionesAdministrativoPrincipal()
     opcion = int(input("Elija una opcion del menu para continuar: "))
     try:

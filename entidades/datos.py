@@ -37,7 +37,7 @@ def cargar_datos_json():
         time.sleep(2)
         return
     except Exception as e:
-        pantalla.red_text(e)
+        pantalla.redText(e)
         time.sleep(2)
         return
 
@@ -59,7 +59,7 @@ def guardar_datos_json():
             archivo.write(json_maestro)
         pantalla.yellow_text("Datos guardados en la base de datos con exito...")
     except Exception as e:
-        pantalla.red_text("Error al guardar los datos en la base de datos...")
+        pantalla.redText("Error al guardar los datos en la base de datos...")
         print(e)
 
 

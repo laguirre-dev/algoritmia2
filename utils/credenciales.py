@@ -13,5 +13,5 @@ def login(legajo, clave):
     for credencial in datos.CREDENCIALES:
         if credencial["legajo"] == legajo and credencial["clave"] == clave:
             return True, credencial["rol"]
-    headers.red_text("Credenciales incorrectas. Intentelo nuevamente.")
+    headers.redText("Credenciales incorrectas. Intentelo nuevamente.")
     return False, False

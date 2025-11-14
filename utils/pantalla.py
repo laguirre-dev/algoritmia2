@@ -23,14 +23,14 @@ def header(titulo):
     return
 
 
-def green_text(texto):
+def greenText(texto):
     """
     Imprime mensaje de color verde en consola
     """
     return print(Fore.GREEN + texto)
 
 
-def red_text(texto):
+def redText(texto):
     """
     Imprime mensaje de color rojo en consola
     """
@@ -60,18 +60,18 @@ def imprime_datos(datos):
 def opcionesPrincipal():
     print("")
     header("| SISTEMA DE GESTIÓN DE ALUMNOS |")
-    green_text("1. Iniciar sesión")
-    red_text("2. Salir del programa")
+    greenText("1. Iniciar sesión")
+    redText("2. Salir del programa")
     print("")
 
 
 def opcionesAdministrativoPrincipal():
     header("| MENÚ ADMINISTRATIVO |")
-    green_text("1. Ver todas las credenciales de los usuarios") # y generar archivo
-    green_text("2. Gestion de Usuarios") # genera profesor o alumno y restablecer credenciales 
-    green_text("3. Gestion de Cursos") # alta/baja cursos
-    green_text("4. Gestion de Pagos") # Agrega cuotas con la condicion de que no se pueda agregar la misma cuota si ya esta creada. Generar reporte de Deudores. 
-    red_text("0. Volver al menú principal")
+    greenText("1. Ver todas las credenciales de los usuarios") # y generar archivo
+    greenText("2. Gestion de Usuarios") # genera profesor o alumno y restablecer credenciales 
+    greenText("3. Gestion de Cursos") # alta/baja cursos
+    greenText("4. Gestion de Pagos") # Agrega cuotas con la condicion de que no se pueda agregar la misma cuota si ya esta creada. Generar reporte de Deudores. 
+    redText("0. Volver al menú principal")
     return
 
 def opcionesAlumnoPrincipal(): return

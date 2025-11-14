@@ -20,14 +20,14 @@ def valida_login():
         try:
             legajo = int(input("Por favor, coloque su Legajo: "))
         except ValueError:
-            pantalla.red_text("El legajo debe ser numérico.")
+            pantalla.redText("El legajo debe ser numérico.")
             intentos += 1
             reintentar = True
         clave = input("Por favor, escriba su clave para ingresar: ")
         try:
             validacion, rol = credenciales.login(legajo, clave)
         except Exception as e:
-            pantalla.red_text(f"Error en la validación: {e}")
+            pantalla.redText(f"Error en la validación: {e}")
             validacion, rol = False, False
         intentos += 1
     return validacion, rol, legajo
