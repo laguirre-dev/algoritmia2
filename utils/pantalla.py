@@ -1,7 +1,7 @@
 import os
 from colorama import init, Fore, Style
 from tabulate import tabulate
-from utils import validaciones
+import entidades.datos as datos
 
 init(autoreset=True)
 
@@ -57,6 +57,10 @@ def imprimeDatos(datos):
     return
 
 
+def muestraCredenciales():
+    imprimeDatos(datos.CREDENCIALES)
+
+
 def opcionesPrincipal():
     print("")
     header("| SISTEMA DE GESTIÓN DE ALUMNOS |")
@@ -65,43 +69,41 @@ def opcionesPrincipal():
     print("")
 
 
-########### ADMINISTRATIVO
-
-
+# -- Administrativo: Principal -- #
 def opcionesAdministrativoPrincipal():
     header("| MENÚ ADMINISTRATIVO |")
-    greenText("1. Ver todas las credenciales de los usuarios")
-    greenText("2. Gestion de Usuarios")
-    greenText("3. Gestion de Cursos")
-    greenText("4. Gestion de Pagos")
-    redText("0. Volver al menú principal")
+    greenText("1. Gestion de Usuarios")
+    greenText("2. Gestion de Cursos")
+    greenText("3. Gestion de Pagos")
+    redText("4. Volver al menú principal")
     return
 
 
+# -- Administrativo: Gestion de Usuarios -- #
 def opcionesAdministrativoUsuarios():
     header("| GESTION DE USUARIOS |")
     greenText("1. Agregar Alumno")
     greenText("2. Agregar Profesor")
     greenText("3. Restableecer credenciales")  # se le pasa legajo
-    redText("4. Volver al menú principal")
+    redText("4. Volver al menú anterior")
 
 
+# -- Administrativo: Gestion de Cursos -- #
 def opcionesAdministrativoCursos():
     header("| GESTION DE CURSOS |")
-    greenText("1. Agregar Curso") # no se puede repetir idCurso
-    greenText("2. Eliminar Curso") # se le pasa id
-    greenText("3. Generar reporte de Cursos") # apunta a la lista CURSOS
-    redText("4. Volver al menú principal")
+    greenText("1. Agregar Curso")  # no se puede repetir idCurso
+    greenText("2. Eliminar Curso")  # se le pasa id
+    greenText("3. Asignar Profesor a Curso")  # se le pasa legajo
+    greenText("4. Generar reporte de Cursos")  # apunta a la lista CURSOS
+    redText("5. Volver al menú anterior")
 
 
+# -- Administrativo: Gestion de Pagos -- #
 def opcionesAdministrativoPagos():
     header("| GESTION DE PAGOS |")
-    greenText("1. Sumar Pago Pendiente") # legajo, cuota 
-    greenText("2. Generar reporte de Deudores") # apunta a la lista CUOTAS_PENDIENTES
-    redText("3. Volver al menú principal")
-
-
-########### ADMINISTRATIVO
+    greenText("1. Sumar Pago Pendiente")  # legajo, cuota
+    greenText("2. Generar reporte de Deudores")  # apunta a la lista CUOTAS_PENDIENTES
+    redText("3. Volver al menú anterior")
 
 
 def opcionesAlumnoPrincipal():
@@ -110,21 +112,3 @@ def opcionesAlumnoPrincipal():
 
 def opcionesProfesorPrincipal():
     return
-
-
-menuSegunRol = {
-    "principal": opcionesPrincipal,
-    "alumno": opcionesAlumnoPrincipal,
-    "profesor": opcionesProfesorPrincipal,
-    "administrativo": opcionesAdministrativoPrincipal,
-    "admin_usuarios": opcionesAdministrativoUsuarios,
-    "admin_cursos": opcionesAdministrativoCursos,
-    "admin_pagos": opcionesAdministrativoPagos,
-}
-
-
-def mostrarMenu(tipo, opciones):
-    limpiarTerminal()
-    menuSegunRol[tipo]()
-    opcion = validaciones.validaOpcion(opciones)
-    return opcion

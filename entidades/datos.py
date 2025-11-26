@@ -1,15 +1,5 @@
-# Base de datos en memoria para el Sistema de Gestión de Alumnos, para que en un futuro tengamos que solo modificar estos datos.
-"""
-Estructura de cada entidad:
-alumno: legajo, nombre, apellido, activo, pagos_pendientes, materias => alumno -> pago -> pago_pendiente -> administrativo
-profesor: legajo, nombre, apellido, activo, materias_asignadas => profesor -> nota -> alumno.materias
-materia: id, nombre, profesor, aula, alumnos
-pagos_pendientes: alumno, materia, monto
-credenciales: legajo, clave, rol
-"""
 import json
 from database.logica import pathDatos, convertir_lista_tupla
-from utils import pantalla
 import time
 
 # Se tiene que sacar
@@ -34,7 +24,7 @@ def cargar_datos_json():
             CURSOS_DB = datos_maestros.get("CURSOS_BD")
             CUOTAS_PENDIENTES = datos_maestros.get("CUOTAS_PENDIENTES")
             CREDENCIALES = datos_maestros.get("CREDENCIALES")
-            pantalla.yellowText("Datos cargados en la base de datos con exito...")
+            print("Datos cargados en la base de datos con exito...")
         time.sleep(2)
         return
     except Exception as e:
@@ -58,9 +48,9 @@ def guardar_datos_json():
         with open(pathDatos, "w") as archivo:
             json_maestro = json.dumps(datos_maestro)
             archivo.write(json_maestro)
-        pantalla.yellowText("Datos guardados en la base de datos con exito...")
+        print("Datos guardados en la base de datos con exito...")
     except Exception as e:
-        pantalla.redText("Error al guardar los datos en la base de datos...")
+        print("Error al guardar los datos en la base de datos...")
         print(e)
 
 

@@ -1,5 +1,4 @@
 from utils import pantalla, credenciales
-from time import sleep
 
 
 def validaOpcion(opciones_permitidas):
