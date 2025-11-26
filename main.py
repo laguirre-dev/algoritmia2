@@ -10,7 +10,6 @@ redireccion_menu = {
     "administrativo": administrativo.menuAdministrativo,
 }
 
-
 def main():
     pantalla.opcionesPrincipal()
     opcion = validaciones.validaOpcion(opciones_permitidas)

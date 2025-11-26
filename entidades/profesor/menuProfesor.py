@@ -6,6 +6,13 @@ from . import gestion_evaluar
 from . import gestion_reportes
 from . import gestion_gestiones
 
+logica_seleccion_menu = {
+    1: muestraCredenciales,
+    2: gestion_usuarios.menuGestionUsuarios
+    # 3: gestion_cursos.menu_gestion_curso,
+    # 4: gestion_pagos.menu_gestion_pagos,
+}
+
 def menuOpciones(legajoProfesor):
     
     headers.header("MENÚ PROFESOR")

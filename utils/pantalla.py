@@ -101,14 +101,111 @@ def opcionesAdministrativoCursos():
 # -- Administrativo: Gestion de Pagos -- #
 def opcionesAdministrativoPagos():
     header("| GESTION DE PAGOS |")
-    greenText("1. Sumar Pago Pendiente")  # legajo, cuota
-    greenText("2. Generar reporte de Deudores")  # apunta a la lista CUOTAS_PENDIENTES
-    redText("3. Volver al menú anterior")
+    greenText("1. Sumar Pago Pendiente") # legajo, cuota 
+    greenText("2. Generar reporte de Deudores") # apunta a la lista CUOTAS_PENDIENTES
+    redText("3. Volver al menú principal")
 
 
-def opcionesAlumnoPrincipal():
-    return
+########### ALUMNO
+
+def opcionesAlumnoPrincipal(legajoAlumno):
+    """
+    Menú principal del Alumno.
+    """
+    header("| MENÚ ALUMNO |")
+
+    print(Fore.MAGENTA + f"¡Bienvenido Alumno {legajoAlumno} !\n") 
+    
+    print(greenText("1. Gestiones alumno"))
+    print(greenText("2. Visualizar información"))
+    print(greenText("3. Pagos"))
+    print(greenText("4. Generar reportes"))
+    print(redText("5. Volver al menú principal"))
 
 
-def opcionesProfesorPrincipal():
-    return
+def menuAccionesAlumno():
+    """
+    Submenú de Acciones del Alumno (Inscripción/Baja).
+    """
+    header("MENÚ ALUMNO - ACCIONES")
+    print(greenText("1. Inscribirse en un curso"))
+    print(greenText("2. Darse de baja de un curso"))
+    print(redText("3. Volver al menú alumno"))
+
+
+def menuVisualizarAlumno():
+    """
+    Submenú de Visualización del Alumno (Cursos/Aprobación).
+    """
+    header("| MENÚ ALUMNO - VISUALIZAR |")
+    print(greenText("1. Ver mis cursos"))
+    print(greenText("2. Ver estado de aprobación"))
+    print(redText("3. Volver al menú alumno"))
+
+
+def menuPagosAlumno():
+    """
+    Submenú de Pagos del Alumno (Consulta/Pago).
+    """
+    header("| MENÚ ALUMNO - PAGOS |")
+    print(greenText("1. Consultar pagos adeudados"))
+    print(greenText("2. Pagar cuotas adeudadas")) 
+    print(redText("3. Volver al menú alumno"))
+
+
+def menuGenerarReportesAlumno():
+    """
+    Submenú de Reportes del Alumno.
+    """
+    header("| MENÚ ALUMNO - REPORTES |")
+    print(greenText("1. Generar reporte de mis cursos inscriptos"))
+    print(redText("2. Volver al menú alumno"))
+
+
+########### PROFESOR
+
+def opcionesProfesorPrincipal(legajoProfesor):
+    """
+    Menú principal del Profesor.
+    """
+    header("| MENÚ PROFESOR |")
+
+    print(Fore.MAGENTA + f"¡Bienvenido Profesor {legajoProfesor} !\n") 
+    
+
+    print(greenText("1. Visualizar cursos y aulas"))
+    print(greenText("2. Aprobar o desaprobar alumnos"))
+    print(greenText("3. Generar reporte de alumnos"))
+    print(greenText("4. Mis gestiones"))
+    print(redText("5. Volver al menú principal"))
+
+
+def menuVisualizarProfesor():
+    """
+    Submenú de Visualización del Profesor (Alumnos y Cursos).
+    """
+    header("| MENÚ PROFESOR - ALUMNOS Y CURSOS |")
+    print(greenText("1. Mis cursos"))
+    print(greenText("2. Mis alumnos"))
+    print(greenText("3. Alumno Conocido"))
+    print(redText("4. Volver al menú profesor"))
+
+
+def menuGenerarReportesProfesor():
+    """
+    Submenú de Reportes del Profesor.
+    """
+    header("| MENÚ PROFESOR - REPORTES |")
+    print(greenText("1. Mis alumnos"))
+    print(greenText("2. Mis alumnos aprobados"))
+    print(greenText("3. Mis cursos"))
+    print(redText("4. Volver al menú profesor"))
+
+
+def menuGestionesProfesor():
+    """
+    Submenú de Gestiones del Profesor (Día de Examen).
+    """
+    header("| MENÚ PROFESOR - GESTIONES |")
+    print(greenText("1. Dia de Examen"))
+    print(redText("2. Volver al menú profesor"))

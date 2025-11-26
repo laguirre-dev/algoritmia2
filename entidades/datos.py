@@ -28,7 +28,7 @@ def cargar_datos_json():
         time.sleep(2)
         return
     except Exception as e:
-        pantalla.redText(e)
+        print(e)
         time.sleep(2)
         return
 

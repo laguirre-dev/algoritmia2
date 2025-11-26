@@ -11,7 +11,9 @@ logica_seleccion_menu = {
 
 
 def menuAdministrativo(legajo):
-    """Muestra el menú de opciones para un Administrativo."""
+    """
+    Muestra el menú de opciones para un Administrativo.
+    """
     pantalla.greenText(f"Hola administrativo: {legajo}")
     pantalla.opcionesAdministrativoPrincipal()
     opcion = validaciones.validaOpcion(logica_seleccion_menu.keys())
