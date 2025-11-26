@@ -1,0 +1,150 @@
+{
+    "ALUMNOS_BD": [
+        {
+            "legajo": 601,
+            "nombre": "Marcos",
+            "apellido": "Galperin",
+            "cursos": [
+                [
+                    "INF1",
+                    "Aprobado"
+                ],
+                [
+                    "FIS3",
+                    "Aprobado"
+                ]
+            ]
+        },
+        {
+            "legajo": 602,
+            "nombre": "Elon",
+            "apellido": "Musk",
+            "cursos": [
+                [
+                    "QUI1",
+                    "Desaprobado"
+                ],
+                [
+                    "INF1",
+                    "Aprobado"
+                ]
+            ]
+        },
+        {
+            "legajo": 603,
+            "nombre": "Satia",
+            "apellido": "Nadella",
+            "cursos": [
+                [
+                    "MAT3",
+                    "Desaprobado"
+                ]
+            ]
+        }
+    ],
+    "PROFESORES_BD": [
+        {
+            "legajo": 7001,
+            "nombre": "Marie",
+            "apellido": "Curie",
+            "materias": [
+                "FIS3",
+                "QUI1"
+            ]
+        },
+        {
+            "legajo": 7002,
+            "nombre": "Grace",
+            "apellido": "Hopper",
+            "materias": [
+                "INF1",
+                "MAT3"
+            ]
+        }
+    ],
+    "CURSOS_BD": [
+        {
+            "id": "FIS3",
+            "nombre": "F\u00edsica III (Electromagnetismo)",
+            "profesor": 7001,
+            "aula": "Lab Alta Tensi\u00f3n",
+            "alumnos": [
+                601
+            ]
+        },
+        {
+            "id": "QUI1",
+            "nombre": "Qu\u00edmica General",
+            "profesor": 7001,
+            "aula": "Lab Qu\u00edmica 2",
+            "alumnos": [
+                602
+            ]
+        },
+        {
+            "id": "INF1",
+            "nombre": "Inform\u00e1tica General",
+            "profesor": 7002,
+            "aula": "Lab Comp 1",
+            "alumnos": [
+                601,
+                602
+            ]
+        },
+        {
+            "id": "MAT3",
+            "nombre": "An\u00e1lisis Matem\u00e1tico III",
+            "profesor": 7002,
+            "aula": "Aula Magna",
+            "alumnos": [
+                603
+            ]
+        }
+    ],
+    "CUOTAS_PENDIENTES": [
+        {
+            "cuota_nro": 1,
+            "legajo": 602
+        },
+        {
+            "cuota_nro": 1,
+            "legajo": 603
+        },
+        {
+            "cuota_nro": 2,
+            "legajo": 603
+        }
+    ],
+    "CREDENCIALES": [
+        {
+            "legajo": 9999,
+            "clave": "adminITBA",
+            "rol": "administrativo"
+        },
+        {
+            "legajo": 7001,
+            "clave": "marie7001",
+            "rol": "profesor"
+        },
+        {
+            "legajo": 7002,
+            "clave": "grace7002",
+            "rol": "profesor"
+        },
+        {
+            "legajo": 601,
+            "clave": "marcos601",
+            "rol": "alumno"
+        },
+        {
+            "legajo": 602,
+            "clave": "elon602",
+            "rol": "alumno"
+        },
+        {
+            "legajo": 603,
+            "clave": "satia603",
+            "rol": "alumno"
+        }
+    ]
+}

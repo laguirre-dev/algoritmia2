@@ -41,7 +41,7 @@
                 ],
                 [
                     "BD1",
-                    "Desaprobado"
+                    "Aprobado"
                 ]
             ]
         },
@@ -56,7 +56,7 @@
                 ],
                 [
                     "PY1",
-                    "Desaprobado"
+                    "Aprobado"
                 ]
             ]
         },
@@ -228,11 +228,7 @@
             "alumnos": []
         }
     ],
-    "PAGOS_PENDIENTES": [
-        {
-            "cuota_nro": 1,
-            "legajo": 102
-        },
+    "CUOTAS_PENDIENTES": [
         {
             "cuota_nro": 2,
             "legajo": 102

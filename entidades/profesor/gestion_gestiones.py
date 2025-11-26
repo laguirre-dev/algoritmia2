@@ -6,7 +6,7 @@ from datetime import datetime
 
 def diaDeExamen(legajoProfesor):
     profesor = busqueda.buscarProfesorPorLegajo(legajoProfesor)
-    cursosProfesor = list(filter(lambda c: c.get("profesor") == legajoProfesor, datos.CURSOS_DB))
+    cursosProfesor = list(filter(lambda c: c.get("profesor") == legajoProfesor, datos.sistema["CURSOS_BD"]))
     
     if not profesor:
         print(headers.Fore.RED + "Profesor inexistente.")

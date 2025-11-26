@@ -9,7 +9,7 @@ def muestra_credenciales():
 
 logica_seleccion_menu = {
     1: muestra_credenciales,
-    2: gestion_usuarios.menu_gestion_alumnos,
+    2: gestion_usuarios.menuGestionAlumnos,
     3: gestion_cursos.menu_gestion_curso,
     4: gestion_pagos.menu_gestion_pagos,
 }
@@ -17,7 +17,7 @@ logica_seleccion_menu = {
 
 def asignarCursoAProfesor(legajoProf):
     profesorEncontrado = next(
-        (p for p in datos.PROFESORES_DB if p["legajo"] == legajoProf), None
+        (p for p in datos.sistema["PROFESORES_DB"] if p["legajo"] == legajoProf), None
     )
     if not profesorEncontrado:
         print(Fore.RED + "Profesor no encontrado.")
@@ -26,7 +26,7 @@ def asignarCursoAProfesor(legajoProf):
         pantalla.header("CURSOS DISPONIBLES")
         for curso in datos.CURSOS_DB:
             prof = next(
-                (p for p in datos.PROFESORES_DB if p["legajo"] == curso["profesor"]),
+                (p for p in datos.sistema["PROFESORES_DB"] if p["legajo"] == curso["profesor"]),
                 None,
             )
             nombreProf = (
@@ -36,7 +36,7 @@ def asignarCursoAProfesor(legajoProf):
                 f"{curso['id']} - {curso['nombre']} (Profesor: {nombreProf})"
             )
         idCurso = input(pantalla.bold_text("Ingrese el ID del curso a asignar: "))
-        cursoEncontrado = next((c for c in datos.CURSOS_DB if c["id"] == idCurso), None)
+        cursoEncontrado = next((c for c in datos.sistema["CURSOS_DB"] if c["id"] == idCurso), None)
         if not cursoEncontrado:
             pantalla.red_text("Curso no encontrado.")
             return
@@ -57,7 +57,7 @@ def aprobarPago():
     """Aprueba el pago de un alumno (mueve de pendientes a pagadas)."""
     pantalla.header("APROBAR PAGO")
     legajo = int(input(Fore.WHITE + "Ingrese el legajo del alumno: "))
-    cuotas = [c for c in datos.CUOTAS_PENDIENTES if c["legajo"] == legajo]
+    cuotas = [c for c in datos.sistema["CUOTAS_PENDIENTES"] if c["legajo"] == legajo]
 
     if not cuotas:
         print(Fore.RED + "El alumno no tiene pagos pendientes.")
@@ -71,7 +71,7 @@ def aprobarPago():
     cuota = next((c for c in cuotas if c["cuota_nro"] == nro), None)
 
     if cuota:
-        datos.CUOTAS_PENDIENTES.remove(cuota)
+        datos.sistema["CUOTAS_PENDIENTES"].remove(cuota)
         print(Fore.GREEN + f"Pago de cuota N°{nro} aprobado para el alumno {legajo}.")
     else:
         print(Fore.RED + "Número de cuota inválido.")

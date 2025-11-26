@@ -1,9 +1,6 @@
 import os
 
-pathDatos = os.path.join(os.path.dirname(__file__), "datos.json")
-
-
-def convertir_lista_tupla(lista):
+def convertirListaTupla(lista):
     for alumno in lista:
         cursos_convertidos_tuplas = []
         for curso in alumno["cursos"]:

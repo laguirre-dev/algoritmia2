@@ -12,7 +12,7 @@ from entidades.alumno.menuAlumno import menuAlumno # validar
 from entidades.profesor.menuProfesor import menuProfesor # validar
 from entidades.administrativo.gestion_usuarios import (
     inserta_usuario,
-    inserta_credenciales,
+    insertaCredenciales,
 )
 from entidades.profesor.gestion_evaluar import aprobarODesaprobarAlumnosMock # tuvimos que mockear la funcion porque pedia parametros dentro
 from entidades.alumno.gestion_accion import inscribirEnCurso
@@ -68,7 +68,7 @@ def test_crear_credenciales_incorrecta():
     nombre = "Alumno"
     apellido = "Alumno"
     rol = "alumno"
-    respuesta = inserta_credenciales((legajo, nombre, apellido, rol))
+    respuesta = insertaCredenciales((legajo, nombre, apellido, rol))
     assert respuesta == True
 
 

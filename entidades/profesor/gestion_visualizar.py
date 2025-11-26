@@ -3,7 +3,7 @@ from utils import pantalla as headers
 from utils import busquedas as busqueda
 
 def verMisCursos(legajoProfesor):
-    cursosProfesor = list(filter(lambda c: c.get("profesor") == legajoProfesor, datos.CURSOS_DB))
+    cursosProfesor = list(filter(lambda c: c.get("profesor") == legajoProfesor, datos.sistema["CURSOS_BD"]))
     if not cursosProfesor:
         print(headers.Fore.RED + "No tenés cursos asignados.")
         return
@@ -12,7 +12,7 @@ def verMisCursos(legajoProfesor):
         print(headers.Fore.WHITE + f"{curso['id']} - {curso['nombre']} | Aula: {curso['aula']}")
 
 def verMisAlumnos(legajoProfesor):
-    cursosProfesor = list(filter(lambda c: c.get("profesor") == legajoProfesor, datos.CURSOS_DB))
+    cursosProfesor = list(filter(lambda c: c.get("profesor") == legajoProfesor, datos.sistema["CURSOS_BD"]))
     if not cursosProfesor:
         print(headers.Fore.RED + "No tenés cursos asignados.")
         return
@@ -35,7 +35,7 @@ def verMisAlumnos(legajoProfesor):
             print(headers.Fore.WHITE + f"{alumno['legajo']} - {alumno['nombre']} {alumno['apellido']} | Cursos: {estadosStr}")
             
 def alumnoConocido(legajoProfesor):
-    cursosProfesor = [c for c in datos.CURSOS_DB if c.get("profesor") == legajoProfesor]
+    cursosProfesor = [c for c in datos.sistema["CURSOS_BD"] if c.get("profesor") == legajoProfesor]
     if not cursosProfesor:
         print(headers.Fore.RED + "No tenés cursos asignados.")
         return

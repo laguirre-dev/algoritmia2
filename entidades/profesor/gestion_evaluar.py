@@ -5,7 +5,7 @@ from utils import busquedas as busqueda
 
 def aprobarODesaprobarAlumnos(legajoProfesor):
     cursosProfesor = list(
-        filter(lambda c: c.get("profesor") == legajoProfesor, datos.CURSOS_DB)
+        filter(lambda c: c.get("profesor") == legajoProfesor, datos.sistema["CURSOS_BD"])
     )
     if not cursosProfesor:
         print(headers.Fore.RED + "No tenés cursos asignados.")
@@ -81,7 +81,7 @@ def aprobarODesaprobarAlumnos(legajoProfesor):
 
 def aprobarODesaprobarAlumnosMock(legajoProfesor, idCurso, entrada):
     cursosProfesor = list(
-        filter(lambda c: c.get("profesor") == legajoProfesor, datos.CURSOS_DB)
+        filter(lambda c: c.get("profesor") == legajoProfesor, datos.sistema["CURSOS_BD"])
     )
     if not cursosProfesor:
         print(headers.Fore.RED + "No tenés cursos asignados.")
@@ -94,7 +94,6 @@ def aprobarODesaprobarAlumnosMock(legajoProfesor, idCurso, entrada):
             + f"{curso['id']} - {curso['nombre']} | Aula: {curso['aula']}"
         )
 
-    # idCurso = input(headers.Fore.WHITE + "\nIngrese el ID del curso que desea gestionar: ")
     curso = busqueda.buscarCursoPorId(idCurso)
 
     if not curso or curso.get("profesor") != legajoProfesor:

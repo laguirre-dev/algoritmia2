@@ -1,68 +1,70 @@
-# Base de datos en memoria para el Sistema de Gestión de Alumnos, para que en un futuro tengamos que solo modificar estos datos.
-"""
-Estructura de cada entidad:
-alumno: legajo, nombre, apellido, activo, pagos_pendientes, materias => alumno -> pago -> pago_pendiente -> administrativo
-profesor: legajo, nombre, apellido, activo, materias_asignadas => profesor -> nota -> alumno.materias
-materia: id, nombre, profesor, aula, alumnos
-pagos_pendientes: alumno, materia, monto
-credenciales: legajo, clave, rol
-"""
 import json
-from database.logica import pathDatos, convertir_lista_tupla
-from utils import pantalla
+import os
 import time
+from database.logica import convertirListaTupla
+from utils import pantalla
 
-# Se tiene que sacar
-# ALUMNOS_DB = []
-# PROFESORES_DB = []
-# CURSOS_DB = []
-# CUOTAS_PENDIENTES = []
-# CREDENCIALES = []
+# DICCIONARIO MAESTRO (ESTADO DEL SISTEMA)
+sistema = {
+    "ALUMNOS_BD": [],
+    "PROFESORES_BD": [],
+    "CURSOS_BD": [],
+    "CUOTAS_PENDIENTES": [],
+    "CREDENCIALES": [],
+    "RUTA_ARCHIVO": None 
+}
 
-
-def cargar_datos_json():
+def cargarDatosJson(ruta_archivo):
     """
-    Carga los datos de la base de datos en el archivo datos.json, si el archivo no existe, va a retornar un diccionario vacio
+    Carga los datos desde un archivo JSON al diccionario maestro 'sistema'.
     """
-    global ALUMNOS_DB, PROFESORES_DB, CURSOS_DB, CUOTAS_PENDIENTES, CREDENCIALES
+    sistema["RUTA_ARCHIVO"] = ruta_archivo
+    
+    if not os.path.exists(ruta_archivo):
+        pantalla.red_text(f"El archivo {ruta_archivo} no existe.")
+        time.sleep(2)
+        return False
+
     try:
-        with open(pathDatos, "r") as archivo:
-            datos_maestros = json.load(archivo)
-            alumnos_convertidos = convertir_lista_tupla(datos_maestros["ALUMNOS_BD"])
-            ALUMNOS_DB = alumnos_convertidos
-            PROFESORES_DB = datos_maestros.get("PROFESORES_BD")
-            CURSOS_DB = datos_maestros.get("CURSOS_BD")
-            CUOTAS_PENDIENTES = datos_maestros.get("CUOTAS_PENDIENTES")
-            CREDENCIALES = datos_maestros.get("CREDENCIALES")
-            pantalla.yellow_text("Datos cargados en la base de datos con exito...")
-        time.sleep(2)
-        return
+        with open(ruta_archivo, "r") as archivo:
+            datos_cargados = json.load(archivo)
+            
+            sistema["ALUMNOS_BD"] = convertirListaTupla(datos_cargados.get("ALUMNOS_BD", []))
+            sistema["PROFESORES_BD"] = datos_cargados.get("PROFESORES_BD", [])
+            sistema["CURSOS_BD"] = datos_cargados.get("CURSOS_BD", [])
+            sistema["CUOTAS_PENDIENTES"] = datos_cargados.get("CUOTAS_PENDIENTES", [])
+            sistema["CREDENCIALES"] = datos_cargados.get("CREDENCIALES", [])
+            
+            pantalla.yellow_text(f"Base de datos cargada: {os.path.basename(ruta_archivo)}")
+            time.sleep(1)
+            return True
+            
     except Exception as e:
-        pantalla.red_text(e)
+        pantalla.red_text(f"Error crítico al leer el JSON: {e}")
         time.sleep(2)
+        return False
+
+def guardarDatosJson():
+    """
+    Guarda el estado actual del diccionario 'sistema' en el archivo JSON vinculado.
+    """
+    ruta = sistema["RUTA_ARCHIVO"]
+    
+    if not ruta:
+        pantalla.red_text("Error: No se ha seleccionado una universidad (ruta no definida).")
         return
 
-
-def guardar_datos_json():
-    """
-    Guarda los datos de la base de datos en el archivo datos.json
-    """
-    datos_maestro = {
-        "ALUMNOS_BD": ALUMNOS_DB,
-        "PROFESORES_BD": PROFESORES_DB,
-        "CURSOS_BD": CURSOS_DB,
-        "CUOTAS_PENDIENTES": CUOTAS_PENDIENTES,
-        "CREDENCIALES": CREDENCIALES,
+    datos_para_guardar = {
+        "ALUMNOS_BD": sistema["ALUMNOS_BD"],
+        "PROFESORES_BD": sistema["PROFESORES_BD"],
+        "CURSOS_BD": sistema["CURSOS_BD"],
+        "CUOTAS_PENDIENTES": sistema["CUOTAS_PENDIENTES"],
+        "CREDENCIALES": sistema["CREDENCIALES"],
     }
+
     try:
-        with open(pathDatos, "w") as archivo:
-            json_maestro = json.dumps(datos_maestro)
-            archivo.write(json_maestro)
-        pantalla.yellow_text("Datos guardados en la base de datos con exito...")
+        with open(ruta, "w") as archivo:
+            json.dump(datos_para_guardar, archivo, indent=4)
+        pantalla.yellow_text("Cambios guardados exitosamente.")
     except Exception as e:
-        pantalla.red_text("Error al guardar los datos en la base de datos...")
-        print(e)
-
-
-# con esto inicializamos la base de datos
-cargar_datos_json()
+        pantalla.red_text(f"Error al guardar los datos: {e}")
