@@ -1,1 +1,0 @@
-legajo: 103 | nombre: Nacho | apellido: Bonavoglia | curso: BD1
