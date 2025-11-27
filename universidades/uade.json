@@ -27,6 +27,14 @@
                 [
                     "BD1",
                     "Desaprobado"
+                ],
+                [
+                    "SO1",
+                    "Desaprobado"
+                ],
+                [
+                    "MAT1",
+                    "Desaprobado"
                 ]
             ]
         },
@@ -56,7 +64,7 @@
                 ],
                 [
                     "PY1",
-                    "Aprobado"
+                    "Desaprobado"
                 ]
             ]
         },
@@ -203,7 +211,8 @@
             "profesor": 2002,
             "aula": "Aula 105",
             "alumnos": [
-                105
+                105,
+                102
             ]
         },
         {
@@ -238,7 +247,9 @@
             "nombre": "Sistemas Operativos I",
             "profesor": 2003,
             "aula": "Aula 110",
-            "alumnos": []
+            "alumnos": [
+                102
+            ]
         },
         {
             "id": "PROD1",
@@ -249,10 +260,6 @@
         }
     ],
     "CUOTAS_PENDIENTES": [
-        {
-            "cuota_nro": 1,
-            "legajo": 102
-        },
         {
             "cuota_nro": 2,
             "legajo": 102
@@ -276,10 +283,6 @@
         {
             "cuota_nro": 1,
             "legajo": 205
-        },
-        {
-            "cuota_nro": 3,
-            "legajo": 102
         }
     ],
     "CREDENCIALES": [

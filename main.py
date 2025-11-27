@@ -1,5 +1,4 @@
 import os
-from time import sleep
 from entidades.alumno.menu import menuAlumno
 from entidades.profesor.menu import menuProfesor
 from entidades.administrativo.menu import menuAdministrativo
@@ -59,41 +58,40 @@ def seleccionarUniversidad():
 
 
 def main():
-    ruta_datos = seleccionarUniversidad()
-    if not ruta_datos:
-        pantalla.red_text("Saliendo del sistema...")
-        return
+    while True:
+        ruta_datos = seleccionarUniversidad()
+    
+        if not ruta_datos:
+            pantalla.red_text("Saliendo del sistema...")
+            break
 
-    exito = datos.cargarDatosJson(ruta_datos)
-    if not exito:
-        return
+        exito = datos.cargarDatosJson(ruta_datos)
+        if not exito:
+            return
 
-    try:
-        seleccion = pantalla.mostrarMenu("principal", opciones_permitidas)
-        while seleccion != 2:
-            validacion, rol, legajo = validaciones.validaLogin()
-
-            if validacion:
-                try:
-                    redireccion_menu[rol](legajo)
-                except Exception as e:
-                    pantalla.red_text(f"Error al redirigir al menu: {e}")
-                    sleep(2)
-            else:
-                pantalla.yellow_text(
-                    "Ha superado el límite de intentos. Volviendo al menú principal..."
-                )
-                sleep(2)
-
+        try:
             seleccion = pantalla.mostrarMenu("principal", opciones_permitidas)
+            while seleccion != 2:
+                validacion, rol, legajo = validaciones.validaLogin()
 
-    except KeyboardInterrupt:
-        pantalla.red_text("\n\nInterrupción detectada. Cerrando ordenadamente...")
+                if validacion:
+                    try:
+                        redireccion_menu[rol](legajo)
+                    except Exception as e:
+                        pantalla.red_text(f"Error al redirigir al menu: {e}")
+                else:
+                    pantalla.yellow_text(
+                        "Ha superado el límite de intentos. Volviendo al menú principal..."
+                    )
 
-    finally:
-        pantalla.red_text("Guardando cambios y saliendo...")
-        datos.guardarDatosJson()
-        sleep(2)
+                seleccion = pantalla.mostrarMenu("principal", opciones_permitidas)
+
+        except KeyboardInterrupt:
+            pantalla.red_text("\n\nInterrupción detectada. Cerrando ordenadamente...")
+
+        finally:
+            pantalla.red_text("Guardando cambios y saliendo...")
+            datos.guardarDatosJson()
 
 
 if __name__ == "__main__":
