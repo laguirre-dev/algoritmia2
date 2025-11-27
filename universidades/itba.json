@@ -40,6 +40,13 @@
                     "Desaprobado"
                 ]
             ]
+        },
+        {
+            "legajo": 604,
+            "nombre": "Lucho",
+            "apellido": "Aguirres",
+            "cursos": [],
+            "pagos_pendientes": []
         }
     ],
     "PROFESORES_BD": [
@@ -58,8 +65,15 @@
             "apellido": "Hopper",
             "materias": [
                 "INF1",
-                "MAT3"
+                "MAT3",
+                "INF2"
             ]
+        },
+        {
+            "legajo": 7003,
+            "nombre": "Lucho",
+            "apellido": "Profe",
+            "materias": []
         }
     ],
     "CURSOS_BD": [
@@ -99,6 +113,13 @@
             "alumnos": [
                 603
             ]
+        },
+        {
+            "id": "INF2",
+            "nombre": "Informatica General 2",
+            "profesor": 7002,
+            "aula": "708",
+            "alumnos": []
         }
     ],
     "CUOTAS_PENDIENTES": [
@@ -112,6 +133,10 @@
         },
         {
             "cuota_nro": 2,
+            "legajo": 603
+        },
+        {
+            "cuota_nro": 3,
             "legajo": 603
         }
     ],
@@ -145,6 +170,16 @@
             "legajo": 603,
             "clave": "satia603",
             "rol": "alumno"
+        },
+        {
+            "legajo": 604,
+            "clave": "604Laguirres",
+            "rol": "alumno"
+        },
+        {
+            "legajo": 7003,
+            "clave": "Profe7003",
+            "rol": "profesor"
         }
     ]
 }

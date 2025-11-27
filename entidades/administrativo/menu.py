@@ -2,17 +2,16 @@ from utils import pantalla, validaciones
 from entidades.administrativo.gestion_cursos import menuGestionCursos
 from entidades.administrativo.gestion_pagos import menuGestionPagos
 from entidades.administrativo.gestion_usuarios import menuGestionUsuarios
-from main import main
 
 logica_seleccion_menu = {
     1: menuGestionUsuarios,
     2: menuGestionCursos,
     3: menuGestionPagos,
-    4: main,
+    4: "Volver al menu principal",
 }
 
 
-def menuAdministrativo(legajo):
+def menuAdministrativo(legajo=1):
     """
     Muestra el menú de opciones para un Administrativo.
     """

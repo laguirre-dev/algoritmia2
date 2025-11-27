@@ -1,6 +1,7 @@
 import os
 from colorama import init, Fore, Style
 from tabulate import tabulate
+from utils import validaciones
 
 init(autoreset=True)
 
@@ -225,3 +226,22 @@ def menuGestionesProfesor():
     header("| MENÚ PROFESOR - GESTIONES |")
     print(greenText("1. Dia de Examen"))
     print(redText("2. Volver al menú profesor"))
+
+
+menu_segun_rol = {
+    "principal": opcionesPrincipal,
+    "alumno": opcionesAlumnoPrincipal,
+    "profesor": opcionesProfesorPrincipal,
+    "administrativo": opcionesAdministrativoPrincipal,
+}
+
+
+def mostrarMenu(tipo, opciones):
+    limpiarTerminal()
+    if tipo in menu_segun_rol:
+        menu_segun_rol[tipo]()
+    else:
+        print("Menú no definido")
+
+    opcion = validaciones.validaOpcion(opciones_permitidas=opciones)
+    return opcion
