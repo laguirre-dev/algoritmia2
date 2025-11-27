@@ -11,7 +11,7 @@ from entidades.administrativo.menuAdministrativo import menuAdministrativo # val
 from entidades.alumno.menuAlumno import menuAlumno # validar
 from entidades.profesor.menuProfesor import menuProfesor # validar
 from entidades.administrativo.gestion_usuarios import (
-    inserta_usuario,
+    insertaUsuario,
     insertaCredenciales,
 )
 from entidades.profesor.gestion_evaluar import aprobarODesaprobarAlumnosMock # tuvimos que mockear la funcion porque pedia parametros dentro
@@ -59,7 +59,7 @@ def test_crear_usuarios_correcta():
     nombre = "Alumno"
     apellido = "Alumno"
     rol = "alumno"
-    respuesta = inserta_usuario((legajo, nombre, apellido, rol), datos.ALUMNOS_DB)
+    respuesta = insertaUsuario((legajo, nombre, apellido, rol), datos.ALUMNOS_DB)
     assert respuesta == True
 
 

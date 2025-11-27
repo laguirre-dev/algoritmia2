@@ -230,6 +230,10 @@
     ],
     "CUOTAS_PENDIENTES": [
         {
+            "cuota_nro": 1,
+            "legajo": 102
+        },
+        {
             "cuota_nro": 2,
             "legajo": 102
         },

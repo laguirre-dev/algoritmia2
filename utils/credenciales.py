@@ -1,5 +1,5 @@
 from entidades import datos
-import utils.pantalla as headers
+from utils import pantalla
 
 def crearClave(legajo, nombre, apellido):
     parte1 = str(legajo)
@@ -11,5 +11,5 @@ def login(legajo, clave):
     for credencial in datos.sistema["CREDENCIALES"]:
         if credencial["legajo"] == legajo and credencial["clave"] == clave:
             return True, credencial["rol"]
-    headers.red_text("Credenciales incorrectas. Intentelo nuevamente.")
+    pantalla.red_text("Credenciales incorrectas. Intentelo nuevamente.")
     return False, False
