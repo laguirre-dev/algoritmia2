@@ -22,12 +22,12 @@ def verMisCursos(legajo):
             )
 
 def verCursosDisponibles(legajo):
-    if not datos.CURSOS_DB:
+    if not datos.sistema["CURSOS_BD"]:
         print(headers.Fore.RED + "No hay cursos disponibles.")
         return
 
     headers.header("CURSOS DISPONIBLES")
-    for curso in datos.CURSOS_DB:
+    for curso in datos.sistema["CURSOS_BD"]:
         profesor = busqueda.buscarProfesorPorLegajo(curso.get("profesor"))
         inscripto = headers.Fore.GREEN + " (Inscripto)" if legajo in curso.get("alumnos", []) else ""
         print(

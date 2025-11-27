@@ -14,10 +14,10 @@ def consultarPagos(legajoAlumno):
         print(Fore.RED + "Alumno no encontrado.")
         return
     
-    if datos.CUOTAS_PENDIENTES is None:
-        datos.CUOTAS_PENDIENTES = []
+    if datos.sistema["CUOTAS_PENDIENTES"] is None:
+        datos.sistema["CUOTAS_PENDIENTES"] = []
 
-    pendientes = [c for c in datos.CUOTAS_PENDIENTES if c["legajo"] == legajoAlumno]
+    pendientes = [c for c in datos.sistema["CUOTAS_PENDIENTES"] if c["legajo"] == legajoAlumno]
     headers.header("CONSULTA DE PAGOS")
 
     if not pendientes:
@@ -34,7 +34,7 @@ def pagarCuotasAdeudadas(legajoAlumno):
         print(Fore.RED + "Alumno no encontrado.")
         return
 
-    pendientes = [c for c in datos.CUOTAS_PENDIENTES if c["legajo"] == legajoAlumno]
+    pendientes = [c for c in datos.sistema["CUOTAS_PENDIENTES"] if c["legajo"] == legajoAlumno]
     headers.header("PAGO DE CUOTAS")
 
     if not pendientes:
@@ -62,13 +62,12 @@ def pagarCuotasAdeudadas(legajoAlumno):
         print(Fore.RED + "No se seleccionaron cuotas válidas.")
         return
 
-    datos.CUOTAS_PENDIENTES = [c for c in datos.CUOTAS_PENDIENTES if c not in pagadas]
+    datos.sistema["CUOTAS_PENDIENTES"] = [c for c in datos.sistema["CUOTAS_PENDIENTES"]if c not in pagadas]
 
     print(Fore.GREEN + "Se han abonado las siguientes cuotas:")
     for pago in pagadas:
         print(Fore.WHITE + f"- Cuota Nro: {pago['cuota_nro']}")
 
-    # Generar recibo
     fecha = datetime.now().strftime("%Y-%m-%d %H:%M")
     nombre_archivo = f"Recibo_Cuotas_{alumno['legajo']}"
     contenido = [

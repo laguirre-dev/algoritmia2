@@ -1,0 +1,1 @@
+legajo: 104 | nombre: Luciano | apellido: Aguirre | curso: Python Inicial | estado: Aprobado
