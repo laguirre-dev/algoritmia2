@@ -1,10 +1,10 @@
 import entidades.datos as datos
 from utils import pantalla as headers
 from utils import busquedas as buscar
-from . import gestion_accion
-from . import gestion_visualizar
-from . import gestion_pagos
-from . import gestion_reportes
+from entidades.alumno import gestion_accion
+from entidades.alumno import gestion_visualizar
+from entidades.alumno import gestion_pagos
+from entidades.alumno import gestion_reportes
 
 
 def menuOpciones(legajoAlumno):
