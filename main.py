@@ -1,8 +1,8 @@
 import os
 from time import sleep
-from entidades.alumno import menuAlumno as alumno
-from entidades.profesor import menuProfesor as profesor
-from entidades.administrativo import menuAdministrativo as administrativo
+from entidades.alumno.menu import menuAlumno
+from entidades.profesor.menu import menuProfesor
+from entidades.administrativo.menu import menuAdministrativo
 from utils import pantalla, validaciones
 from entidades import datos
 
@@ -13,9 +13,9 @@ opciones_permitidas = [1, 2]
 
 # Mapeo de roles a sus menús correspondientes
 redireccion_menu = {
-    "alumno": alumno,
-    "profesor": profesor,
-    "administrativo": administrativo,
+    "alumno": menuAlumno,
+    "profesor": menuProfesor,
+    "administrativo": menuAdministrativo,
 }
 
 

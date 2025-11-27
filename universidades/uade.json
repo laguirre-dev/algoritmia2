@@ -100,6 +100,20 @@
                     "Desaprobado"
                 ]
             ]
+        },
+        {
+            "legajo": 108,
+            "nombre": "Lucho",
+            "apellido": "Aguirres",
+            "cursos": [],
+            "pagos_pendientes": []
+        },
+        {
+            "legajo": 109,
+            "nombre": "Lucho",
+            "apellido": "Aguirresito",
+            "cursos": [],
+            "pagos_pendientes": []
         }
     ],
     "PROFESORES_BD": [
@@ -118,7 +132,8 @@
             "apellido": "Torres",
             "materias": [
                 "BD1",
-                "PY1"
+                "PY1",
+                "MAT1"
             ]
         },
         {
@@ -131,8 +146,15 @@
                 "EST1",
                 "ING1",
                 "RED1",
-                "SO1"
+                "SO1",
+                "PROD1"
             ]
+        },
+        {
+            "legajo": 2004,
+            "nombre": "Luchoi",
+            "apellido": "Profesor",
+            "materias": []
         }
     ],
     "CURSOS_BD": [
@@ -178,7 +200,7 @@
         {
             "id": "MAT1",
             "nombre": "Matem\u00e1tica Discreta",
-            "profesor": 2003,
+            "profesor": 2002,
             "aula": "Aula 105",
             "alumnos": [
                 105
@@ -203,15 +225,6 @@
             ]
         },
         {
-            "id": "ING1",
-            "nombre": "Ingl\u00e9s T\u00e9cnico I",
-            "profesor": 2003,
-            "aula": "Aula 108",
-            "alumnos": [
-                107
-            ]
-        },
-        {
             "id": "RED1",
             "nombre": "Redes de Computadoras I",
             "profesor": 2003,
@@ -225,6 +238,13 @@
             "nombre": "Sistemas Operativos I",
             "profesor": 2003,
             "aula": "Aula 110",
+            "alumnos": []
+        },
+        {
+            "id": "PROD1",
+            "nombre": "Producciones I",
+            "profesor": 2003,
+            "aula": "505",
             "alumnos": []
         }
     ],
@@ -248,6 +268,18 @@
         {
             "cuota_nro": 3,
             "legajo": 105
+        },
+        {
+            "cuota_nro": 3,
+            "legajo": 101
+        },
+        {
+            "cuota_nro": 1,
+            "legajo": 205
+        },
+        {
+            "cuota_nro": 3,
+            "legajo": 102
         }
     ],
     "CREDENCIALES": [
@@ -298,13 +330,28 @@
         },
         {
             "legajo": 106,
-            "clave": "sofia106",
+            "clave": "sofi106",
             "rol": "alumno"
         },
         {
             "legajo": 107,
             "clave": "lucas107",
             "rol": "alumno"
+        },
+        {
+            "legajo": 108,
+            "clave": "108Laguirres",
+            "rol": "alumno"
+        },
+        {
+            "legajo": 109,
+            "clave": "LuchoSSJ!",
+            "rol": "alumno"
+        },
+        {
+            "legajo": 2004,
+            "clave": "2004Lprofesor",
+            "rol": "profesor"
         }
     ]
 }

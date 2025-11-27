@@ -7,9 +7,9 @@
 """
 
 from utils.credenciales import login
-from entidades.administrativo.menuAdministrativo import menuAdministrativo # validar
-from entidades.alumno.menuAlumno import menuAlumno # validar
-from entidades.profesor.menuProfesor import menuProfesor # validar
+from administrativo.menu import menuAdministrativo # validar
+from alumno.menu import menuAlumno # validar
+from profesor.menu import menuProfesor # validar
 from entidades.administrativo.gestion_usuarios import (
     insertaUsuario,
     insertaCredenciales,
@@ -59,7 +59,7 @@ def test_crear_usuarios_correcta():
     nombre = "Alumno"
     apellido = "Alumno"
     rol = "alumno"
-    respuesta = insertaUsuario((legajo, nombre, apellido, rol), datos.ALUMNOS_DB)
+    respuesta = insertaUsuario((legajo, nombre, apellido, rol), datos.sistema["ALUMNOS_BD"])
     assert respuesta == True
 
 

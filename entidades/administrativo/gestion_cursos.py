@@ -9,7 +9,6 @@ Opciones disponibles.
 
 from utils import pantalla, validaciones
 from reportes import generador_de_reportes
-from entidades.administrativo import menuAdministrativo
 from datetime import date
 from entidades import datos
 from tabulate import tabulate
@@ -31,7 +30,7 @@ def agregarCurso():
         "alumnos": [],
     }
     try:
-        datos.CURSOS_DB.append(estructura_curso)
+        datos.sistema["CURSOS_BD"].append(estructura_curso)
     except Exception as e:
         print(e)
         return False
@@ -44,9 +43,9 @@ def eliminarCurso():
     """
     codigo = input("Indique el codigo del curso a eliminar: ")
     eliminado = False
-    for curso in datos.CURSOS_DB:
+    for curso in datos.sistema["CURSOS_BD"]:
         if curso["id"] == codigo:
-            datos.CURSOS_DB.remove(curso)
+            datos.sistema["CURSOS_BD"].remove(curso)
             eliminado = True
     if not eliminado:
         print(f"El curso {codigo} no fue encontrado.")
@@ -60,17 +59,21 @@ def generarReporteCursos():
     """
     print("Opcion: Generar reporte de cursos")
     cursos = [
-        [curso["id"], curso["nombre"], curso["profesor"], len(curso["alumnos"])]
-        for curso in datos.CURSOS_DB
+        {
+            "codigo": curso["id"],
+            "nombre": curso["nombre"],
+            "profesor": curso["profesor"],
+            "alumnos": len(curso["alumnos"]),
+        }
+        for curso in datos.sistema["CURSOS_BD"]
     ]
-    print(tabulate(cursos, headers=["Codigo", "Nombre", "Profesor", "Alumnos"]))
     fecha = date.today()
     nombre_archivo = f"reporte_cursos_{fecha}"
     generador_de_reportes.guardarReporte(nombre_archivo, cursos)
     return
 
 
-def asignarCursoAProfesor(legajoProf):
+def asignarCursoAProfesor():
     """
     Realiza la modificacion del campo Profesor en el Curso segun el Legajo y el codigo del curso
     """
@@ -80,16 +83,20 @@ def asignarCursoAProfesor(legajoProf):
         print("Introdujo un legajo no valido. Debe ser numerico.")
         return
     profesorEncontrado = next(
-        (p for p in datos.PROFESORES_DB if p["legajo"] == legajoProf), None
+        (p for p in datos.sistema["PROFESORES_BD"] if p["legajo"] == legajoProf), None
     )
     if not profesorEncontrado:
         pantalla.redText("Profesor no encontrado.")
         return
-    if datos.CURSOS_DB:
+    if datos.sistema["CURSOS_BD"]:
         pantalla.header("CURSOS DISPONIBLES")
-        for curso in datos.CURSOS_DB:
+        for curso in datos.sistema["CURSOS_BD"]:
             prof = next(
-                (p for p in datos.PROFESORES_DB if p["legajo"] == curso["profesor"]),
+                (
+                    p
+                    for p in datos.sistema["PROFESORES_BD"]
+                    if p["legajo"] == curso["profesor"]
+                ),
                 None,
             )
             nombreProf = (
@@ -99,7 +106,9 @@ def asignarCursoAProfesor(legajoProf):
                 f"{curso['id']} - {curso['nombre']} (Profesor: {nombreProf})"
             )
         idCurso = input(pantalla.boldText("Ingrese el ID del curso a asignar: "))
-        cursoEncontrado = next((c for c in datos.CURSOS_DB if c["id"] == idCurso), None)
+        cursoEncontrado = next(
+            (c for c in datos.sistema["CURSOS_BD"] if c["id"] == idCurso), None
+        )
         if not cursoEncontrado:
             pantalla.redText("Curso no encontrado.")
             return
@@ -121,7 +130,7 @@ logica_seleccion_menu = {
     2: eliminarCurso,
     3: asignarCursoAProfesor,
     4: generarReporteCursos,
-    5: menuAdministrativo,
+    5: "Volver al menu anterior",
 }
 
 
@@ -129,7 +138,7 @@ def menuGestionCursos():
     """Muestra el menu de opciones de un Administrativo en la gestion de cursos"""
     pantalla.opcionesAdministrativoCursos()
     opcion = validaciones.validaOpcion(logica_seleccion_menu.keys())
-    while opcion != 0:
+    while opcion != 5:
         logica_seleccion_menu[opcion]()
         pantalla.opcionesAdministrativoCursos()
         opcion = validaciones.validaOpcion(logica_seleccion_menu.keys())
