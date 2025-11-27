@@ -1,46 +1,71 @@
 """
-El objetivo del modulo es centralizar las funcionalidades sobre los pagos para los administrativos
-
-Aprobacion y desaprobacion de pagos de alumnos
-Enviar notificacion sobre pagos pendientes
-Enviar notificacion pago rechazado
+Opciones disponibles:
+1. Sumar Pago Pendiente
+2. Generar reporte de Deudores
+3. Volver al menú principal
 """
 
+from tabulate import tabulate
+from datetime import date
+from reportes import generador_de_reportes
 from utils import pantalla, validaciones
-from . import datos_backup2
+from entidades.administrativo import menuAdministrativo
+from entidades import datos
 
 
-def aprobarPago():
+def sumarPagoPendiente():
     """
-    Aprueba el pago de un alumno (mueve de pendientes a pagadas).
+    Realiza un append a la lista de pagos pendientes
     """
-    pantalla.header("APROBAR PAGO")
-    legajo = int(input("Ingrese el legajo del alumno: "))
-    cuotas = [c for c in datos_backup2.CUOTAS_PENDIENTES if c["legajo"] == legajo]
-
-    if not cuotas:
-        pantalla.redText("El alumno no tiene pagos pendientes.")
+    try:
+        legajo = int(input("Ingrese el legajo del alumno: "))
+        cuota = int(input("Ingrese el nro de cuota pendiente del alumno: "))
+    except ValueError:
+        print("Introdujo un valor no valido. Debe ser numerico.")
         return
+    # revisar que la cuota no este en la lista
+    for cuota in datos.CUOTAS_PENDIENTES:
+        if cuota["cuota_nro"] == cuota and cuota["legajo"] == legajo:
+            print("La cuota ya esta en la lista de pagos pendientes para ese Alumno.")
+            return
+    datos.CUOTAS_PENDIENTES.append(
+        {
+            "cuota_nro": cuota,
+            "legajo": legajo,
+        }
+    )
+    print("Pago pendiente sumado con exito.")
+    return
 
-    print("Pagos pendientes:")
-    for cuota in cuotas:
-        print(f"Cuota N°{cuota['cuota_nro']}")
 
-    nro = int(input("Ingrese el número de cuota a aprobar: "))
-    cuota = next((c for c in cuotas if c["cuota_nro"] == nro), None)
+def generarReporteDeudores():
+    """
+    Genera un txt con la lista de deudores, su cuota y el monto pendiente. Hace la busqueda en la base de datos pagos pendientes
+    """
+    print("Opcion: Generar reporte de deudores")
+    cuotasPendientes = [
+        [cuota["cuota_nro"], cuota["legajo"]] for cuota in datos.CUOTAS_PENDIENTES
+    ]
+    print(tabulate(cuotasPendientes, headers=["Cuota", "Legajo"]))
+    fecha = date.today()
+    nombre_archivo = f"reporte_cuotas_pendientes_{fecha}"
+    generador_de_reportes.guardarReporte(nombre_archivo, cuotasPendientes)
+    return
 
-    if cuota:
-        datos_backup2.CUOTAS_PENDIENTES.remove(cuota)
-        pantalla.greenText(f"Pago de cuota N°{nro} aprobado para el alumno {legajo}.")
-    else:
-        pantalla.redText("Número de cuota inválido.")
 
-
+logica_seleccion_menu = {
+    1: sumarPagoPendiente,
+    2: generarReporteDeudores,
+    3: menuAdministrativo,
+}
 
 
 def menuGestionPagos():
-    """
-    Muestra el menu de gestion de pagos
-    """
+    """Muestra el menu de opciones de un Administrativo en la gestion de pagos"""
     pantalla.opcionesAdministrativoPagos()
-    opcion = validaciones.validaOpcion([1, 2, 3])
+    opcion = validaciones.validaOpcion(logica_seleccion_menu.keys())
+    while opcion != 0:
+        logica_seleccion_menu[opcion]()
+        pantalla.opcionesAdministrativoPagos()
+        opcion = validaciones.validaOpcion(logica_seleccion_menu.keys())
+    return

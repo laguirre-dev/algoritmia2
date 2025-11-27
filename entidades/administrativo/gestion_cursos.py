@@ -8,21 +8,11 @@ Opciones disponibles.
 """
 
 from utils import pantalla, validaciones
-from . import datos_backup2
-
-# formato
-"""
-{
-    "id": "AED1",
-    "nombre": "Algoritmos y Estructuras de Datos I",
-    "profesor": 2001,
-    "aula": "Aula 101",
-    "alumnos": [
-        101,
-        102
-    ]
-},
-"""
+from reportes import generador_de_reportes
+from entidades.administrativo import menuAdministrativo
+from datetime import date
+from entidades import datos
+from tabulate import tabulate
 
 
 def agregarCurso():
@@ -40,32 +30,66 @@ def agregarCurso():
         "aula": aula,
         "alumnos": [],
     }
-
+    try:
+        datos.CURSOS_DB.append(estructura_curso)
+    except Exception as e:
+        print(e)
+        return False
+    return True
 
 
 def eliminarCurso():
-    pass
+    """
+    Elimina un curso de la base de datos. Pide el id del curso
+    """
+    codigo = input("Indique el codigo del curso a eliminar: ")
+    eliminado = False
+    for curso in datos.CURSOS_DB:
+        if curso["id"] == codigo:
+            datos.CURSOS_DB.remove(curso)
+            eliminado = True
+    if not eliminado:
+        print(f"El curso {codigo} no fue encontrado.")
+    else:
+        print(f"El curso {codigo} fue eliminado con exito.")
 
 
 def generarReporteCursos():
     """
-    Muestra una tabla con los cursos, sus respectivos profesores y cantidad de alumnos inscriptos
+    Muestra una tabla con los cursos, sus respectivos profesores y cantidad de alumnos inscriptos. Guardamos el reporte en un archivo .txt
     """
-    pass
+    print("Opcion: Generar reporte de cursos")
+    cursos = [
+        [curso["id"], curso["nombre"], curso["profesor"], len(curso["alumnos"])]
+        for curso in datos.CURSOS_DB
+    ]
+    print(tabulate(cursos, headers=["Codigo", "Nombre", "Profesor", "Alumnos"]))
+    fecha = date.today()
+    nombre_archivo = f"reporte_cursos_{fecha}"
+    generador_de_reportes.guardarReporte(nombre_archivo, cursos)
+    return
 
 
 def asignarCursoAProfesor(legajoProf):
+    """
+    Realiza la modificacion del campo Profesor en el Curso segun el Legajo y el codigo del curso
+    """
+    try:
+        legajoProf = int(input("Ingrese el legajo del profesor: "))
+    except ValueError:
+        print("Introdujo un legajo no valido. Debe ser numerico.")
+        return
     profesorEncontrado = next(
-        (p for p in datos_backup2.PROFESORES_DB if p["legajo"] == legajoProf), None
+        (p for p in datos.PROFESORES_DB if p["legajo"] == legajoProf), None
     )
     if not profesorEncontrado:
         pantalla.redText("Profesor no encontrado.")
         return
-    if datos_backup2.CURSOS_DB:
+    if datos.CURSOS_DB:
         pantalla.header("CURSOS DISPONIBLES")
-        for curso in datos_backup2.CURSOS_DB:
+        for curso in datos.CURSOS_DB:
             prof = next(
-                (p for p in datos_backup2.PROFESORES_DB if p["legajo"] == curso["profesor"]),
+                (p for p in datos.PROFESORES_DB if p["legajo"] == curso["profesor"]),
                 None,
             )
             nombreProf = (
@@ -75,7 +99,7 @@ def asignarCursoAProfesor(legajoProf):
                 f"{curso['id']} - {curso['nombre']} (Profesor: {nombreProf})"
             )
         idCurso = input(pantalla.boldText("Ingrese el ID del curso a asignar: "))
-        cursoEncontrado = next((c for c in datos_backup2.CURSOS_DB if c["id"] == idCurso), None)
+        cursoEncontrado = next((c for c in datos.CURSOS_DB if c["id"] == idCurso), None)
         if not cursoEncontrado:
             pantalla.redText("Curso no encontrado.")
             return
@@ -97,6 +121,7 @@ logica_seleccion_menu = {
     2: eliminarCurso,
     3: asignarCursoAProfesor,
     4: generarReporteCursos,
+    5: menuAdministrativo,
 }
 
 
@@ -104,11 +129,8 @@ def menuGestionCursos():
     """Muestra el menu de opciones de un Administrativo en la gestion de cursos"""
     pantalla.opcionesAdministrativoCursos()
     opcion = validaciones.validaOpcion(logica_seleccion_menu.keys())
-    try:
-        while opcion != 0:
-            logica_seleccion_menu[opcion]()
-            pantalla.opcionesAdministrativoCursos()
-            opcion = validaciones.validaOpcion(logica_seleccion_menu.keys())
-    except Exception as e:
-        print(e)
+    while opcion != 0:
+        logica_seleccion_menu[opcion]()
+        pantalla.opcionesAdministrativoCursos()
+        opcion = validaciones.validaOpcion(logica_seleccion_menu.keys())
     return

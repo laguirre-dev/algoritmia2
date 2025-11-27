@@ -1,7 +1,6 @@
 import os
 from colorama import init, Fore, Style
 from tabulate import tabulate
-import datos_backup2 as datos_backup2
 
 init(autoreset=True)
 
@@ -55,10 +54,6 @@ def imprimeDatos(datos):
     limpiarTerminal()
     print(tabulate(datos, headers="keys", tablefmt="rounded_grid"))
     return
-
-
-def muestraCredenciales():
-    imprimeDatos(datos_backup2.CREDENCIALES)
 
 
 def opcionesPrincipal():

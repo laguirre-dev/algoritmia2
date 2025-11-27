@@ -1,4 +1,4 @@
-from . import datos_backup2 as datos_backup2
+from entidades import datos as datos
 from utils import pantalla as headers
 from utils import busquedas as busqueda
 from reportes import generador_de_reportes
@@ -14,10 +14,10 @@ def consultarPagos(legajoAlumno):
         print(Fore.RED + "Alumno no encontrado.")
         return
     
-    if datos_backup2.CUOTAS_PENDIENTES is None:
-        datos_backup2.CUOTAS_PENDIENTES = []
+    if datos.CUOTAS_PENDIENTES is None:
+        datos.CUOTAS_PENDIENTES = []
 
-    pendientes = [c for c in datos_backup2.CUOTAS_PENDIENTES if c["legajo"] == legajoAlumno]
+    pendientes = [c for c in datos.CUOTAS_PENDIENTES if c["legajo"] == legajoAlumno]
     headers.header("CONSULTA DE PAGOS")
 
     if not pendientes:
@@ -34,7 +34,7 @@ def pagarCuotasAdeudadas(legajoAlumno):
         print(Fore.RED + "Alumno no encontrado.")
         return
 
-    pendientes = [c for c in datos_backup2.CUOTAS_PENDIENTES if c["legajo"] == legajoAlumno]
+    pendientes = [c for c in datos.CUOTAS_PENDIENTES if c["legajo"] == legajoAlumno]
     headers.header("PAGO DE CUOTAS")
 
     if not pendientes:
@@ -62,7 +62,7 @@ def pagarCuotasAdeudadas(legajoAlumno):
         print(Fore.RED + "No se seleccionaron cuotas válidas.")
         return
 
-    datos_backup2.CUOTAS_PENDIENTES = [c for c in datos_backup2.CUOTAS_PENDIENTES if c not in pagadas]
+    datos.CUOTAS_PENDIENTES = [c for c in datos.CUOTAS_PENDIENTES if c not in pagadas]
 
     print(Fore.GREEN + "Se han abonado las siguientes cuotas:")
     for pago in pagadas:

@@ -1,4 +1,4 @@
-from . import datos_backup2 as datos_backup2
+from entidades import datos as datos
 from utils import pantalla as headers
 from utils import busquedas as busqueda
 

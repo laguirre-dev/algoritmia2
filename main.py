@@ -1,18 +1,20 @@
-from entidades import alumno, profesor, administrativo
+from entidades import datos
+from entidades.alumno import menuAlumno
+from entidades.profesor import menuProfesor
+from entidades.administrativo import menuAdministrativo
 from utils import pantalla, validaciones
-from . import datos_backup2
 from time import sleep
 
-opciones_permitidas = [1, 2]
 redireccion_menu = {
-    "alumno": alumno.menuAlumno,
-    "profesor": profesor.menuProfesor,
-    "administrativo": administrativo.menuAdministrativo,
+    "alumno": menuAlumno,
+    "profesor": menuProfesor,
+    "administrativo": menuAdministrativo,
 }
+
 
 def main():
     pantalla.opcionesPrincipal()
-    opcion = validaciones.validaOpcion(opciones_permitidas)
+    opcion = validaciones.validaOpcion(redireccion_menu.keys())
     while opcion != 2:
         validacion, rol, legajo = validaciones.validaLogin()
         if validacion:
@@ -27,9 +29,9 @@ def main():
             )
             sleep(2)
         pantalla.opcionesPrincipal()
-        opcion = validaciones.validaOpcion(opciones_permitidas)
+        opcion = validaciones.validaOpcion(redireccion_menu.keys())
     pantalla.redText("Saliendo del sistema...")
-    datos_backup2.guardar_datos_json()
+    datos.guardar_datos_json()
     sleep(2)
 
 

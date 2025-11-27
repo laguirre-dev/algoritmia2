@@ -1,11 +1,6 @@
 import json
 from database.logica import pathDatos, convertir_lista_tupla
-
-def leef_datos_json():
-    """Lee el archivo JSON y retorna un diccionario con todos los datos"""
-    try:
-        with open(pathDatos, "r") as archivo:
-            
+import time
 
 def cargar_datos_json():
     """
@@ -43,7 +38,7 @@ def guardar_datos_json():
     }
     try:
         with open(pathDatos, "w") as archivo:
-            json_maestro = json.dumps(datos_maestro)
+            json_maestro = json.dumps(datos_maestro, indent=4)
             archivo.write(json_maestro)
         print("Datos guardados en la base de datos con exito...")
     except Exception as e:

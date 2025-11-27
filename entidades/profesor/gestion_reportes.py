@@ -1,10 +1,10 @@
-from . import datos_backup2 as datos_backup2
+from entidades import datos as datos
 from utils import pantalla as headers
 from utils import busquedas as busqueda
 from reportes import generador_de_reportes  
 
 def generarReporteDeCursosAlumno(legajoProfesor):
-    cursosProfesor = [c for c in datos_backup2.CURSOS_DB if c["profesor"] == legajoProfesor]
+    cursosProfesor = [c for c in datos.CURSOS_DB if c["profesor"] == legajoProfesor]
     alumnosSet = set()
     for curso in cursosProfesor:
         alumnosSet.update(curso.get("alumnos", []))
@@ -24,7 +24,7 @@ def generarReporteDeCursosAlumno(legajoProfesor):
 
 
 def generarReporteDeAlumnosAprobados(legajoProfesor):
-    cursosProfesor = [c for c in datos_backup2.CURSOS_DB if c["profesor"] == legajoProfesor]
+    cursosProfesor = [c for c in datos.CURSOS_DB if c["profesor"] == legajoProfesor]
     alumnosAprobados = []
 
     for curso in cursosProfesor:
@@ -44,7 +44,7 @@ def generarReporteDeAlumnosAprobados(legajoProfesor):
 
 
 def generarReporteDeCursos(legajoProfesor):
-    cursosProfesor = [c for c in datos_backup2.CURSOS_DB if c["profesor"] == legajoProfesor]
+    cursosProfesor = [c for c in datos.CURSOS_DB if c["profesor"] == legajoProfesor]
 
     cursosReporte = []
     for curso in cursosProfesor:
