@@ -7,7 +7,7 @@
             "cursos": [
                 [
                     "AED1",
-                    "Desaprobado"
+                    "Aprobado"
                 ]
             ]
         },
@@ -122,6 +122,13 @@
             "apellido": "Aguirresito",
             "cursos": [],
             "pagos_pendientes": []
+        },
+        {
+            "legajo": 110,
+            "nombre": "Lucho",
+            "apellido": "Aguirre",
+            "cursos": [],
+            "pagos_pendientes": []
         }
     ],
     "PROFESORES_BD": [
@@ -163,6 +170,14 @@
             "nombre": "Luchoi",
             "apellido": "Profesor",
             "materias": []
+        },
+        {
+            "legajo": 2005,
+            "nombre": "Lucho",
+            "apellido": "Profe",
+            "materias": [
+                "BD1"
+            ]
         }
     ],
     "CURSOS_BD": [
@@ -189,7 +204,7 @@
         {
             "id": "BD1",
             "nombre": "Bases de Datos I",
-            "profesor": 2002,
+            "profesor": 2005,
             "aula": "Aula 303",
             "alumnos": [
                 103,
@@ -277,12 +292,12 @@
             "legajo": 105
         },
         {
-            "cuota_nro": 3,
-            "legajo": 101
-        },
-        {
             "cuota_nro": 1,
             "legajo": 205
+        },
+        {
+            "cuota_nro": 3,
+            "legajo": 102
         }
     ],
     "CREDENCIALES": [
@@ -354,6 +369,16 @@
         {
             "legajo": 2004,
             "clave": "2004Lprofesor",
+            "rol": "profesor"
+        },
+        {
+            "legajo": 110,
+            "clave": "110Laguirre",
+            "rol": "alumno"
+        },
+        {
+            "legajo": 2005,
+            "clave": "Profe1!",
             "rol": "profesor"
         }
     ]

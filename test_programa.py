@@ -7,14 +7,16 @@
 """
 
 from utils.credenciales import login
-from administrativo.menu import menuAdministrativo # validar
-from alumno.menu import menuAlumno # validar
-from profesor.menu import menuProfesor # validar
+from entidades.administrativo.menu import menuAdministrativo  # validar
+from entidades.alumno.menu import menuAlumno  # validar
+from entidades.profesor.menu import menuProfesor  # validar
 from entidades.administrativo.gestion_usuarios import (
     insertaUsuario,
     insertaCredenciales,
 )
-from entidades.profesor.gestion_evaluar import aprobarODesaprobarAlumnosMock # tuvimos que mockear la funcion porque pedia parametros dentro
+from entidades.profesor.gestion_evaluar import (
+    aprobarODesaprobarAlumnosMock,
+)  # tuvimos que mockear la funcion porque pedia parametros dentro
 from entidades.alumno.gestion_accion import inscribirEnCurso
 from main import redireccion_menu
 from entidades import datos
@@ -59,7 +61,9 @@ def test_crear_usuarios_correcta():
     nombre = "Alumno"
     apellido = "Alumno"
     rol = "alumno"
-    respuesta = insertaUsuario((legajo, nombre, apellido, rol), datos.sistema["ALUMNOS_BD"])
+    respuesta = insertaUsuario(
+        (legajo, nombre, apellido, rol), datos.sistema["ALUMNOS_BD"]
+    )
     assert respuesta == True
 
 

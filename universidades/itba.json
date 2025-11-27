@@ -47,6 +47,13 @@
             "apellido": "Aguirres",
             "cursos": [],
             "pagos_pendientes": []
+        },
+        {
+            "legajo": 605,
+            "nombre": "Lucho",
+            "apellido": "Aguirres",
+            "cursos": [],
+            "pagos_pendientes": []
         }
     ],
     "PROFESORES_BD": [
@@ -73,6 +80,12 @@
             "legajo": 7003,
             "nombre": "Lucho",
             "apellido": "Profe",
+            "materias": []
+        },
+        {
+            "legajo": 7004,
+            "nombre": "Lucho1",
+            "apellido": "lkajsd123",
             "materias": []
         }
     ],
@@ -179,6 +192,16 @@
         {
             "legajo": 7003,
             "clave": "Profe7003",
+            "rol": "profesor"
+        },
+        {
+            "legajo": 605,
+            "clave": "605Laguirres",
+            "rol": "alumno"
+        },
+        {
+            "legajo": 7004,
+            "clave": "asf1!",
             "rol": "profesor"
         }
     ]
