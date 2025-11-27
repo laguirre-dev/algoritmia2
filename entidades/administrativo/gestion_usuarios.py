@@ -22,7 +22,13 @@ def registrarUsuario(rol, base_de_datos):
     legajo = max([usuario["legajo"] for usuario in base_de_datos]) + 1
     print(f"Legajo: {legajo}")
     nombre = input("Ingrese el Nombre del ingresante: ")
+    while not validaciones.validaTextoRegex(nombre):
+        pantalla.redText("El Nombre debe contener solo letras.")
+        nombre = input("Ingrese un Nombre Valido: ")
     apellido = input("Ingrese el Apellido del ingresante: ")
+    while not validaciones.validaTextoRegex(apellido):
+        pantalla.redText("El Apellido debe contener solo letras.")
+        apellido = input("Ingrese un Apellido Valido: ")
     usuario = (legajo, nombre, apellido, rol)
     modificadores.insertaUsuario(usuario, base_de_datos)
     modificadores.insertaCredenciales(usuario, sistema["CREDENCIALES"])

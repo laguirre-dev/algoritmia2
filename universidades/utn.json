@@ -185,19 +185,19 @@
     ],
     "CUOTAS_PENDIENTES": [
         {
-            "cuota_nro": 1, 
+            "cuota_nro": 1,
             "legajo": 302
         },
         {
-            "cuota_nro": 1, 
+            "cuota_nro": 1,
             "legajo": 304
         },
         {
-            "cuota_nro": 2, 
+            "cuota_nro": 2,
             "legajo": 304
         },
         {
-            "cuota_nro": 5, 
+            "cuota_nro": 5,
             "legajo": 305
         }
     ],

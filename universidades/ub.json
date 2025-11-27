@@ -1,0 +1,154 @@
+{
+    "ALUMNOS_BD": [
+        {
+            "legajo": 801,
+            "nombre": "Valeria",
+            "apellido": "Mazza",
+            "cursos": [
+                [
+                    "DIS1",
+                    "Aprobado"
+                ],
+                [
+                    "HIS1",
+                    "Aprobado"
+                ]
+            ]
+        },
+        {
+            "legajo": 802,
+            "nombre": "Ricardo",
+            "apellido": "Darin",
+            "cursos": [
+                [
+                    "TEA1",
+                    "Desaprobado"
+                ],
+                [
+                    "DIS1",
+                    "Desaprobado"
+                ]
+            ]
+        },
+        {
+            "legajo": 803,
+            "nombre": "Gabriela",
+            "apellido": "Sabatini",
+            "cursos": [
+                [
+                    "INT1",
+                    "Aprobado"
+                ]
+            ]
+        }
+    ],
+    "PROFESORES_BD": [
+        {
+            "legajo": 9001,
+            "nombre": "Cesar",
+            "apellido": "Pelli",
+            "materias": [
+                "DIS1",
+                "URB1"
+            ]
+        },
+        {
+            "legajo": 9002,
+            "nombre": "Felipe",
+            "apellido": "Pigna",
+            "materias": [
+                "HIS1",
+                "INT1",
+                "TEA1"
+            ]
+        }
+    ],
+    "CURSOS_BD": [
+        {
+            "id": "DIS1",
+            "nombre": "Dise\u00f1o I",
+            "profesor": 9001,
+            "aula": "Taller de Dise\u00f1o",
+            "alumnos": [
+                801,
+                802
+            ]
+        },
+        {
+            "id": "URB1",
+            "nombre": "Urbanismo",
+            "profesor": 9001,
+            "aula": "Aula 204",
+            "alumnos": []
+        },
+        {
+            "id": "HIS1",
+            "nombre": "Historia de la Arquitectura",
+            "profesor": 9002,
+            "aula": "Auditorio",
+            "alumnos": [
+                801
+            ]
+        },
+        {
+            "id": "INT1",
+            "nombre": "Relaciones Internacionales",
+            "profesor": 9002,
+            "aula": "Aula 105",
+            "alumnos": [
+                803
+            ]
+        },
+        {
+            "id": "TEA1",
+            "nombre": "Teatro y Expresi\u00f3n",
+            "profesor": 9002,
+            "aula": "SUM",
+            "alumnos": [
+                802
+            ]
+        }
+    ],
+    "CUOTAS_PENDIENTES": [
+        {
+            "cuota_nro": 5,
+            "legajo": 802
+        },
+        {
+            "cuota_nro": 10,
+            "legajo": 802
+        }
+    ],
+    "CREDENCIALES": [
+        {
+            "legajo": 9999,
+            "clave": "adminUB",
+            "rol": "administrativo"
+        },
+        {
+            "legajo": 9001,
+            "clave": "cesar9001",
+            "rol": "profesor"
+        },
+        {
+            "legajo": 9002,
+            "clave": "felipe9002",
+            "rol": "profesor"
+        },
+        {
+            "legajo": 801,
+            "clave": "vale801",
+            "rol": "alumno"
+        },
+        {
+            "legajo": 802,
+            "clave": "ricky802",
+            "rol": "alumno"
+        },
+        {
+            "legajo": 803,
+            "clave": "gaby803",
+            "rol": "alumno"
+        }
+    ]
+}
