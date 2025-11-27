@@ -1,4 +1,4 @@
-from entidades import datos
+from . import datos_backup2
 from utils import pantalla
 
 
@@ -28,7 +28,7 @@ def modificaClaveCredenciales(legajo, clave, rol, base_de_datos):
 
 
 def login(legajo, clave):
-    for credencial in datos.CREDENCIALES:
+    for credencial in datos_backup2.CREDENCIALES:
         if credencial["legajo"] == legajo and credencial["clave"] == clave:
             return True, credencial["rol"]
     pantalla.redText("Credenciales incorrectas. Intentelo nuevamente.")

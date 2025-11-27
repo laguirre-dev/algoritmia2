@@ -8,11 +8,39 @@ Opciones disponibles.
 """
 
 from utils import pantalla, validaciones
-from entidades import datos
+from . import datos_backup2
+
+# formato
+"""
+{
+    "id": "AED1",
+    "nombre": "Algoritmos y Estructuras de Datos I",
+    "profesor": 2001,
+    "aula": "Aula 101",
+    "alumnos": [
+        101,
+        102
+    ]
+},
+"""
 
 
 def agregarCurso():
-    pass
+    """
+    Crea un diccionario de tipo: Curso y lo agrega a la base de datos de CURSOS_BD
+    """
+    print("Opcion: Agregar un curso")
+    codigo = input("Indique el codigo del curso: ")
+    nombre = input("Indique el nombre del curso: ")
+    aula = input("Indique el aula del curso: ")
+    estructura_curso = {
+        "id": codigo,
+        "nombre": nombre,
+        "profesor": "",
+        "aula": aula,
+        "alumnos": [],
+    }
+
 
 
 def eliminarCurso():
@@ -28,16 +56,16 @@ def generarReporteCursos():
 
 def asignarCursoAProfesor(legajoProf):
     profesorEncontrado = next(
-        (p for p in datos.PROFESORES_DB if p["legajo"] == legajoProf), None
+        (p for p in datos_backup2.PROFESORES_DB if p["legajo"] == legajoProf), None
     )
     if not profesorEncontrado:
         pantalla.redText("Profesor no encontrado.")
         return
-    if datos.CURSOS_DB:
+    if datos_backup2.CURSOS_DB:
         pantalla.header("CURSOS DISPONIBLES")
-        for curso in datos.CURSOS_DB:
+        for curso in datos_backup2.CURSOS_DB:
             prof = next(
-                (p for p in datos.PROFESORES_DB if p["legajo"] == curso["profesor"]),
+                (p for p in datos_backup2.PROFESORES_DB if p["legajo"] == curso["profesor"]),
                 None,
             )
             nombreProf = (
@@ -47,7 +75,7 @@ def asignarCursoAProfesor(legajoProf):
                 f"{curso['id']} - {curso['nombre']} (Profesor: {nombreProf})"
             )
         idCurso = input(pantalla.boldText("Ingrese el ID del curso a asignar: "))
-        cursoEncontrado = next((c for c in datos.CURSOS_DB if c["id"] == idCurso), None)
+        cursoEncontrado = next((c for c in datos_backup2.CURSOS_DB if c["id"] == idCurso), None)
         if not cursoEncontrado:
             pantalla.redText("Curso no encontrado.")
             return

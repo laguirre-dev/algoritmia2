@@ -1,7 +1,7 @@
 import os
 from colorama import init, Fore, Style
 from tabulate import tabulate
-import entidades.datos as datos
+import datos_backup2 as datos_backup2
 
 init(autoreset=True)
 
@@ -58,7 +58,7 @@ def imprimeDatos(datos):
 
 
 def muestraCredenciales():
-    imprimeDatos(datos.CREDENCIALES)
+    imprimeDatos(datos_backup2.CREDENCIALES)
 
 
 def opcionesPrincipal():

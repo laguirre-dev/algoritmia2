@@ -1,11 +1,14 @@
 import json
 from database.logica import pathDatos, convertir_lista_tupla
+import time
 
-def leef_datos_json():
-    """Lee el archivo JSON y retorna un diccionario con todos los datos"""
-    try:
-        with open(pathDatos, "r") as archivo:
-            
+# Se tiene que sacar
+# ALUMNOS_DB = []
+# PROFESORES_DB = []
+# CURSOS_DB = []
+# CUOTAS_PENDIENTES = []
+# CREDENCIALES = []
+
 
 def cargar_datos_json():
     """

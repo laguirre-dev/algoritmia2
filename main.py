@@ -1,6 +1,6 @@
 from entidades import alumno, profesor, administrativo
 from utils import pantalla, validaciones
-from entidades import datos
+from . import datos_backup2
 from time import sleep
 
 opciones_permitidas = [1, 2]
@@ -29,7 +29,7 @@ def main():
         pantalla.opcionesPrincipal()
         opcion = validaciones.validaOpcion(opciones_permitidas)
     pantalla.redText("Saliendo del sistema...")
-    datos.guardar_datos_json()
+    datos_backup2.guardar_datos_json()
     sleep(2)
 
 

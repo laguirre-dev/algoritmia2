@@ -1,4 +1,4 @@
-from entidades import datos as datos
+from . import datos_backup2 as datos_backup2
 from utils import pantalla as headers
 from utils import busquedas as busqueda
 
@@ -22,12 +22,12 @@ def verMisCursos(legajo):
             )
 
 def verCursosDisponibles(legajo):
-    if not datos.CURSOS_DB:
+    if not datos_backup2.CURSOS_DB:
         print(headers.Fore.RED + "No hay cursos disponibles.")
         return
 
     headers.header("CURSOS DISPONIBLES")
-    for curso in datos.CURSOS_DB:
+    for curso in datos_backup2.CURSOS_DB:
         profesor = busqueda.buscarProfesorPorLegajo(curso.get("profesor"))
         inscripto = headers.Fore.GREEN + " (Inscripto)" if legajo in curso.get("alumnos", []) else ""
         print(

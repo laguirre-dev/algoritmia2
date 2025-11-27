@@ -1,4 +1,4 @@
-from entidades import datos as datos
+from . import datos_backup2 as datos_backup2
 from utils import pantalla as headers
 from utils import busquedas as busqueda
 from reportes import generador_de_reportes  
@@ -6,7 +6,7 @@ from datetime import datetime
 
 def diaDeExamen(legajoProfesor):
     profesor = busqueda.buscarProfesorPorLegajo(legajoProfesor)
-    cursosProfesor = list(filter(lambda c: c.get("profesor") == legajoProfesor, datos.CURSOS_DB))
+    cursosProfesor = list(filter(lambda c: c.get("profesor") == legajoProfesor, datos_backup2.CURSOS_DB))
     
     if not profesor:
         print(headers.Fore.RED + "Profesor inexistente.")

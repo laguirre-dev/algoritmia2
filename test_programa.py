@@ -17,7 +17,7 @@ from entidades.administrativo.gestion_usuarios import (
 from entidades.profesor.gestion_evaluar import aprobarODesaprobarAlumnosMock # tuvimos que mockear la funcion porque pedia parametros dentro
 from entidades.alumno.gestion_accion import inscribirEnCurso
 from main import redireccion_menu
-from entidades import datos
+from . import datos_backup2
 
 
 def test_login_correcto():
@@ -59,7 +59,7 @@ def test_crear_usuarios_correcta():
     nombre = "Alumno"
     apellido = "Alumno"
     rol = "alumno"
-    respuesta = insertaUsuario((legajo, nombre, apellido, rol), datos.ALUMNOS_DB)
+    respuesta = insertaUsuario((legajo, nombre, apellido, rol), datos_backup2.ALUMNOS_DB)
     assert respuesta == True
 
 

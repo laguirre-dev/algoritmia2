@@ -7,7 +7,7 @@ Enviar notificacion pago rechazado
 """
 
 from utils import pantalla, validaciones
-from entidades import datos
+from . import datos_backup2
 
 
 def aprobarPago():
@@ -16,7 +16,7 @@ def aprobarPago():
     """
     pantalla.header("APROBAR PAGO")
     legajo = int(input("Ingrese el legajo del alumno: "))
-    cuotas = [c for c in datos.CUOTAS_PENDIENTES if c["legajo"] == legajo]
+    cuotas = [c for c in datos_backup2.CUOTAS_PENDIENTES if c["legajo"] == legajo]
 
     if not cuotas:
         pantalla.redText("El alumno no tiene pagos pendientes.")
@@ -30,7 +30,7 @@ def aprobarPago():
     cuota = next((c for c in cuotas if c["cuota_nro"] == nro), None)
 
     if cuota:
-        datos.CUOTAS_PENDIENTES.remove(cuota)
+        datos_backup2.CUOTAS_PENDIENTES.remove(cuota)
         pantalla.greenText(f"Pago de cuota N°{nro} aprobado para el alumno {legajo}.")
     else:
         pantalla.redText("Número de cuota inválido.")
