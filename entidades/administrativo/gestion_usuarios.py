@@ -20,7 +20,7 @@ def registrarUsuario(rol):
     """
     Logica de insercion de alumno o profesor segun corresponda, y creacion de credenciales del mismo
     """
-    legajo = max([alumno["legajo"] for alumno in datos.ALUMNOS_DB], default=100) + 1
+    legajo = max([alumno["legajo"] for alumno in datos.sistema["ALUMNOS_DB"]], default=100) + 1
     print(f"Legajo: {legajo}")
     nombre = input("Ingrese el Nombre del ingresante: ")
     apellido = input("Ingrese el Apellido del ingresante: ")

@@ -1,0 +1,251 @@
+{
+    "ALUMNOS_BD": [
+        {
+            "legajo": 301,
+            "nombre": "Julian",
+            "apellido": "Alvarez",
+            "cursos": [
+                [
+                    "AMI",
+                    "Aprobado"
+                ],
+                [
+                    "AGA",
+                    "Desaprobado"
+                ]
+            ]
+        },
+        {
+            "legajo": 302,
+            "nombre": "Enzo",
+            "apellido": "Fernandez",
+            "cursos": [
+                [
+                    "AMI",
+                    "Desaprobado"
+                ],
+                [
+                    "AED",
+                    "Desaprobado"
+                ]
+            ]
+        },
+        {
+            "legajo": 303,
+            "nombre": "Lionel",
+            "apellido": "Messi",
+            "cursos": [
+                [
+                    "AED",
+                    "Aprobado"
+                ],
+                [
+                    "SYS",
+                    "Aprobado"
+                ],
+                [
+                    "ADS",
+                    "Aprobado"
+                ]
+            ]
+        },
+        {
+            "legajo": 304,
+            "nombre": "Emiliano",
+            "apellido": "Martinez",
+            "cursos": [
+                [
+                    "FIS1",
+                    "Desaprobado"
+                ]
+            ]
+        },
+        {
+            "legajo": 305,
+            "nombre": "Alexis",
+            "apellido": "Mac Allister",
+            "cursos": [
+                [
+                    "DDS",
+                    "Desaprobado"
+                ],
+                [
+                    "PDR",
+                    "Desaprobado"
+                ]
+            ]
+        }
+    ],
+    "PROFESORES_BD": [
+        {
+            "legajo": 5001,
+            "nombre": "Alberto",
+            "apellido": "Einstein",
+            "materias": [
+                "AMI",
+                "AGA",
+                "FIS1"
+            ]
+        },
+        {
+            "legajo": 5002,
+            "nombre": "Ada",
+            "apellido": "Lovelace",
+            "materias": [
+                "AED",
+                "ADS",
+                "PDR"
+            ]
+        },
+        {
+            "legajo": 5003,
+            "nombre": "Alan",
+            "apellido": "Turing",
+            "materias": [
+                "SYS",
+                "DDS"
+            ]
+        }
+    ],
+    "CURSOS_BD": [
+        {
+            "id": "AMI",
+            "nombre": "An\u00e1lisis Matem\u00e1tico I",
+            "profesor": 5001,
+            "aula": "Aula 301",
+            "alumnos": [
+                301,
+                302
+            ]
+        },
+        {
+            "id": "AGA",
+            "nombre": "\u00c1lgebra y Geometr\u00eda Anal\u00edtica",
+            "profesor": 5001,
+            "aula": "Aula 302",
+            "alumnos": [
+                301
+            ]
+        },
+        {
+            "id": "AED",
+            "nombre": "Algoritmos y Estructuras de Datos",
+            "profesor": 5002,
+            "aula": "Lab 1",
+            "alumnos": [
+                302,
+                303
+            ]
+        },
+        {
+            "id": "SYS",
+            "nombre": "Sistemas y Organizaciones",
+            "profesor": 5003,
+            "aula": "Aula 304",
+            "alumnos": [
+                303
+            ]
+        },
+        {
+            "id": "ADS",
+            "nombre": "An\u00e1lisis de Sistemas",
+            "profesor": 5002,
+            "aula": "Aula 305",
+            "alumnos": [
+                303
+            ]
+        },
+        {
+            "id": "FIS1",
+            "nombre": "F\u00edsica I",
+            "profesor": 5001,
+            "aula": "Laboratorio F\u00edsica",
+            "alumnos": [
+                304
+            ]
+        },
+        {
+            "id": "DDS",
+            "nombre": "Dise\u00f1o de Sistemas",
+            "profesor": 5003,
+            "aula": "Aula 401",
+            "alumnos": [
+                305
+            ]
+        },
+        {
+            "id": "PDR",
+            "nombre": "Paradigmas de Programaci\u00f3n",
+            "profesor": 5002,
+            "aula": "Lab 2",
+            "alumnos": [
+                305
+            ]
+        }
+    ],
+    "CUOTAS_PENDIENTES": [
+        {
+            "cuota_nro": 1, 
+            "legajo": 302
+        },
+        {
+            "cuota_nro": 1, 
+            "legajo": 304
+        },
+        {
+            "cuota_nro": 2, 
+            "legajo": 304
+        },
+        {
+            "cuota_nro": 5, 
+            "legajo": 305
+        }
+    ],
+    "CREDENCIALES": [
+        {
+            "legajo": 9999,
+            "clave": "adminUTN",
+            "rol": "administrativo"
+        },
+        {
+            "legajo": 5001,
+            "clave": "alberto5001",
+            "rol": "profesor"
+        },
+        {
+            "legajo": 5002,
+            "clave": "ada5002",
+            "rol": "profesor"
+        },
+        {
+            "legajo": 5003,
+            "clave": "alan5003",
+            "rol": "profesor"
+        },
+        {
+            "legajo": 301,
+            "clave": "juli301",
+            "rol": "alumno"
+        },
+        {
+            "legajo": 302,
+            "clave": "enzo302",
+            "rol": "alumno"
+        },
+        {
+            "legajo": 303,
+            "clave": "leo303",
+            "rol": "alumno"
+        },
+        {
+            "legajo": 304,
+            "clave": "dibu304",
+            "rol": "alumno"
+        },
+        {
+            "legajo": 305,
+            "clave": "colo305",
+            "rol": "alumno"
+        }
+    ]
+}

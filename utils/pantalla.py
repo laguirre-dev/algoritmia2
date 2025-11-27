@@ -6,16 +6,10 @@ init(autoreset=True)
 
 
 def limpiarTerminal():
-    """
-    Funcion para limpiar los mensajes de la consola
-    """
     os.system("cls" if os.name == "nt" else "clear")
 
 
 def header(titulo):
-    """
-    Imprime titulo en consola rodeado de hashtags verdes
-    """
     print(Fore.GREEN + "=" * 50)
     print(Style.BRIGHT + Fore.WHITE + titulo.center(50))
     print(Fore.GREEN + "=" * 50)
@@ -50,10 +44,28 @@ def boldText(texto):
     return Style.BRIGHT + texto
 
 
+def green_text(texto):
+    return print(Fore.GREEN + texto)
+
+
+def red_text(texto):
+    return print(Fore.RED + texto)
+
+
+def yellow_text(texto):
+    return print(Fore.YELLOW + texto)
+
+
+def bold_text(texto):
+    return Style.BRIGHT + texto
+
+
 def imprimeDatos(datos):
     limpiarTerminal()
+    if not datos:
+        print("No hay datos para mostrar.")
+        return
     print(tabulate(datos, headers="keys", tablefmt="rounded_grid"))
-    return
 
 
 def opcionesPrincipal():
@@ -83,6 +95,14 @@ def opcionesAdministrativoUsuarios():
     redText("4. Volver al menú anterior")
 
 
+def opcionesAlumnoPrincipal():
+    pass
+
+
+def opcionesProfesorPrincipal():
+    pass
+
+
 # -- Administrativo: Gestion de Cursos -- #
 def opcionesAdministrativoCursos():
     header("| GESTION DE CURSOS |")
@@ -96,12 +116,13 @@ def opcionesAdministrativoCursos():
 # -- Administrativo: Gestion de Pagos -- #
 def opcionesAdministrativoPagos():
     header("| GESTION DE PAGOS |")
-    greenText("1. Sumar Pago Pendiente") # legajo, cuota 
-    greenText("2. Generar reporte de Deudores") # apunta a la lista CUOTAS_PENDIENTES
+    greenText("1. Sumar Pago Pendiente")  # legajo, cuota
+    greenText("2. Generar reporte de Deudores")  # apunta a la lista CUOTAS_PENDIENTES
     redText("3. Volver al menú principal")
 
 
 ########### ALUMNO
+
 
 def opcionesAlumnoPrincipal(legajoAlumno):
     """
@@ -109,8 +130,8 @@ def opcionesAlumnoPrincipal(legajoAlumno):
     """
     header("| MENÚ ALUMNO |")
 
-    print(Fore.MAGENTA + f"¡Bienvenido Alumno {legajoAlumno} !\n") 
-    
+    print(Fore.MAGENTA + f"¡Bienvenido Alumno {legajoAlumno} !\n")
+
     print(greenText("1. Gestiones alumno"))
     print(greenText("2. Visualizar información"))
     print(greenText("3. Pagos"))
@@ -144,7 +165,7 @@ def menuPagosAlumno():
     """
     header("| MENÚ ALUMNO - PAGOS |")
     print(greenText("1. Consultar pagos adeudados"))
-    print(greenText("2. Pagar cuotas adeudadas")) 
+    print(greenText("2. Pagar cuotas adeudadas"))
     print(redText("3. Volver al menú alumno"))
 
 
@@ -159,14 +180,14 @@ def menuGenerarReportesAlumno():
 
 ########### PROFESOR
 
+
 def opcionesProfesorPrincipal(legajoProfesor):
     """
     Menú principal del Profesor.
     """
     header("| MENÚ PROFESOR |")
 
-    print(Fore.MAGENTA + f"¡Bienvenido Profesor {legajoProfesor} !\n") 
-    
+    print(Fore.MAGENTA + f"¡Bienvenido Profesor {legajoProfesor} !\n")
 
     print(greenText("1. Visualizar cursos y aulas"))
     print(greenText("2. Aprobar o desaprobar alumnos"))

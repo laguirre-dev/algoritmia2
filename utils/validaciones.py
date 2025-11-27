@@ -1,4 +1,5 @@
 from utils import pantalla, credenciales
+import re
 
 
 def validaOpcion(opciones_permitidas):
@@ -15,18 +16,48 @@ def validaLogin():
     intentos = 0
     validacion, rol, legajo = False, False, False
     reintentar = False
-    while intentos < 3 and not validacion and not reintentar:
+
+    while intentos < 3 and not validacion:
+        reintentar = False
         try:
-            legajo = int(input("Por favor, coloque su legajo: "))
+            input_legajo = input("Por favor, coloque su legajo: ")
+
+            if not input_legajo.isdigit():
+                pantalla.red_text("El legajo debe ser numérico.")
+                intentos += 1
+                continue
+
+            legajo = int(input_legajo)
+
         except ValueError:
-            pantalla.redText("El legajo debe ser numérico.")
+            pantalla.red_text("Error en el formato del legajo.")
             intentos += 1
-            reintentar = True
+            continue
+
         clave = input("Por favor, escriba su clave para ingresar: ")
+
         try:
             validacion, rol = credenciales.login(legajo, clave)
+            if not validacion:
+                intentos += 1
         except Exception as e:
             pantalla.redText(f"Error en la validación: {e}")
             validacion, rol = False, False
-        intentos += 1
+            intentos += 1
+
     return validacion, rol, legajo
+
+
+def validaTextoRegex(texto, tipo="nombre"):
+    """
+    Valida nombres o apellidos usando Expresiones Regulares.
+    Permite letras y espacios, pero no números ni símbolos raros.
+    """
+    if tipo == "nombre":
+        patron = r"^[A-Za-zÁÉÍÓÚáéíóúñÑ\s]+$"
+        if re.match(patron, texto):
+            return True
+        else:
+            pantalla.red_text("Formato inválido. Solo se permiten letras.")
+            return False
+    return True
